@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Profile</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2>Edit Profile</h2>
+
+    <form th:action="@{/account/edit}" th:object="${user}" method="post" class="mt-3">
+
+        <!-- Hidden password so it does NOT get erased -->
+        <input type="hidden" th:field="*{password}" />
+        <input type="hidden" th:field="*{role}" />
+
+        <label>Full Name</label>
+        <input class="form-control" type="text" th:field="*{fullName}" required />
+
+        <label class="mt-3">Location</label>
+        <input class="form-control" type="text" th:field="*{location}" />
+
+        <label class="mt-3">Address</label>
+        <input class="form-control" type="text" th:field="*{address}" />
+
+        <label class="mt-3">Phone Number</label>
+        <input class="form-control" type="text" th:field="*{phone}" />
+
+        <label class="mt-3">Age</label>
+        <input class="form-control" type="number" th:field="*{age}" />
+
+        <button type="submit" class="btn btn-primary mt-4" href="/edit/success">Save Changes</button>
+        <a href="/profile" class="btn btn-secondary mt-4">Cancel</a>
+
+    </form>
+
+</div>
+
+</body>
+</html>

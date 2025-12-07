@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title> Search Results - GiveGrid</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f1f5f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* NAVIGATION BAR */
+        .nav {
+            background: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e2e8f0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav .search-bar {
+            display: flex;
+            gap: 10px;
+            width: 400px;
+        }
+
+        .nav input {
+            flex: 1;
+            padding: 8px 14px;
+            border-radius: 8px;
+            border: 1px solid #cbd5e1;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .nav button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            width: 260px;
+            height: calc(100vh - 70px);
+            background: #f8fafc;
+            padding: 25px;
+            border-right: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            margin-right: 100px;
+        }
+
+        .sidebar-content {
+            flex-grow: 1;
+        }
+
+        .home-btn {
+            background: #2563eb;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            border-radius: 15px;
+            text-decoration: none;
+            font-weight: bold;
+            display: block;
+            margin-top: 60px;
+            margin-bottom: 40px;
+        }
+
+        .home-btn:hover {
+            background: #1d4ed8;
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            margin-left: 260px;
+            padding: 110px 40px 40px;
+        }
+
+        h2 {
+            margin-bottom: 30px;
+        }
+
+        /* GRID */
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            padding-left: 20px;
+        }
+
+        /* PRODUCT CARD */
+        .card {
+            background: white;
+            border-radius: 14px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform .2s ease;
+        }
+
+        .card:hover {
+            transform: scale(1.02);
+        }
+
+        .image-placeholder {
+            height: 180px;
+            background: #d1d5db;
+            width: 100%;
+        }
+
+        .card-content {
+            padding: 20px;
+        }
+
+        .view-btn {
+            display: block;
+            width: 93%;
+            text-align: center;
+            border: 1px solid #2563eb;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 10px;
+            text-decoration: none;
+            color: #2563eb;
+            font-weight: bold;
+        }
+
+        .view-btn:hover {
+            background: #2563eb;
+            color: white;
+        }
+
+        h2 {
+            margin-left: 28px;
+        }
+        .text{
+            margin-left: 33px;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<!-- NAV BAR -->
+<div class="nav">
+    <div class="logo">GiveGrid</div>
+
+    <form class="search-bar" method="get" action="/search">
+        <input name="query" type="text" placeholder="Search products..."
+               th:value="${query}">
+        <button type="submit">Search</button>
+    </form>
+</div>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+    <div class="sidebar-content">
+        <h3>Filters</h3>
+        <p>(Your filters here)</p>
+    </div>
+
+    <!-- HOME BUTTON ADDED -->
+    <a href="/" class="home-btn">Home</a>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main-content">
+    <h2>Search Results for "<span th:text="${query}"></span>"</h2>
+
+    <div class="results-grid" th:if="${results.size() > 0}">
+        <div class="card" th:each="p : ${results}">
+            <div class="image-placeholder"></div>
+            <div class="card-content">
+                <h3 th:text="${p.name}">Product Name</h3>
+                <p>Quantity Required: <span th:text="${p.quantity}"></span></p>
+                <a class="view-btn" th:href="@{/products/{id}(id=${p.id})}">
+                    View Product
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- If empty -->
+    <div th:if="${results.size() == 0}" style="margin-top: 20px;" class="text">
+        <h3>No products found.</h3>
+    </div>
+</div>
+
+</body>
+</html>

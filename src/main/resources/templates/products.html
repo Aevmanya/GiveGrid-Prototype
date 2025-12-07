@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Product List</title>
+    <link rel="stylesheet" href="/style.css">
+
+    <style>
+        .btn-secondary1 {
+            width: 460px;
+            height: 27px;
+            background: #ff4c4c;
+            color: white;
+            margin-top: 16px;
+            text-align: center;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .btn-edit {
+            background-color: #ffc107;
+            color: white;
+        }
+
+
+    </style>
+</head>
+
+<body>
+
+<div class="page">
+
+    <div class="top-bar">
+        <h1>Your Listings</h1>
+        <div class="top-actions">
+            <a href="/seller/dashboard" class="btn btn-secondary1">Back to Dashboard</a>
+            <a href="/products/add" class="btn btn-primary">Add a Product</a>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Condition</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="product, iter : ${products}">
+                <td th:text="${iter.count}"></td>
+
+                <td th:text="${product.name}"></td>
+
+                <td th:text="${product.quantity}"></td>
+                <td th:text="${product.condition}"></td>
+
+                <!-- Actions -->
+                <td>
+                    <a th:href="@{/products/{id}(id=${product.id})}" class="btn view">View</a>
+                    <a th:href="@{/products/edit/{id}(id=${product.id})}" class="btn btn-edit">Edit</a>
+                    <a th:href="@{'/products/delete/' + ${product.id}}"
+                       onclick="return confirm('Delete this product?')" class="btn delete">Delete</a>
+
+                </td>
+            </tr>
+            </tbody>
+
+        </table>
+    </div>
+
+</div>
+
+</body>
+</html>

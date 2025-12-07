@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Added</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+
+<body>
+
+<div class="success-wrapper">
+    <div class="success-card">
+        <div class="success-icon">✔</div>
+
+        <h2>Product Added Successfully!</h2>
+        <p>Your new product has been saved.</p>
+
+        <div class="success-buttons">
+            <a href="/products" class="btn-primary1">View Products</a>
+            <a href="/products/add" class="btn-secondary">Add Another</a>
+            <a href="/seller/dashboard" class="btn-light">Return to Dashboard</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

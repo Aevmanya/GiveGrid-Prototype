@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Account</title>
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+
+    <style>
+        body {
+            background: #f4f6f9;
+        }
+
+        .sidebar {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            min-height: 100vh;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .profile-pic {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            background: #ddd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 22px;
+            margin: 0 auto 15px auto;
+        }
+
+        .info-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .logout-btn {
+            width: 100%;
+            margin-top: 25px;
+        }
+
+        .btn-back1{
+            width: 100%;
+            margin-top: 25px;
+            border-color: #1d4ed8;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="container-fluid">
+    <div class="row">
+
+        <!-- SIDEBAR -->
+        <div class="col-md-3 sidebar">
+
+            <div class="profile-pic">
+                <span th:text="${user.username.substring(0,1).toUpperCase()}">U</span>
+            </div>
+
+            <h4 class="text-center" th:text="${user.username}">Username</h4>
+            <p class="text-center text-muted" th:text="${user.role}"></p>
+
+            <a class="btn btn-primary w-100 mt-3" href="/account/edit">Edit Profile</a>
+
+            <a class="btn btn-danger w-100 logout-btn" href="/logout">Logout</a>
+            <!-- Role-based Home/Dashboard Button -->
+            <a th:if="${user.role == 'SELLER'}"
+               href="/seller/dashboard"
+               class="btn btn-back1">
+                Dashboard
+            </a>
+
+            <a th:if="${user.role != 'SELLER'}"
+               href="/"
+               class="btn btn-back1">
+                Home
+            </a>
+
+        </div>
+
+
+        <!-- MAIN CONTENT -->
+        <div class="col-md-9 p-4">
+
+            <!-- PERSONAL INFORMATION -->
+            <div class="info-card mb-4">
+                <div class="section-title">Personal Information</div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>Full Name:</strong> <span th:text="${user.fullName}">N/A</span></p>
+                        <p><strong>Email:</strong> <span th:text="${user.email}">N/A</span></p>
+                        <p><strong>Phone:</strong> <span th:text="${user.phone}">N/A</span></p>
+                    </div>
+
+                    <div class="col-md-6">
+                        <p><strong>Age:</strong> <span th:text="${user.age}">N/A</span></p>
+                        <p><strong>Address:</strong> <span th:text="${user.address}">N/A</span></p>
+                        <p><strong>Location:</strong> <span th:text="${user.location}">N/A</span></p>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- DONATION HISTORY -->
+            <div class="info-card">
+                <div class="section-title">Donation History</div>
+
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Applied on</th>
+                        <th>Quantity</th>
+                        <th>Condition</th>
+                    </tr>
+                    </thead>
+
+                    <a href="/donations/applied" class="btn btn-outline-primary mt-3">
+                        View Applied Donations
+                    </a>
+
+                    <tbody>
+
+                    <tr th:each="d : ${donations}">
+                        <td th:text="${d.product.name}"></td>
+                        <td th:text="${#temporals.format(d.donatedAt, 'yyyy-MM-dd HH:mm')}"></td>
+                        <td th:text="${d.quantity}"></td>
+                        <td th:text="${d.condition}"></td>
+                    </tr>
+
+                    <tr th:if="${donations.size() == 0}">
+                        <td colspan="4" class="text-center text-muted">No donations yet.</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+
+            </div>
+
+    </div>
+</div>
+</div>
+</body>
+</html>

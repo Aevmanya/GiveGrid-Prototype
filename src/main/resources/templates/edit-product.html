@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Product</title>
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+
+    <style>
+        .container-box {
+            max-width: 700px;
+            background: white;
+            padding: 25px;
+            margin-top: 40px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            align-self: center;
+            margin-left: 215px;
+        }
+
+        body{
+            align-content: center;
+        }
+
+        .btn-success{
+            background-color: #1d4ed8;
+        }
+
+        .btn-success:hover {
+            background: #1d4ed8;
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="container-box">
+
+        <h2 class="mb-4 text-center">Edit Product</h2>
+
+        <form th:action="@{/products/edit/{id}(id=${product.id})}"
+              th:object="${product}"
+              method="post">
+
+            <label class="form-label">Product Name</label>
+            <input type="text" class="form-control mb-3" th:field="*{name}" required>
+
+            <label class="form-label">Description</label>
+            <textarea class="form-control mb-3" th:field="*{description}" rows="4" required></textarea>
+
+            <label class="form-label">Product Condition:</label>
+            <select class="form-control mb-3" name="condition" th:value="${product.condition}">
+                <option value="New"  th:selected="${product.condition == 'New'}">New</option>
+                <option value="Used" th:selected="${product.condition == 'Used'}">Used</option>
+                <option value="Any" th:selected="${product.condition == 'Any'}">Any</option>
+                <option value="Slightly Used" th:selected="${product.condition == 'Slightly Used'}">Slightly Used</option>
+            </select>
+
+
+            <label class="form-label">Quantity Required</label>
+            <input type="number" class="form-control mb-3" th:field="*{quantity}" required>
+
+            <button class="btn btn-success w-100">Save Changes</button>
+        </form>
+
+        <a href="/products" class="btn btn-secondary w-100 mt-3">Back to Products</a>
+
+    </div>
+</div>
+
+</body>
+</html>
+

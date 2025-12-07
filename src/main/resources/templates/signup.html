@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Signup – GiveGrid</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+
+    <style>
+        body {
+            background: #f4f6f9;
+        }
+
+        .signup-card {
+            max-width: 500px;
+            margin: 70px auto;
+            padding: 35px;
+            background: #ffffff;
+            border-radius: 14px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+        }
+
+        .btn-primary4 {
+            background: #ff4c4c;
+            border: none;
+        }
+        .btn-primary4:hover {
+            background: #e63c3c;
+        }
+
+        .form-control, .form-select {
+            border-radius: 10px;
+            padding: 12px;
+        }
+
+        .logo-text {
+            font-size: 32px;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .alert-danger {
+            margin-top: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="signup-card">
+
+    <div class="logo-text">Create Your Account</div>
+
+    <form th:action="@{/signup}" th:object="${user}" method="post">
+
+        <label class="mb-1">Username</label>
+        <input type="text" th:field="*{username}" required class="form-control mb-3"/>
+
+        <label class="mb-1">Email (optional)</label>
+        <input type="email" th:field="*{email}" class="form-control mb-3"/>
+
+        <label class="mb-1">Password</label>
+        <input type="password" th:field="*{password}" required class="form-control mb-4"/>
+
+        <label class="mb-1">Account Type</label>
+        <select th:field="*{role}" class="form-select mb-4">
+            <option value="BUYER">Buyer</option>
+            <option value="SELLER">Seller</option>
+        </select>
+
+        <button type="submit" class="btn btn-primary4 w-100 py-2">
+            Create Account
+        </button>
+    </form>
+
+    <div th:if="${error}" class="alert alert-danger">
+        <p th:text="${error}"></p>
+    </div>
+
+    <div class="text-center mt-3">
+        <a href="/login" class="text-decoration-none">Already have an account? Login</a>
+    </div>
+
+</div>
+
+</body>
+</html>
+

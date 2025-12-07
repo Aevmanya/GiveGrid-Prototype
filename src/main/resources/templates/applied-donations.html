@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Applied Donations</title>
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+
+    <style>
+        body {
+            background: #f4f6f9;
+            font-family: system-ui, sans-serif;
+        }
+
+        .main-card {
+            background: white;
+            border-radius: 14px;
+            padding: 30px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.10);
+        }
+
+        .title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .subtitle {
+            font-size: 15px;
+            color: #6c757d;
+            margin-bottom: 20px;
+        }
+
+        .table {
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        thead {
+            background: #f1f5f9;
+        }
+
+        .status-pending {
+            color: #d97706; /* warm amber */
+            font-weight: bold;
+        }
+
+        .status-accepted {
+            color: #15803d;
+            font-weight: bold;
+        }
+
+        .btn-back {
+            border-color: #1d4ed8;
+            color: #1d4ed8;
+        }
+
+        .btn-back:hover {
+            background: #1d4ed8;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container mt-5 ps-2">
+
+    <div class="main-card">
+
+        <div class="title">Applied Donations</div>
+        <div class="subtitle">These are all your applied donations.</div>
+
+        <!-- No donations -->
+        <div th:if="${#lists.isEmpty(appliedList)}">
+            <div class="alert alert-info">You have no applied donations.</div>
+        </div>
+
+        <!-- Table of donations -->
+        <table class="table table-bordered mt-3" th:if="${!#lists.isEmpty(appliedList)}">
+            <thead>
+            <tr>
+                <th>Seller</th>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Condition</th>
+                <th>Date</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="req : ${appliedList}">
+                <td th:text="${req.seller.username}"></td>
+                <td th:text="${req.product.name}"></td>
+                <td th:text="${req.quantity}"></td>
+                <td th:text="${req.condition}"></td>
+
+                <td th:text="${#temporals.format(req.createdAt, 'yyyy-MM-dd HH:mm')}"></td>
+
+                <td>
+                    <span
+                            th:if="${req.status == 'PENDING'}"
+                            class="status-pending">PENDING</span>
+
+                    <span
+                            th:if="${req.status != 'PENDING'}"
+                            class="status-accepted"
+                            th:text="${req.status}"></span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <a href="javascript:history.back()" class="btn btn-back mt-3">Back</a>
+
+    </div>
+</div>
+
+</body>
+</html>
