@@ -42,6 +42,67 @@
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
 
+        .filter-group {
+            margin-bottom: 22px;
+        }
+
+        .filter-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .filter-help {
+            display: block;
+            color: #6c757d;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .filter-input,
+        .filter-select {
+            width: 100%;
+            padding: 9px 11px;
+            border: 1px solid #d6d9de;
+            border-radius: 8px;
+            background: white;
+        }
+
+        .quantity-row {
+            display: flex;
+            gap: 8px;
+        }
+
+        .quantity-row .filter-input {
+            min-width: 0;
+        }
+
+        .filter-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .filter-actions button {
+            flex: 1;
+        }
+
+        .filter-status {
+            margin-top: 14px;
+            margin-bottom: 0;
+            color: #6c757d;
+            font-size: 13px;
+        }
+
+        .no-results {
+            display: none;
+            padding: 35px 20px;
+            background: white;
+            border-radius: 12px;
+            text-align: center;
+            color: #6c757d;
+        }
+
         .btn-primary4{
             display: flex;
             justify-content: center;
@@ -70,12 +131,10 @@
             background: #1d4ed8;
             color: white;
         }
-
     </style>
 </head>
 
 <body>
-
 
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm px-4 py-3">
     <a class="navbar-brand fw-bold fs-3" href="/">GiveGrid</a>
@@ -83,22 +142,18 @@
     <div class="collapse navbar-collapse">
         <ul class="navbar-nav ms-auto align-items-center">
 
-
             <form class="d-flex me-3" th:action="@{/search}" method="get" style="width: 350px;">
                 <input class="form-control" type="text" name="query" placeholder="Search requests..." />
                 <button class="btn btn-primary ms-2">Search</button>
             </form>
 
-
             <li class="nav-item" th:if="${#authorization.expr('hasRole(''BUYER'')')}">
                 <a class="btn btn-primary3 me-2" href="/cart">Donation Basket</a>
             </li>
 
-
             <li class="nav-item" th:if="${#authorization.expr('isAuthenticated()')}">
                 <a class="btn btn-warning me-2" href="/profile">Account</a>
             </li>
-
 
             <li class="nav-item" th:if="${#authorization.expr('hasRole(''SELLER'')')}">
                 <a class="btn btn-success me-2" href="/products/add">Add Request</a>
@@ -119,31 +174,61 @@
             <li class="nav-item" th:if="${#authorization.expr('isAnonymous()')}">
                 <a class="btn btn-outline-secondary" href="/signup">Signup</a>
             </li>
-
         </ul>
     </div>
 </nav>
 
-
-
 <div class="container mt-4">
 
-    <!-- Banner -->
     <div class="banner mb-5"></div>
 
     <div class="row">
 
-        <!-- LEFT SIDEBAR -->
+        <!-- FILTERS -->
         <div class="col-md-3">
             <div class="sidebar">
-                <h5 class="mb-3">Categories</h5>
-                <ul class="list-group">
-                    <li class="list-group-item">Electronics</li>
-                    <li class="list-group-item">Fashion</li>
-                    <li class="list-group-item">Home & Kitchen</li>
-                    <li class="list-group-item">Sports</li>
-                    <li class="list-group-item">Toys</li>
-                </ul>
+                <h5 class="mb-4">Filter Requests</h5>
+
+                <div class="filter-group">
+                    <label class="filter-label" for="typeFilter">Type of item</label>
+                    <input id="typeFilter"
+                           class="filter-input"
+                           type="text"
+                           placeholder="e.g. books, toys, laptop">
+                    <span class="filter-help">Matches the request name or description.</span>
+                </div>
+
+                <div class="filter-group">
+                    <label class="filter-label" for="conditionFilter">Condition</label>
+                    <select id="conditionFilter" class="filter-select">
+                        <option value="">Any condition</option>
+                        <option value="new">New</option>
+                        <option value="used">Used</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label class="filter-label">Quantity required</label>
+                    <div class="quantity-row">
+                        <input id="minQuantity"
+                               class="filter-input"
+                               type="number"
+                               min="0"
+                               placeholder="Min">
+                        <input id="maxQuantity"
+                               class="filter-input"
+                               type="number"
+                               min="0"
+                               placeholder="Max">
+                    </div>
+                </div>
+
+                <div class="filter-actions">
+                    <button id="applyFilters" type="button" class="btn btn-primary">Apply</button>
+                    <button id="clearFilters" type="button" class="btn btn-outline-secondary">Clear</button>
+                </div>
+
+                <p id="filterStatus" class="filter-status" aria-live="polite"></p>
             </div>
         </div>
 
@@ -151,8 +236,9 @@
         <div class="col-md-9">
             <h4 class="mb-3">Featured Requests</h4>
 
-            <div class="row g-4">
-                <div class="col-md-4" th:each="p : ${products}">
+            <div id="requestGrid" class="row g-4">
+                <div class="col-md-4 request-item" th:each="p : ${products}"
+                     th:attr="data-name=${p.name},data-description=${p.description},data-condition=${p.condition},data-quantity=${p.quantity}">
                     <div class="product-card">
 
                         <div class="placeholder-img"></div>
@@ -174,9 +260,102 @@
                 </div>
             </div>
 
+            <div id="noResults" class="no-results">
+                No requests match the selected filters.
+            </div>
         </div>
     </div>
 </div>
+
+<script>
+    (function () {
+        const items = Array.from(document.querySelectorAll('.request-item'));
+        const typeFilter = document.getElementById('typeFilter');
+        const conditionFilter = document.getElementById('conditionFilter');
+        const minQuantity = document.getElementById('minQuantity');
+        const maxQuantity = document.getElementById('maxQuantity');
+        const applyFilters = document.getElementById('applyFilters');
+        const clearFilters = document.getElementById('clearFilters');
+        const noResults = document.getElementById('noResults');
+        const filterStatus = document.getElementById('filterStatus');
+
+        function apply() {
+            const type = typeFilter.value.trim().toLowerCase();
+            const condition = conditionFilter.value.trim().toLowerCase();
+
+            const minValue = minQuantity.value.trim();
+            const maxValue = maxQuantity.value.trim();
+
+            const min = minValue === '' ? null : Number(minValue);
+            const max = maxValue === '' ? null : Number(maxValue);
+
+            if ((min !== null && (!Number.isFinite(min) || min < 0)) ||
+                (max !== null && (!Number.isFinite(max) || max < 0))) {
+                filterStatus.textContent = 'Please enter valid quantities.';
+                return;
+            }
+
+            if (min !== null && max !== null && min > max) {
+                filterStatus.textContent = 'Minimum quantity cannot be greater than maximum.';
+                return;
+            }
+
+            let visible = 0;
+
+            items.forEach(function (item) {
+                const name = (item.dataset.name || '').toLowerCase();
+                const description = (item.dataset.description || '').toLowerCase();
+                const itemCondition = (item.dataset.condition || '').toLowerCase();
+                const quantity = Number(item.dataset.quantity);
+
+                const typeMatches = !type ||
+                    name.includes(type) ||
+                    description.includes(type);
+
+                const conditionMatches = !condition || itemCondition === condition;
+
+                const minMatches = min === null || (Number.isFinite(quantity) && quantity >= min);
+                const maxMatches = max === null || (Number.isFinite(quantity) && quantity <= max);
+
+                const matches = typeMatches && conditionMatches && minMatches && maxMatches;
+
+                item.style.display = matches ? '' : 'none';
+
+                if (matches) {
+                    visible++;
+                }
+            });
+
+            noResults.style.display = visible === 0 ? 'block' : 'none';
+
+            const total = items.length;
+            filterStatus.textContent = visible + ' of ' + total + ' request' + (total === 1 ? '' : 's') + ' shown.';
+        }
+
+        function clear() {
+            typeFilter.value = '';
+            conditionFilter.value = '';
+            minQuantity.value = '';
+            maxQuantity.value = '';
+            apply();
+        }
+
+        applyFilters.addEventListener('click', apply);
+        clearFilters.addEventListener('click', clear);
+
+        [typeFilter, conditionFilter, minQuantity, maxQuantity].forEach(function (control) {
+            control.addEventListener('change', apply);
+            control.addEventListener('keydown', function (event) {
+                if (event.key === 'Enter') {
+                    event.preventDefault();
+                    apply();
+                }
+            });
+        });
+
+        apply();
+    })();
+</script>
 
 </body>
 </html>
