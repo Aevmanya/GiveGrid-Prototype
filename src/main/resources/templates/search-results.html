@@ -112,7 +112,7 @@
             padding-left: 20px;
         }
 
-        /* PRODUCT CARD */
+        /* REQUEST CARD */
         .card {
             background: white;
             border-radius: 14px;
@@ -170,7 +170,7 @@
     <div class="logo">GiveGrid</div>
 
     <form class="search-bar" method="get" action="/search">
-        <input name="query" type="text" placeholder="Search products..."
+        <input name="query" type="text" placeholder="Search requests..."
                th:value="${query}">
         <button type="submit">Search</button>
     </form>
@@ -195,10 +195,10 @@
         <div class="card" th:each="p : ${results}">
             <div class="image-placeholder"></div>
             <div class="card-content">
-                <h3 th:text="${p.name}">Product Name</h3>
+                <h3 th:text="${p.name}">Request Name</h3>
                 <p>Quantity Required: <span th:text="${p.quantity}"></span></p>
                 <a class="view-btn" th:href="@{/products/{id}(id=${p.id})}">
-                    View Product
+                    View Request
                 </a>
             </div>
         </div>
@@ -206,7 +206,7 @@
 
     <!-- If empty -->
     <div th:if="${results.size() == 0}" style="margin-top: 20px;" class="text">
-        <h3>No products found.</h3>
+        <h3>No requests found.</h3>
     </div>
 </div>
 
