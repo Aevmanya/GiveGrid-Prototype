@@ -125,11 +125,11 @@
     <!-- Back button -->
     <a href="javascript:history.back()" class="btn btn-back">Back</a>
 
-    <!-- Add to Cart button for BUYER -->
+    <!-- Add to Donation Basket button for BUYER -->
     <form th:if="${user != null and user.role == 'BUYER'}"
           th:action="@{/cart/add/{id}(id=${product.id})}"
           method="post">
-        <button class="btn btn-cart">Add to Cart</button>
+        <button class="btn btn-cart">Add to Donation Basket</button>
     </form>
 
     <!-- Edit Product button for SELLER -->
