@@ -52,7 +52,7 @@
     </a>
 
     <form class="d-flex" method="get" action="/search">
-        <input class="form-control me-2" name="query" type="search" placeholder="Search products...">
+        <input class="form-control me-2" name="query" type="search" placeholder="Search requests...">
         <button class="btn btn-primary">Search</button>
 
         <!-- HOME BUTTON (replacement) -->
@@ -76,7 +76,7 @@
         <table class="table">
             <thead>
             <tr>
-                <th>Product</th>
+                <th>Request</th>
                 <th>Quantity Required</th>
                 <th>Actions</th>
             </tr>
@@ -93,7 +93,7 @@
                         <!-- VIEW PRODUCT BUTTON -->
                         <a th:href="@{'/products/' + ${item.product.id}}"
                            class="btn btn-primary btn-sm">
-                            View Product
+                            View Request
                         </a>
 
                         <!-- REMOVE BUTTON -->
