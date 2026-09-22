@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Your Product List</title>
+    <title>Your Request List</title>
     <link rel="stylesheet" href="/style.css">
 
     <style>
@@ -34,7 +34,7 @@
         <h1>Your Listings</h1>
         <div class="top-actions">
             <a href="/seller/dashboard" class="btn btn-secondary1">Back to Dashboard</a>
-            <a href="/products/add" class="btn btn-primary">Add a Product</a>
+            <a href="/products/add" class="btn btn-primary">Add a Request</a>
         </div>
     </div>
 
@@ -43,7 +43,7 @@
             <thead>
             <tr>
                 <th>ID</th>
-                <th>Name</th>
+                <th>Request</th>
                 <th>Quantity</th>
                 <th>Condition</th>
                 <th>Actions</th>
@@ -64,7 +64,7 @@
                     <a th:href="@{/products/{id}(id=${product.id})}" class="btn view">View</a>
                     <a th:href="@{/products/edit/{id}(id=${product.id})}" class="btn btn-edit">Edit</a>
                     <a th:href="@{'/products/delete/' + ${product.id}}"
-                       onclick="return confirm('Delete this product?')" class="btn delete">Delete</a>
+                       onclick="return confirm('Delete this request?')" class="btn delete">Delete</a>
 
                 </td>
             </tr>
