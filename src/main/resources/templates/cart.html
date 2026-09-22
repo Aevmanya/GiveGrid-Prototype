@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Your Cart</title>
+    <title>Your Donation Basket</title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet"
@@ -61,12 +61,12 @@
 </nav>
 
 <div class="container mt-5">
-    <h2 class="mb-4">Your Cart</h2>
+    <h2 class="mb-4">Your Donation Basket</h2>
 
     <!-- If cart empty -->
     <div th:if="${items.size() == 0}">
         <div class="alert alert-info">
-            Your cart is empty.
+            Your donation basket is empty.
         </div>
     </div>
 
@@ -99,7 +99,7 @@
                         <!-- REMOVE BUTTON -->
                         <a th:href="@{'/cart/remove/' + ${item.id}}"
                            class="btn btn-danger btn-sm">
-                            Remove from cart
+                            Remove from donation basket
                         </a>
 
                     </div>
