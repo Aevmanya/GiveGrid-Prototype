@@ -85,7 +85,7 @@
 
 
             <form class="d-flex me-3" th:action="@{/search}" method="get" style="width: 350px;">
-                <input class="form-control" type="text" name="query" placeholder="Search products..." />
+                <input class="form-control" type="text" name="query" placeholder="Search requests..." />
                 <button class="btn btn-primary ms-2">Search</button>
             </form>
 
@@ -149,7 +149,7 @@
 
         <!-- MAIN CONTENT -->
         <div class="col-md-9">
-            <h4 class="mb-3">Featured Products</h4>
+            <h4 class="mb-3">Featured Requests</h4>
 
             <div class="row g-4">
                 <div class="col-md-4" th:each="p : ${products}">
@@ -166,7 +166,7 @@
 
                             <a class="btn btn-outline-primary w-100 mt-2"
                                th:href="@{/products/{id}(id=${p.id})}">
-                                View Product
+                                View Request
                             </a>
                         </div>
 
