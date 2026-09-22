@@ -12,9 +12,6 @@ public class Product {
 
     private String name;
     private String description;
-    // ← ADD THIS
-
-    private Double price;
 
     private Integer quantity;
 
@@ -34,9 +31,6 @@ public class Product {
 
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
-
-    public Double getPrice() { return price; }
-    public void setPrice(Double price) { this.price = price; }
 
     public Integer getQuantity() { return quantity; }    // ← NEW
     public void setQuantity(Integer quantity) { this.quantity = quantity; }
