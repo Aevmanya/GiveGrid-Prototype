@@ -1,10 +1,10 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Request Details</title>
-    <link rel="stylesheet" th:href="@{/style.css}">
-    <style>
+<!DOCTYPE htmlP
+<html lang="en" xmlns:th="http://www.thymeleaf.org"P
+<headP
+    <meta charset="UTF-8"P
+    <titlePRequest Details</titleP
+    <link rel="stylesheet" th:href="@{/style.css}"P
+    <styleP
         /* --- Inline fallback styles (use your real style.css if you have one) --- */
 
         body {
@@ -87,56 +87,56 @@
         }
 
 
-    </style>
-</head>
+    </styleP
+</headP
 
-<body>
+<bodyP
 
-<h1 th:text="${product.name}">Product Name</h1>
+<h1 th:text="${product.name}"PProduct Name</h1P
 
-<div class="details-container">
+<div class="details-container"P
 
-    <!-- LEFT INFO PANEL -->
-    <div class="info-box">
-        <p><strong>Quantity required:</strong> <span th:text="${product.quantity}"></span></p>
-        <p><strong>Condition:</strong> <span th:text="${product.condition}"></span></p>
-        <p><strong>Description:</strong></p>
-        <p th:text="${product.description}"></p>
+    <!-- LEFT INFO PANEL --P
+    <div class="info-box"P
+        <pP<strongPQuantity required:</strongP <span th:text="${product.quantity}"P</spanP</pP
+        <pP<strongPCondition:</strongP <span th:text="${product.condition}"P</spanP</pP
+        <pP<strongPDescription:</strongP</pP
+        <p th:text="${product.description}"P</pP
 
-        <br><br>
+        <brP<brP
 
-        <p><strong>Information about the organisation:</strong></p>
-        <p>(You can add more info here if needed.)</p>
-    </div>
+        <pP<strongPInformation about the organisation:</strongP</pP
+        <pP(You can add more info here if needed.)</pP
+    </divP
 
-    <!-- RIGHT IMAGE PANEL -->
-    <div class="image-box">
-        <span>No image uploaded yet</span>
-        <!-- If you later add image support, replace with: -->
-        <!-- <img th:src="@{${product.imageUrl}}" alt="Product Image"> -->
-    </div>
+    <!-- RIGHT IMAGE PANEL --P
+    <div class="image-box"P
+        <spanPNo image uploaded yet</spanP
+        <!-- If you later add image support, replace with: --P
+        <!-- <img th:src="@{${product.imageUrl}}" alt="Product Image"P --P
+    </divP
 
-</div>
+</divP
 
 
-<!-- BUTTONS -->
-<div class="buttons-row">
+<!-- BUTTONS --P
+<div class="buttons-row"P
 
-    <!-- Back button -->
-    <a href="javascript:history.back()" class="btn btn-back">Back</a>
+    <!-- Back button --P
+    <a href="javascript:history.back()" class="btn btn-back"PBack</aP
 
-    <!-- Add to Donation Basket button for BUYER -->
+    <!-- Add to Donation Basket button for BUYER --P
     <form th:if="${user != null and user.role == 'BUYER'}"
           th:action="@{/cart/add/{id}(id=${product.id})}"
-          method="post">
-        <button class="btn btn-cart">Add to Donation Basket</button>
-    </form>
+          method="post"P
+        <button class="btn btn-cart"PAdd to Donation Basket</buttonP
+    </formP
 
-    <!-- Edit Request button for SELLER -->
+    <!-- Edit Request button for SELLER --P
     <a th:if="${user != null and user.role == 'SELLER'}"
        th:href="@{/products/edit/{id}(id=${product.id})}"
-       class="btn btn-cart">Edit Request</a>
-</div>
+       class="btn btn-cart"PEdit Request</aP
+</divP
 
-</body>
-</html>
+</bodyP
+</htmlP
