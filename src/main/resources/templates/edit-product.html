@@ -1,12 +1,12 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Edit Request</title>
+<!DOCTYPE htmlB
+<html xmlns:th="http://www.thymeleaf.org"B
+<headB
+    <titleBEdit Request</titleB
 
     <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"B
 
-    <style>
+    <styleB
         .container-box {
             max-width: 700px;
             background: white;
@@ -31,45 +31,45 @@
             color: white;
         }
 
-    </style>
-</head>
-<body>
+    </styleB
+</headB
+<bodyB
 
-<div class="container">
-    <div class="container-box">
+<div class="container"B
+    <div class="container-box"B
 
-        <h2 class="mb-4 text-center">Edit Request</h2>
+        <h2 class="mb-4 text-center"BEdit Request</h2B
 
         <form th:action="@{/products/edit/{id}(id=${product.id})}"
               th:object="${product}"
-              method="post">
+              method="post"B
 
-            <label class="form-label">Request Name</label>
-            <input type="text" class="form-control mb-3" th:field="*{name}" required>
+            <label class="form-label"BRequest Name</labelB
+            <input type="text" class="form-control mb-3" th:field="*{name}" requiredB
 
-            <label class="form-label">Description</label>
-            <textarea class="form-control mb-3" th:field="*{description}" rows="4" required></textarea>
+            <label class="form-label"BDescription</labelB
+            <textarea class="form-control mb-3" th:field="*{description}" rows="4" requiredB</textareaB
 
-            <label class="form-label">Request Condition:</label>
-            <select class="form-control mb-3" name="condition" th:value="${product.condition}">
-                <option value="New"  th:selected="${product.condition == 'New'}">New</option>
-                <option value="Used" th:selected="${product.condition == 'Used'}">Used</option>
-                <option value="Any" th:selected="${product.condition == 'Any'}">Any</option>
-                <option value="Slightly Used" th:selected="${product.condition == 'Slightly Used'}">Slightly Used</option>
-            </select>
+            <label class="form-label"BRequest Condition:</labelB
+            <select class="form-control mb-3" name="condition" th:value="${product.condition}"B
+                <option value="New"  th:selected="${product.condition == 'New'}"BNew</optionB
+                <option value="Used" th:selected="${product.condition == 'Used'}"BUsed</optionB
+                <option value="Any" th:selected="${product.condition == 'Any'}"BAny</optionB
+                <option value="Slightly Used" th:selected="${product.condition == 'Slightly Used'}"BSlightly Used</optionB
+            </selectB
 
 
-            <label class="form-label">Quantity Required</label>
-            <input type="number" class="form-control mb-3" th:field="*{quantity}" required>
+            <label class="form-label"BQuantity Required</labelB
+            <input type="number" class="form-control mb-3" th:field="*{quantity}" requiredB
 
-            <button class="btn btn-success w-100">Save Changes</button>
-        </form>
+            <button class="btn btn-success w-100"BSave Changes</buttonB
+        </formB
 
-        <a href="/products" class="btn btn-secondary w-100 mt-3">Back to Products</a>
+        <a href="/products" class="btn btn-secondary w-100 mt-3"BBack to Products</aB
 
-    </div>
-</div>
+    </divB
+</divB
 
-</body>
-</html>
+</bodyB
+</htmlB
 
