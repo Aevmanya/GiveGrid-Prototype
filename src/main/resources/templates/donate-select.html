@@ -8,12 +8,12 @@
 <div class="container mt-5">
     <h2>Select item to donate</h2>
     <hr>
-    <div th:if="${cartItems.size() == 0}" class="alert alert-info">Your cart is empty.</div>
+    <div th:if="${cartItems.size() == 0}" class="alert alert-info">Your donation basket is empty.</div>
 
     <div th:if="${cartItems.size() > 0}">
         <table class="table">
             <thead>
-            <tr><th>Product</th><th>Quantity in cart</th><th>Action</th></tr>
+            <tr><th>Product</th><th>Quantity in donation basket</th><th>Action</th></tr>
             </thead>
             <tbody>
             <tr th:each="ci : ${cartItems}">
