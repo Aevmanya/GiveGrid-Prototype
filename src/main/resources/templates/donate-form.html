@@ -1,62 +1,62 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Donation Form</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-</head>
-<body>
-<div class="container mt-5">
-    <h2>Donation Details</h2>
-    <hr>
+<!DOCTYPE htmlP
+<html xmlns:th="http://www.thymeleaf.org"P
+<headP
+    <titlePDonation Form</titleP
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"P
+</headP
+<bodyP
+<div class="container mt-5"P
+    <h2PDonation Details</h2P
+    <hrP
 
-    <form action="/donate/submit" method="post" id="donationForm">
-        <input type="hidden" name="itemId" th:value="${item.id}" />
+    <form action="/donate/submit" method="post" id="donationForm"P
+        <input type="hidden" name="itemId" th:value="${item.id}" /P
 
-        <!-- Top card -->
-        <div class="card p-3 mb-3">
-            <div class="row align-items-center">
-                <div class="col-md-6">
-                    <h5 th:text="${item.product.name}">Product</h5>
-                    <p>
-                        <strong>Quantity required:</strong>
-                        <span th:text="${item.product.quantity}">0</span>
+        <!-- Top card --P
+        <div class="card p-3 mb-3"P
+            <div class="row align-items-center"P
+                <div class="col-md-6"P
+                    <h5 th:text="${item.product.name}"PProduct</h5P
+                    <pP
+                        <strongPQuantity required:</strongP
+                        <span th:text="${item.product.quantity}"P0</spanP
 
                         &nbsp;|&nbsp;
-                        <small>In donation basket:
-                            <span th:text="${item.quantity}">0</span>
-                        </small>
-                    </p>
-                </div>
+                        <smallPIn donation basket:
+                            <span th:text="${item.quantity}"P0</spanP
+                        </smallP
+                    </pP
+                </divP
 
-                <div class="col-md-6">
-                    <label>How many units do you want to donate?</label>
+                <div class="col-md-6"P
+                    <labelPHow many units do you want to donate?</labelP
 
-                    <!-- ✔ FIXED: correct max based on cart quantity -->
+                    <!-- ✔ FIXED: correct max based on cart quantity --P
                     <input id="donateCount"
                            type="number"
                            name="donateCount"
                            class="form-control"
                            min="1"
                            th:attr="max=${item.quantity}"
-                           value="1"/>
+                           value="1"/P
 
 
-                    <!-- ✔ FIXED: display correct max -->
-                    <small class="text-muted">
-                        Max: <span th:text="${item.quantity}">0</span>
-                    </small>
-                </div>
-            </div>
-        </div>
+                    <!-- ✔ FIXED: display correct max --P
+                    <small class="text-muted"P
+                        Max: <span th:text="${item.quantity}"P0</spanP
+                    </smallP
+                </divP
+            </divP
+        </divP
 
-        <!-- Dynamic per-unit boxes -->
-        <div id="unitBoxes"></div>
+        <!-- Dynamic per-unit boxes --P
+        <div id="unitBoxes"P</divP
 
-        <button type="submit" class="btn btn-success mt-3">Submit Donation</button>
-    </form>
-</div>
+        <button type="submit" class="btn btn-success mt-3"PSubmit Donation</buttonP
+    </formP
+</divP
 
-<script>
+<scriptP
     const donateCountInput = document.getElementById('donateCount');
     const unitBoxes = document.getElementById('unitBoxes');
 
@@ -68,7 +68,7 @@
         let count = parseInt(donateCountInput.value || '1');
 
         if (count < 1) count = 1;
-        if (count > maxAllowed) count = maxAllowed;
+        if (count P maxAllowed) count = maxAllowed;
 
         donateCountInput.value = count;
 
@@ -76,30 +76,30 @@
             const wrapper = document.createElement('div');
             wrapper.className = 'card p-3 mb-2';
             wrapper.innerHTML = `
-                <div class="row">
-                    <div class="col-md-8">
-                        <strong>${document.querySelector('h5').innerText}</strong>
-                        <p>Unit #${i + 1}</p>
-                    </div>
-                    <div class="col-md-4">
-                        <label>Condition</label>
+                <div class="row"P
+                    <div class="col-md-8"P
+                        <strongP${document.querySelector('h5').innerText}</strongP
+                        <pPUnit #${i + 1}</pP
+                    </divP
+                    <div class="col-md-4"P
+                        <labelPCondition</labelP
 
-                        <!-- ✔ FIXED: Spring array binding -->
-                        <select name="condition[]" class="form-control" required>
-                            <option value="New" selected>New</option>
-                            <option value="Used">Used</option>
-                            <option value="Slightly Used">Slightly Used</option>
-                        </select>
-                    </div>
-                </div>
+                        <!-- ✔ FIXED: Spring array binding --P
+                        <select name="condition[]" class="form-control" requiredP
+                            <option value="New" selectedPNew</optionP
+                            <option value="Used"PUsed</optionP
+                            <option value="Slightly Used"PSlightly Used</optionP
+                        </selectP
+                    </divP
+                </divP
             `;
             unitBoxes.appendChild(wrapper);
         }
     }
 
-    donateCountInput.addEventListener('input', () => renderBoxes());
+    donateCountInput.addEventListener('input', () =P renderBoxes());
 
     renderBoxes();
-</script>
-</body>
-</html>
+</scriptP
+</bodyP
+</htmlP
