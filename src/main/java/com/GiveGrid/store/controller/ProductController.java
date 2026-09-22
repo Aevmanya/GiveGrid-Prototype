@@ -174,7 +174,6 @@ public class ProductController {
         existing.setName(updatedProduct.getName());
         existing.setDescription(updatedProduct.getDescription());
         existing.setQuantity(updatedProduct.getQuantity());
-        existing.setPrice(updatedProduct.getPrice());
         existing.setCondition(updatedProduct.getCondition());  // ← FIX HERE
 
         productService.saveProduct(existing);
