@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Product Details</title>
+    <title>Request Details</title>
     <link rel="stylesheet" th:href="@{/style.css}">
     <style>
         /* --- Inline fallback styles (use your real style.css if you have one) --- */
@@ -132,10 +132,10 @@
         <button class="btn btn-cart">Add to Donation Basket</button>
     </form>
 
-    <!-- Edit Product button for SELLER -->
+    <!-- Edit Request button for SELLER -->
     <a th:if="${user != null and user.role == 'SELLER'}"
        th:href="@{/products/edit/{id}(id=${product.id})}"
-       class="btn btn-cart">Edit Product</a>
+       class="btn btn-cart">Edit Request</a>
 </div>
 
 </body>
