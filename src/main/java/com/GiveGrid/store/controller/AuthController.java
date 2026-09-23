@@ -73,6 +73,7 @@ public class AuthController {
         User existing = userService.findByUsername(auth.getName());
 
         if (!hasText(updated.getFullName())
+                || !hasText(updated.getEmail())
                 || updated.getAge() == null
                 || updated.getAge() < 1
                 || updated.getAge() > 120
@@ -84,7 +85,16 @@ public class AuthController {
             return "edit-account";
         }
 
+        String newEmail = updated.getEmail().trim();
+        if (!newEmail.equalsIgnoreCase(existing.getEmail() == null ? "" : existing.getEmail().trim())
+                && userService.emailExists(newEmail)) {
+            model.addAttribute("user", existing);
+            model.addAttribute("error", "That email address is already in use.");
+            return "edit-account";
+        }
+
         // Update editable fields only
+        existing.setEmail(newEmail);
         existing.setFullName(updated.getFullName().trim());
         existing.setLocation(updated.getLocation().trim());
         existing.setAddress(updated.getAddress().trim());
