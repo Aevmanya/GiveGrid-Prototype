@@ -1,33 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose a Request | GiveGrid</title>
+    <style>
+        :root{--ink:#172033;--muted:#667085;--line:#e4e7ec;--page:#f6f7fb;--surface:#fff;--blue:#2563eb;--blue-soft:#eff6ff}
+        *{box-sizing:border-box}
+        body{margin:0;background:var(--page);color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+        .donate-select-page{max-width:1100px;margin:0 auto;padding:56px 40px 90px}
+        .eyebrow{color:var(--blue);font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px}
+        h1{margin:0 0 12px;font-size:40px;letter-spacing:-1.4px}
+        .intro{max-width:650px;margin:0 0 34px;color:var(--muted);font-size:16px;line-height:1.65}
+        .request-list{background:var(--surface);border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:0 12px 35px rgba(16,24,40,.06)}
+        .list-heading{padding:24px 30px;border-bottom:1px solid var(--line);font-size:18px;font-weight:800}
+        .request-row{display:grid;grid-template-columns:58px minmax(0,1fr) auto;gap:20px;align-items:center;padding:26px 30px;border-bottom:1px solid #eef0f3}
+        .request-row:last-child{border-bottom:0}
+        .request-icon{width:58px;height:58px;border-radius:16px;background:var(--blue-soft);color:var(--blue);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900}
+        .request-name{margin:0 0 7px;font-size:17px;font-weight:800}
+        .request-meta{display:flex;flex-wrap:wrap;gap:9px;color:var(--muted);font-size:13px}
+        .quantity{font-weight:750}
+        .donate-btn{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:10px 17px;border-radius:10px;background:var(--blue);color:#fff;text-decoration:none;font-size:13px;font-weight:800}
+        .donate-btn:hover{background:#1d4ed8;color:#fff}
+        .empty{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:72px 30px;text-align:center;box-shadow:0 12px 35px rgba(16,24,40,.06)}
+        .empty-icon{width:62px;height:62px;border-radius:18px;background:var(--blue-soft);color:var(--blue);display:flex;align-items:center;justify-content:center;margin:0 auto 18px;font-size:27px;font-weight:900}
+        .empty h2{margin:0 0 10px;font-size:22px}
+        .empty p{max-width:470px;margin:0 auto;color:var(--muted);line-height:1.65}
+        @media(max-width:600px){.donate-select-page{padding:36px 18px 70px}h1{font-size:34px}.request-row{grid-template-columns:48px minmax(0,1fr);padding:22px}.request-icon{width:48px;height:48px}.donate-btn{grid-column:2;justify-self:start}}
+    </style>
+</head>
+<body>
 <div th:replace="~{donor-nav :: donor-nav}"></div>
-<!DOCTYPE htmlP
-<html xmlns:th="http://www.thymeleaf.org"P
-<headP
-    <titlePSelect Item to Donate</titleP
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"P
-</headP
-<bodyP
-<div class="container mt-5"P
-    <h2PSelect item to donate</h2P
-    <hrP
-    <div th:if="${cartItems.size() == 0}" class="alert alert-info"PYour donation basket is empty.</divP
 
-    <div th:if="${cartItems.size() P 0}"P
-        <table class="table"P
-            <theadP
-            <trP<thPRequest</thP<thPQuantity in donation basket</thP<thPAction</thP</trP
-            </theadP
-            <tbodyP
-            <tr th:each="ci : ${cartItems}"P
-                <td th:text="${ci.product.name}"PProduct</tdP
-                <td th:text="${ci.quantity}"P1</tdP
-                <tdP
-                    <a th:href="@{/donate/form/{id}(id=${ci.id})}" class="btn btn-primary"PDonate</aP
-                </tdP
-            </trP
-            </tbodyP
-        </tableP
-    </divP
-</divP
-</bodyP
-</htmlP
+<main class="donate-select-page">
+    <div class="eyebrow">Donation basket</div>
+    <h1>Choose a request to donate to</h1>
+    <p class="intro">Select one of the requests in your donation basket. You'll choose the quantity and item condition on the next step.</p>
 
+    <section class="request-list" th:if="${cartItems.size() > 0}">
+        <div class="list-heading">Requests ready for donation</div>
+        <div th:each="ci : ${cartItems}" class="request-row">
+            <div class="request-icon">✓</div>
+            <div>
+                <h2 class="request-name request-title-case" th:text="${ci.product.name}">Request Name</h2>
+                <div class="request-meta">
+                    <span>Request</span>
+                    <span>•</span>
+                    <span class="quantity" th:text="${ci.quantity + ' items required'}">1 items required</span>
+                </div>
+            </div>
+            <a th:href="@{/donate/form/{id}(id=${ci.id})}" class="donate-btn">Donate</a>
+        </div>
+    </section>
+
+    <section class="empty" th:if="${cartItems.size() == 0}">
+        <div class="empty-icon">+</div>
+        <h2>Your donation basket is empty</h2>
+        <p>Return to your basket and add a request before continuing with a donation.</p>
+    </section>
+</main>
+
+<script>
+    document.querySelectorAll('.request-title-case').forEach(function (el) {
+        el.textContent = el.textContent.toLowerCase().replace(/\b\w/g, function (letter) {
+            return letter.toUpperCase();
+        });
+    });
+</script>
+</body>
+</html>
