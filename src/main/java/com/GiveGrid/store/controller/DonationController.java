@@ -33,6 +33,17 @@ public class DonationController {
 
     @GetMapping("/history")
     public String donationHistory(Authentication auth, Model model) {
+        return renderDonationHistory(auth, model);
+    }
+
+    // Public-facing donor navigation uses /donations/history.
+    // Keep /donate/history above as a backwards-compatible alias.
+    @GetMapping("/donations/history")
+    public String donationHistoryAlias(Authentication auth, Model model) {
+        return renderDonationHistory(auth, model);
+    }
+
+    private String renderDonationHistory(Authentication auth, Model model) {
         if (auth == null) return "redirect:/login";
 
         User user = userService.findByUsername(auth.getName());
