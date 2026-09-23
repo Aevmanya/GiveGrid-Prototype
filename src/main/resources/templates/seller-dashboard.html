@@ -1,118 +1,40 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Seller Dashboard</title>
-
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-
-    <style>
-        body {
-            background: #f4f6f9;
-        }
-
-        .card-option {
-            border-radius: 14px;
-            padding: 25px;
-            text-align: center;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-            cursor: pointer;
-            transition: 0.2s;
-            background: #f4f6f9;
-        }
-
-        .card-option:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-
-        .title {
-            text-align: center;
-            margin-top: 40px;
-            margin-bottom: 40px;
-            font-size: 36px;
-            font-weight: 600;
-            color: #2c3e50;
-        }
-    </style>
-</head>
-
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Organisation Dashboard | GiveGrid</title>
+<style>
+:root{--ink:#172033;--muted:#667085;--line:#e6e9ef;--surface:#fff;--accent:#2563eb;--soft:#eff6ff}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#f8fafc,#f4f7fb);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+.topbar{background:rgba(255,255,255,.96);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20;backdrop-filter:blur(12px)}
+.topbar-inner{max-width:1240px;min-height:72px;margin:auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.brand{color:var(--ink);text-decoration:none;font-size:25px;font-weight:800;letter-spacing:-.6px}.mark{display:inline-flex;width:34px;height:34px;margin-right:8px;border-radius:10px;align-items:center;justify-content:center;background:var(--soft);color:var(--accent);font-weight:800}
+.nav{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.nav a{color:#475467;text-decoration:none;font-size:14px;font-weight:650;padding:9px 12px;border-radius:9px}.nav a:hover,.nav a.active{background:#f2f4f7;color:var(--ink)}.nav .account{border:1px solid #bfdbfe;color:var(--accent);background:#fff}
+.shell{max-width:1160px;margin:0 auto;padding:48px 24px 64px}.eyebrow{margin:0 0 10px;color:var(--accent);font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+h1{margin:0;font-size:42px;line-height:1.05;letter-spacing:-1.5px}.intro{max-width:690px;margin:14px 0 0;color:var(--muted);font-size:16px;line-height:1.65}
+.hero{display:flex;align-items:flex-end;justify-content:space-between;gap:28px;margin-bottom:34px}.hero-action{display:inline-flex;align-items:center;justify-content:center;padding:12px 18px;border-radius:11px;background:var(--accent);color:#fff;text-decoration:none;font-weight:750;box-shadow:0 8px 20px rgba(37,99,235,.18)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:34px}.stat{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:20px 22px;box-shadow:0 5px 18px rgba(16,24,40,.04)}.stat-label{color:var(--muted);font-size:13px;font-weight:650}.stat-value{display:block;margin-top:8px;font-size:30px;font-weight:800;letter-spacing:-1px}
+.section-label{font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#98a2b3;margin:0 0 14px}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.card{display:flex;align-items:flex-start;gap:18px;padding:23px;background:var(--surface);border:1px solid var(--line);border-radius:18px;text-decoration:none;color:inherit;box-shadow:0 5px 18px rgba(16,24,40,.04);transition:.18s}.card:hover{transform:translateY(-2px);border-color:#cbd5e1;box-shadow:0 12px 26px rgba(16,24,40,.08)}
+.icon{width:46px;height:46px;flex:0 0 46px;border-radius:13px;background:var(--soft);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:850}.card h2{margin:1px 0 6px;font-size:17px}.card p{margin:0;color:var(--muted);font-size:13px;line-height:1.55}.arrow{margin-left:auto;color:#98a2b3;font-size:18px}
+.footer-actions{margin-top:28px;padding-top:24px;border-top:1px solid var(--line);display:flex;gap:10px}.secondary{color:#475467;text-decoration:none;border:1px solid #d0d5dd;background:#fff;padding:10px 14px;border-radius:10px;font-size:14px;font-weight:700}
+@media(max-width:760px){.topbar-inner{padding:14px 16px;align-items:flex-start}.hero{display:block}.hero-action{margin-top:20px}.stats,.grid{grid-template-columns:1fr}h1{font-size:34px}.nav a{padding:8px 9px}.shell{padding:34px 16px 50px}}
+</style></head>
 <body>
-
-<div class="container">
-
-    <h2 class="title">Seller Dashboard</h2>
-
-    <!-- Row 1 -->
-    <div class="row g-4 mb-4">
-
-        <!-- My Products -->
-        <div class="col-md-4">
-            <a href="/products" style="text-decoration:none; color:black;">
-                <div class="card-option">
-                    <h4>My Listings</h4>
-                    <p>View and manage your listings</p>
-                </div>
-            </a>
-        </div>
-
-        <!-- Add Product -->
-        <div class="col-md-4">
-            <a href="/products/add" style="text-decoration:none; color:black;">
-                <div class="card-option">
-                    <h4>Add New Listing</h4>
-                    <p>List a new listing for donation</p>
-                </div>
-            </a>
-        </div>
-
-        <!-- Account Settings -->
-        <div class="col-md-4">
-            <a href="/profile" style="text-decoration:none; color:black;">
-                <div class="card-option">
-                    <h4>Account Settings</h4>
-                    <p>Manage your profile and details</p>
-                </div>
-            </a>
-        </div>
-    </div>
-
-    <!-- Row 2 -->
-    <div class="row g-4">
-
-        <!-- Log Out -->
-        <div class="col-md-4">
-            <a href="/seller/requests" style="text-decoration:none; color:black;">
-                <div class="card-option">
-                    <h4>Donation Requests</h4>
-                    <p>View donation requests</p>
-                </div>
-            </a>
-        </div>
-
-        <!-- Donation Requests -->
-        <div class="col-md-4">
-            <a href="/seller/donation/history" style="text-decoration:none; color:black;">
-                <div class="card-option">
-                    <h4>Donation History</h4>
-                    <p>View approved donations</p>
-                </div>
-            </a>
-        </div>
-
-        <!-- Donation History -->
-        <div class="col-md-4">
-            <a href="/logout" style="text-decoration:none; color:black;">
-                <div class="card-option">
-                    <h4>Log Out</h4>
-                    <p>Log out of this seller profile</p>
-                </div>
-            </a>
-        </div>
-
-    </div>
-
-</div>
-
-</body>
-</html>
+<header class="topbar"><div class="topbar-inner">
+<a class="brand" href="/seller/dashboard"><span class="mark">G</span>GiveGrid</a>
+<nav class="nav"><a class="active" href="/seller/dashboard">Dashboard</a><a href="/products">My Listings</a><a href="/seller/requests">Donation Requests</a><a href="/seller/donation/history">Donation History</a><a class="account" href="/profile">Account</a></nav>
+</div></header>
+<main class="shell">
+<section class="hero"><div><p class="eyebrow">Organisation workspace</p>
+<h1>Welcome back<span th:if="${user.fullName != null and !#strings.isEmpty(user.fullName)}">, <span th:text="${user.fullName}">Organisation</span></span>.</h1>
+<p class="intro">Manage your community requests, review incoming donations, and keep your listings moving from one clear workspace.</p></div>
+<a class="hero-action" href="/products/add">+ Create Request</a></section>
+<section class="stats"><div class="stat"><span class="stat-label">Active listings</span><strong class="stat-value" th:text="${listingCount}">0</strong></div><div class="stat"><span class="stat-label">Pending donations</span><strong class="stat-value" th:text="${pendingCount}">0</strong></div><div class="stat"><span class="stat-label">Accepted donations</span><strong class="stat-value" th:text="${approvedCount}">0</strong></div></section>
+<p class="section-label">Workspace</p><section class="grid">
+<a class="card" href="/products"><span class="icon">▦</span><div><h2>My Listings</h2><p>Create, edit and manage the requests your organisation needs fulfilled.</p></div><span class="arrow">›</span></a>
+<a class="card" href="/products/add"><span class="icon">＋</span><div><h2>Create a Request</h2><p>Publish a new community request with the quantity and condition needed.</p></div><span class="arrow">›</span></a>
+<a class="card" href="/seller/requests"><span class="icon">✓</span><div><h2>Donation Requests</h2><p>Review incoming donor submissions and accept or reject them.</p></div><span class="arrow">›</span></a>
+<a class="card" href="/seller/donation/history"><span class="icon">↺</span><div><h2>Donation History</h2><p>See the donations your organisation has already accepted.</p></div><span class="arrow">›</span></a>
+</section>
+<div class="footer-actions"><a class="secondary" href="/profile">Account settings</a><a class="secondary" href="/logout">Log out</a></div>
+</main></body></html>
