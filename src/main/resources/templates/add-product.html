@@ -1,18 +1,43 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Create Request | GiveGrid</title>
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Create Request | GiveGrid</title>
 <style>
-body{margin:0;background:#f6f8fb;color:#172033;font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif}.top{height:72px;background:#fff;border-bottom:1px solid #e6e9ef;display:flex;align-items:center;justify-content:space-between;padding:0 28px;box-sizing:border-box}.brand{font-size:24px;font-weight:800;color:#172033;text-decoration:none}.nav{display:flex;gap:8px}.nav a{padding:9px 12px;border-radius:9px;text-decoration:none;color:#475467;font-size:14px;font-weight:650}.nav a:hover{background:#f2f4f7}.account{border:1px solid #bfdbfe;color:#2563eb!important}.wrap{max-width:900px;margin:0 auto;padding:48px 24px}.eyebrow{margin:0 0 8px;color:#2563eb;font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}h1{margin:0;font-size:40px;letter-spacing:-1.4px}.intro{color:#667085;line-height:1.6;margin:12px 0 28px}.card{background:#fff;border:1px solid #e6e9ef;border-radius:18px;padding:30px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}.field{display:flex;flex-direction:column;gap:8px}.full{grid-column:1/-1}label{font-size:13px;font-weight:750}input,select,textarea{width:100%;box-sizing:border-box;padding:12px;border:1px solid #d0d5dd;border-radius:10px;font:inherit}textarea{min-height:130px;resize:vertical}.actions{margin-top:24px;padding-top:20px;border-top:1px solid #e6e9ef;display:flex;gap:10px}.btn{padding:11px 16px;border-radius:10px;text-decoration:none;font-weight:750;border:0;font:inherit;cursor:pointer}.primary{background:#2563eb;color:#fff}.secondary{background:#fff;border:1px solid #d0d5dd;color:#475467}@media(max-width:700px){.top{height:auto;min-height:72px;align-items:flex-start;padding:14px 16px;gap:12px}.nav{flex-wrap:wrap}.wrap{padding:34px 16px}.grid{grid-template-columns:1fr}.full{grid-column:auto}h1{font-size:34px}}
-</style></head>
+:root{--ink:#172033;--muted:#667085;--line:#e4e7ec;--blue:#2563eb;--soft:#eff6ff}
+*{box-sizing:border-box}body{margin:0;background:#f7f9fc;color:var(--ink);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+.top{min-height:72px;background:rgba(255,255,255,.97);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:12px 28px;position:sticky;top:0;z-index:10;backdrop-filter:blur(12px)}
+.brand{font-size:24px;font-weight:800;color:var(--ink);text-decoration:none;letter-spacing:-.6px}.nav{display:flex;gap:7px;flex-wrap:wrap;align-items:center}.nav a{padding:9px 12px;border-radius:9px;text-decoration:none;color:#475467;font-size:14px;font-weight:650}.nav a:hover{background:#f2f4f7;color:var(--ink)}.account{border:1px solid #bfdbfe;color:var(--blue)!important;background:#fff}
+.wrap{max-width:1080px;margin:0 auto;padding:46px 24px 64px}.eyebrow{margin:0 0 9px;color:var(--blue);font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.hero{display:flex;justify-content:space-between;align-items:flex-end;gap:28px;margin-bottom:28px}.hero-copy{max-width:720px}h1{margin:0;font-size:42px;line-height:1.05;letter-spacing:-1.6px}.intro{margin:13px 0 0;color:var(--muted);font-size:16px;line-height:1.65}.badge{display:inline-flex;align-items:center;gap:8px;padding:9px 12px;border:1px solid #dbeafe;background:#fff;border-radius:999px;color:#2563eb;font-size:12px;font-weight:800;white-space:nowrap}.dot{width:7px;height:7px;border-radius:50%;background:#2563eb}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:20px;align-items:start}.card{background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:0 12px 35px rgba(16,24,40,.05)}.form-card{padding:28px}.form-head{margin-bottom:24px}.form-head h2{margin:0 0 5px;font-size:18px}.form-head p{margin:0;color:var(--muted);font-size:13px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}.field{display:flex;flex-direction:column;gap:8px}.full{grid-column:1/-1}label{font-size:13px;font-weight:800}
+input,select,textarea{width:100%;padding:13px 14px;border:1px solid #d0d5dd;border-radius:11px;background:#fff;color:var(--ink);font:inherit;outline:none;transition:border-color .15s,box-shadow .15s}input:focus,select:focus,textarea:focus{border-color:#84adff;box-shadow:0 0 0 4px #eff6ff}textarea{min-height:145px;resize:vertical}.hint{color:#98a2b3;font-size:12px;line-height:1.5}
+.actions{margin-top:26px;padding-top:20px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:12px}.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 17px;border-radius:11px;text-decoration:none;font:inherit;font-size:14px;font-weight:800;cursor:pointer}.primary{border:1px solid var(--blue);background:var(--blue);color:#fff}.primary:hover{background:#1d4ed8}.secondary{border:1px solid #d0d5dd;background:#fff;color:#475467}
+.guide{padding:22px;position:sticky;top:96px}.guide-mark{width:40px;height:40px;border-radius:12px;background:var(--soft);color:var(--blue);display:flex;align-items:center;justify-content:center;font-weight:900;margin-bottom:16px}.guide h2{font-size:17px;margin:0 0 8px}.guide p{color:var(--muted);font-size:13px;line-height:1.6;margin:0 0 18px}.guide-list{display:grid;gap:12px;margin:0;padding:0;list-style:none}.guide-list li{display:flex;gap:10px;color:#475467;font-size:13px;line-height:1.45}.check{flex:0 0 20px;width:20px;height:20px;border-radius:7px;background:#ecfdf3;color:#15803d;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900}
+@media(max-width:860px){.layout{grid-template-columns:1fr}.guide{position:static}.hero{align-items:flex-start;flex-direction:column}}
+@media(max-width:640px){.top{align-items:flex-start;padding:14px 16px}.nav{justify-content:flex-end}.wrap{padding:34px 16px 48px}h1{font-size:34px}.form-card{padding:22px}.grid{grid-template-columns:1fr}.actions{align-items:stretch;flex-direction:column}.btn{width:100%}}
+</style>
+</head>
 <body>
-<header class="top"><a class="brand" href="/seller/dashboard">GiveGrid</a><nav class="nav"><a href="/seller/dashboard">Dashboard</a><a href="/products">My Requests</a><a href="/seller/requests">Donation Requests</a><a href="/seller/donation/history">Donation History</a><a class="account" href="/profile">Account</a></nav></header>
-<main class="wrap"><p class="eyebrow">Organisation workspace</p><h1>Create a request</h1><p class="intro">Tell donors what your organisation needs, how many items are required, and what condition is acceptable.</p>
-<form class="card" action="/products/add" method="post">
+<header class="top"><a class="brand" href="/seller/dashboard">GiveGrid</a><nav class="nav" aria-label="Organisation navigation">
+<a href="/seller/dashboard">Dashboard</a><a href="/products">My Requests</a><a href="/seller/requests">Donation Requests</a><a href="/seller/donation/history">Donation History</a><a class="account" href="/profile">Account</a>
+</nav></header>
+<main class="wrap">
+<div class="hero"><div class="hero-copy"><p class="eyebrow">Organisation workspace</p><h1>Create a request</h1><p class="intro">Tell donors exactly what your organisation needs so they can find a meaningful way to help.</p></div><div class="badge"><span class="dot"></span>Community request</div></div>
+<div class="layout">
+<section class="card form-card">
+<div class="form-head"><h2>Request details</h2><p>Keep the request specific and easy for donors to understand.</p></div>
+<form action="/products/add" method="post">
 <div class="grid">
 <div class="field"><label for="name">Request name</label><input id="name" name="name" type="text" placeholder="e.g. School notebooks" required></div>
-<div class="field"><label for="quantity">Quantity required</label><input id="quantity" name="quantity" type="number" min="1" required></div>
-<div class="field"><label for="condition">Request condition</label><select id="condition" name="condition" required><option value="New">New</option><option value="Used">Used</option><option value="Any">Any</option><option value="Slightly Used">Slightly Used</option></select></div>
-<div class="field"><label for="description">Description</label><textarea id="description" name="description" placeholder="Explain what these items will help with." required></textarea></div>
+<div class="field"><label for="quantity">Quantity required</label><input id="quantity" name="quantity" type="number" min="1" placeholder="e.g. 50" required></div>
+<div class="field"><label for="condition">Acceptable condition</label><select id="condition" name="condition" required><option value="New">New</option><option value="Used">Used</option><option value="Any">Any</option><option value="Slightly Used">Slightly Used</option></select></div>
+<div class="field"><label for="description">Description</label><textarea id="description" name="description" placeholder="Explain who these items will help and anything donors should know." required></textarea><span class="hint">A short, specific description helps donors understand the impact.</span></div>
 </div>
 <div class="actions"><a class="btn secondary" href="/seller/dashboard">Cancel</a><button class="btn primary" type="submit">Create Request</button></div>
-</form></main></body></html>
+</form>
+</section>
+<aside class="card guide"><div class="guide-mark">✓</div><h2>What makes a clear request?</h2><p>Give donors enough context to know what they are helping with.</p>
+<ul class="guide-list"><li><span class="check">✓</span><span>Name the exact item you need.</span></li><li><span class="check">✓</span><span>Set the number of items required.</span></li><li><span class="check">✓</span><span>Choose the condition your organisation can accept.</span></li><li><span class="check">✓</span><span>Briefly explain who the request will support.</span></li></ul></aside>
+</div></main></body></html>
