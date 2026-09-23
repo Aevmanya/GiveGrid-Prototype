@@ -31,6 +31,7 @@ public class CartController {
 
         User user = userService.findByUsername(auth.getName());
         model.addAttribute("items", cartService.getUserCart(user));
+        model.addAttribute("user", user);
 
         return "cart";
     }
