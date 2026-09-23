@@ -1,153 +1,96 @@
-<div th:replace="~{donor-nav :: donor-nav}"></div>
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Your Account</title>
-
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-
-    <style>
-        body {
-            background: #f4f6f9;
-        }
-
-        .sidebar {
-            background: white;
-            border-radius: 12px;
-            padding: 25px;
-            min-height: 100vh;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-
-        .profile-pic {
-            width: 130px;
-            height: 130px;
-            border-radius: 50%;
-            background: #ddd;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 22px;
-            margin: 0 auto 15px auto;
-        }
-
-        .info-card {
-            background: white;
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-
-        .section-title {
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 12px;
-        }
-
-        .logout-btn {
-            width: 100%;
-            margin-top: 25px;
-        }
-
-        .btn-back1{
-            width: 100%;
-            margin-top: 25px;
-            border-color: #1d4ed8;
-        }
-
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Account | GiveGrid</title>
+<style>
+:root{--ink:#172033;--muted:#667085;--soft:#98a2b3;--line:#e6e9ef;--surface:#fff;--bg:#f6f8fb;--accent:#2563eb;--accent-soft:#eff6ff;--danger:#dc2626}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+.account-page{max-width:1180px;margin:0 auto;padding:48px 32px 88px}.account-hero{display:flex;align-items:flex-end;justify-content:space-between;gap:28px;margin-bottom:30px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--accent);background:var(--accent-soft);border:1px solid #dbeafe;border-radius:999px;padding:7px 11px;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px}.eyebrow-dot{width:7px;height:7px;border-radius:50%;background:var(--accent)}
+h1{margin:0;font-size:42px;line-height:1.05;letter-spacing:-1.4px}.hero-copy{margin:10px 0 0;color:var(--muted);font-size:15px;line-height:1.6;max-width:650px}
+.hero-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}.btn{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:10px 15px;border-radius:10px;text-decoration:none;font-size:13px;font-weight:750;transition:.18s ease}
+.btn-primary{background:var(--accent);color:#fff;box-shadow:0 5px 14px rgba(37,99,235,.16)}.btn-primary:hover{background:#1d4ed8;transform:translateY(-1px)}.btn-secondary{background:#fff;color:#344054;border:1px solid #d9dee8}.btn-secondary:hover{background:#f8fafc}
+.profile-shell{display:grid;grid-template-columns:310px minmax(0,1fr);gap:26px;align-items:start}.profile-card,.content-card{background:var(--surface);border:1px solid var(--line);border-radius:20px;box-shadow:0 8px 28px rgba(16,24,40,.05)}
+.profile-card{padding:28px;position:sticky;top:94px}.avatar{width:82px;height:82px;border-radius:24px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#eff6ff,#dbeafe);color:var(--accent);font-size:30px;font-weight:850;margin-bottom:18px;border:1px solid #dbeafe}
+.profile-name{margin:0;font-size:22px;letter-spacing:-.5px;overflow-wrap:anywhere}.profile-role{display:inline-flex;margin-top:8px;padding:5px 9px;border-radius:999px;background:#f2f4f7;color:#475467;font-size:11px;font-weight:800;letter-spacing:.06em}.profile-email{margin:12px 0 0;color:var(--muted);font-size:13px;overflow-wrap:anywhere}
+.profile-actions{display:grid;gap:10px;margin-top:26px;padding-top:24px;border-top:1px solid var(--line)}.profile-actions .btn{width:100%}.btn-danger{color:var(--danger);background:#fff;border:1px solid #fecaca}.btn-danger:hover{background:#fef2f2}
+.section-stack{display:grid;gap:20px}.content-card{padding:28px 30px}.card-header{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:24px}.card-title{margin:0;font-size:19px;letter-spacing:-.35px}.card-subtitle{margin:6px 0 0;color:var(--muted);font-size:13px;line-height:1.5}
+.info-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.info-item{padding:17px 18px;border:1px solid #edf0f4;background:#fafbfc;border-radius:14px;min-width:0}.info-label{display:block;color:var(--soft);font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;margin-bottom:7px}.info-value{display:block;color:#344054;font-size:14px;line-height:1.45;overflow-wrap:anywhere}
+.history-summary{display:flex;align-items:center;gap:12px;padding:15px 17px;border-radius:14px;background:#f8fbff;border:1px solid #e0edff;margin-bottom:20px}.history-count{width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;background:var(--accent-soft);color:var(--accent);font-weight:850;flex:0 0 38px}.history-summary strong{display:block;font-size:13px}.history-summary span{display:block;margin-top:2px;color:var(--muted);font-size:12px}
+.history-list{display:grid;gap:10px}.history-row{display:grid;grid-template-columns:minmax(0,1.7fr) .9fr .55fr .75fr;align-items:center;gap:18px;padding:17px 18px;border:1px solid #edf0f4;border-radius:14px;background:#fff}.history-request{min-width:0}.request-name{display:block;color:var(--ink);font-size:14px;font-weight:750;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.request-meta{display:block;margin-top:4px;color:var(--soft);font-size:11px}.history-cell-label{display:block;color:var(--soft);font-size:10px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px}.history-cell-value{color:#475467;font-size:12px;line-height:1.4}
+.empty-history{padding:30px 20px;border:1px dashed #d7dce5;border-radius:15px;text-align:center;background:#fafbfc}.empty-history strong{display:block;font-size:14px}.empty-history p{margin:6px 0 16px;color:var(--muted);font-size:12px}
+.account-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.account-link{display:flex;align-items:center;gap:13px;padding:17px;border:1px solid #edf0f4;border-radius:14px;color:var(--ink);text-decoration:none;transition:.18s ease}.account-link:hover{border-color:#bfdbfe;background:#f8fbff;transform:translateY(-1px)}.link-icon{width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;background:#f2f4f7;color:#475467;font-weight:850;flex:0 0 38px}.account-link strong{display:block;font-size:13px}.account-link span span{display:block;margin-top:3px;color:var(--muted);font-size:11px}
+@media(max-width:900px){.account-hero{align-items:flex-start;flex-direction:column}.hero-actions{justify-content:flex-start}.profile-shell{grid-template-columns:1fr}.profile-card{position:static}}
+@media(max-width:700px){.account-page{padding:34px 18px 64px}h1{font-size:34px}.content-card{padding:23px 20px}.profile-card{padding:23px}.info-grid,.account-links{grid-template-columns:1fr}.history-row{grid-template-columns:1fr 1fr;gap:14px}.history-request{grid-column:1/-1}}
+@media(max-width:460px){.hero-actions,.hero-actions .btn{width:100%}.history-row{grid-template-columns:1fr}}
+</style>
 </head>
-
 <body>
-
-<div class="container-fluid">
-    <div class="row">
-
-        <!-- SIDEBAR -->
-        <div class="col-md-3 sidebar">
-
-            <div class="profile-pic">
-                <span th:text="${user.username.substring(0,1).toUpperCase()}">U</span>
-            </div>
-
-            <h4 class="text-center" th:text="${user.username}">Username</h4>
-            <p class="text-center text-muted" th:text="${user.role}"></p>
-
-            <a class="btn btn-primary w-100 mt-3" href="/account/edit">Edit Profile</a>
-
-            <a class="btn btn-danger w-100 logout-btn" href="/logout">Logout</a>
-            <!-- Role-based Home/Dashboard Button -->
-            <a th:if="${user.role == 'SELLER'}"
-               href="/seller/dashboard"
-               class="btn btn-back1">
-                Dashboard
-            </a>
+<div th:replace="~{donor-nav :: donor-nav}"></div>
+<main class="account-page">
+<section class="account-hero">
+<div>
+<div class="eyebrow"><span class="eyebrow-dot"></span>Your account</div>
+<h1>Welcome back, <span th:text="${user.fullName != null and !#strings.isEmpty(user.fullName) ? user.fullName : user.username}">User</span>.</h1>
+<p class="hero-copy">Manage your profile details and keep track of the requests you've helped with.</p>
 </div>
-
-
-        <!-- MAIN CONTENT -->
-        <div class="col-md-9 p-4">
-
-            <!-- PERSONAL INFORMATION -->
-            <div class="info-card mb-4">
-                <div class="section-title">Personal Information</div>
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <p><strong>Full Name:</strong> <span th:text="${user.fullName}">N/A</span></p>
-                        <p><strong>Email:</strong> <span th:text="${user.email}">N/A</span></p>
-                        <p><strong>Phone:</strong> <span th:text="${user.phone}">N/A</span></p>
-                    </div>
-
-                    <div class="col-md-6">
-                        <p><strong>Age:</strong> <span th:text="${user.age}">N/A</span></p>
-                        <p><strong>Address:</strong> <span th:text="${user.address}">N/A</span></p>
-                        <p><strong>Location:</strong> <span th:text="${user.location}">N/A</span></p>
-                    </div>
-                </div>
-            </div>
-
-
-            <!-- DONATION HISTORY -->
-            <div class="info-card">
-                <div class="section-title">Donation History</div>
-
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>Request</th>
-                        <th>Applied on</th>
-                        <th>Quantity</th>
-                        <th>Condition</th>
-                    </tr>
-                    </thead>
-
-                    <a href="/donations/applied" class="btn btn-outline-primary mt-3">
-                        View Applied Donations
-                    </a>
-
-                    <tbody>
-
-                    <tr th:each="d : ${donations}">
-                        <td th:text="${d.product.name}"></td>
-                        <td th:text="${#temporals.format(d.donatedAt, 'yyyy-MM-dd HH:mm')}"></td>
-                        <td th:text="${d.quantity}"></td>
-                        <td th:text="${d.condition}"></td>
-                    </tr>
-
-                    <tr th:if="${donations.size() == 0}">
-                        <td colspan="4" class="text-center text-muted">No donations yet.</td>
-                    </tr>
-                    </tbody>
-                </table>
-
-
-            </div>
-
-    </div>
+<div class="hero-actions">
+<a class="btn btn-secondary" href="/donations/history">View Donation History</a>
+<a class="btn btn-primary" href="/account/edit">Edit Profile</a>
+</div>
+</section>
+<div class="profile-shell">
+<aside class="profile-card">
+<div class="avatar"><span th:text="${user.username.substring(0,1).toUpperCase()}">U</span></div>
+<h2 class="profile-name" th:text="${user.username}">Username</h2>
+<span class="profile-role" th:text="${user.role}">BUYER</span>
+<p class="profile-email" th:text="${user.email}">email@example.com</p>
+<div class="profile-actions">
+<a class="btn btn-primary" href="/account/edit">Edit Profile</a>
+<a th:if="${user.role == 'SELLER'}" href="/seller/dashboard" class="btn btn-secondary">Organisation Dashboard</a>
+<a class="btn btn-danger" href="/logout">Log out</a>
+</div>
+</aside>
+<div class="section-stack">
+<section class="content-card">
+<div class="card-header"><div><h2 class="card-title">Personal information</h2><p class="card-subtitle">The details associated with your GiveGrid account.</p></div></div>
+<div class="info-grid">
+<div class="info-item"><span class="info-label">Full name</span><span class="info-value" th:text="${user.fullName != null and !#strings.isEmpty(user.fullName) ? user.fullName : 'Not provided'}">Not provided</span></div>
+<div class="info-item"><span class="info-label">Email</span><span class="info-value" th:text="${user.email != null and !#strings.isEmpty(user.email) ? user.email : 'Not provided'}">Not provided</span></div>
+<div class="info-item"><span class="info-label">Phone</span><span class="info-value" th:text="${user.phone != null and !#strings.isEmpty(user.phone) ? user.phone : 'Not provided'}">Not provided</span></div>
+<div class="info-item"><span class="info-label">Age</span><span class="info-value" th:text="${user.age != null ? user.age : 'Not provided'}">Not provided</span></div>
+<div class="info-item"><span class="info-label">Address</span><span class="info-value" th:text="${user.address != null and !#strings.isEmpty(user.address) ? user.address : 'Not provided'}">Not provided</span></div>
+<div class="info-item"><span class="info-label">Location</span><span class="info-value" th:text="${user.location != null and !#strings.isEmpty(user.location) ? user.location : 'Not provided'}">Not provided</span></div>
+</div>
+</section>
+<section class="content-card">
+<div class="card-header"><div><h2 class="card-title">Donation activity</h2><p class="card-subtitle">A quick look at the requests you've donated to.</p></div><a class="btn btn-secondary" href="/donations/history">Full history</a></div>
+<div class="history-summary"><div class="history-count" th:text="${donations.size()}">0</div><div><strong>Recorded donations</strong><span>Requests you've contributed to from this account.</span></div></div>
+<div class="history-list" th:if="${donations.size() > 0}">
+<div class="history-row" th:each="d : ${donations}">
+<div class="history-request"><span class="request-name" th:text="${d.product.name}">Request Name</span><span class="request-meta">Donation recorded</span></div>
+<div><span class="history-cell-label">Applied on</span><span class="history-cell-value" th:text="${#temporals.format(d.donatedAt, 'yyyy-MM-dd HH:mm')}">2026-01-01 12:00</span></div>
+<div><span class="history-cell-label">Quantity</span><span class="history-cell-value" th:text="${d.quantity}">1</span></div>
+<div><span class="history-cell-label">Condition</span><span class="history-cell-value" th:text="${d.condition}">New</span></div>
 </div>
 </div>
+<div class="empty-history" th:if="${donations.size() == 0}">
+<strong>No donations recorded yet</strong><p>Once you contribute to a request, your activity will appear here.</p><a class="btn btn-primary" href="/">Browse Requests</a>
+</div>
+</section>
+<section class="content-card">
+<div class="card-header"><div><h2 class="card-title">Quick access</h2><p class="card-subtitle">Jump straight to the parts of GiveGrid you use most.</p></div></div>
+<div class="account-links">
+<a class="account-link" href="/donations/history"><span class="link-icon">↗</span><span><strong>Donation History</strong><span>Review your recent activity</span></span></a>
+<a class="account-link" href="/cart"><span class="link-icon">✓</span><span><strong>Donation Basket</strong><span>Review requests you've selected</span></span></a>
+<a class="account-link" href="/account/edit"><span class="link-icon">✎</span><span><strong>Edit Profile</strong><span>Update your account details</span></span></a>
+<a th:if="${user.role == 'SELLER'}" class="account-link" href="/seller/dashboard"><span class="link-icon">▦</span><span><strong>Organisation Dashboard</strong><span>Manage your requests and activity</span></span></a>
+</div>
+</section>
+</div>
+</div>
+</main>
 </body>
 </html>
