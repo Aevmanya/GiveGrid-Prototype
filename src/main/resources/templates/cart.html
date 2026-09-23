@@ -46,19 +46,7 @@
 <body>
 
 <!-- 🔥 EXACT HOME PAGE NAVBAR (but Add Product → Home) -->
-<nav class="navbar navbar-light bg-white shadow-sm px-4 py-3">
-    <a href="/" class="navbar-brand fw-bold fs-4" style="text-decoration: none; color: black;">
-        GiveGrid
-    </a>
-
-    <form class="d-flex" method="get" action="/search">
-        <input class="form-control me-2" name="query" type="search" placeholder="Search requests...">
-        <button class="btn btn-primary">Search</button>
-
-        <!-- HOME BUTTON (replacement) -->
-        <a href="/" class="btn btn-primary4">Return Home</a>
-    </form>
-</nav>
+<div th:replace="~{donor-nav :: donor-nav}"></div>
 
 <div class="container mt-5">
     <h2 class="mb-4">Your Donation Basket</h2>
