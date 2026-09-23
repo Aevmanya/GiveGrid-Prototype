@@ -37,9 +37,8 @@
 </style>
 </head>
 <body>
-<header class="topbar"><div class="topbar-inner">
-<a class="brand" href="/"><span class="brand-mark">G</span>GiveGrid</a>
-<div th:replace="~{donor-nav :: donor-nav}"></div></div></header>
+<div th:replace="~{donor-nav :: donor-nav}"></div>
+
 <main class="page-shell">
 <div class="breadcrumbs"><a href="/">Home</a><span>›</span><a href="/products">Requests</a><span>›</span><span class="request-title-case" th:text="${product.name}">Request</span></div>
 <section class="request-layout">
