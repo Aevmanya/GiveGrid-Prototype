@@ -62,6 +62,7 @@ public class ProfileCompletionFilter extends OncePerRequestFilter {
     private boolean isProfileComplete(User user) {
         return user != null
                 && hasText(user.getFullName())
+                && hasText(user.getEmail())
                 && user.getAge() != null
                 && hasText(user.getPhone())
                 && hasText(user.getAddress())
