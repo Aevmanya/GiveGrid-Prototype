@@ -52,6 +52,10 @@ public class UserService implements UserDetailsService {
         return userRepo.findByEmail(email) != null;
     }
 
+    public boolean emailExistsForAnotherUser(String email, Long userId) {
+        return userRepo.existsByEmailAndIdNot(email, userId);
+    }
+
     // Profile updates — no password encoding
     public User updateProfile(User user) {
         return userRepo.save(user);
