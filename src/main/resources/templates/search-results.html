@@ -195,7 +195,7 @@
         <div class="card" th:each="p : ${results}">
             <div class="image-placeholder"></div>
             <div class="card-content">
-                <h3 th:text="${p.name}">Request Name</h3>
+                <h3 class="request-title-case" th:text="${p.name}">Request Name</h3>
                 <p>Quantity Required: <span th:text="${p.quantity}"></span></p>
                 <a class="view-btn" th:href="@{/products/{id}(id=${p.id})}">
                     View Request
@@ -209,6 +209,14 @@
         <h3>No requests found.</h3>
     </div>
 </div>
+
+<script>
+    document.querySelectorAll('.request-title-case').forEach(function (el) {
+        el.textContent = el.textContent.toLowerCase().replace(/\b\w/g, function (letter) {
+            return letter.toUpperCase();
+        });
+    });
+</script>
 
 </body>
 </html>
