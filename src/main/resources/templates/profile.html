@@ -21,6 +21,9 @@ h1{margin:0;font-size:42px;line-height:1.05;letter-spacing:-1.4px}.hero-copy{mar
 .history-summary{display:flex;align-items:center;gap:12px;padding:15px 17px;border-radius:14px;background:#f8fbff;border:1px solid #e0edff;margin-bottom:20px}.history-count{width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;background:var(--accent-soft);color:var(--accent);font-weight:850;flex:0 0 38px}.history-summary strong{display:block;font-size:13px}.history-summary span{display:block;margin-top:2px;color:var(--muted);font-size:12px}
 .history-list{display:grid;gap:10px}.history-row{display:grid;grid-template-columns:minmax(0,1.7fr) .9fr .55fr .75fr;align-items:center;gap:18px;padding:17px 18px;border:1px solid #edf0f4;border-radius:14px;background:#fff}.history-request{min-width:0}.request-name{display:block;color:var(--ink);font-size:14px;font-weight:750;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.request-meta{display:block;margin-top:4px;color:var(--soft);font-size:11px}.history-cell-label{display:block;color:var(--soft);font-size:10px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px}.history-cell-value{color:#475467;font-size:12px;line-height:1.4}
 .empty-history{padding:30px 20px;border:1px dashed #d7dce5;border-radius:15px;text-align:center;background:#fafbfc}.empty-history strong{display:block;font-size:14px}.empty-history p{margin:6px 0 16px;color:var(--muted);font-size:12px}
+.request-list{display:grid;gap:10px}.request-row{display:grid;grid-template-columns:minmax(0,1.55fr) .7fr .55fr .7fr .7fr;align-items:center;gap:16px;padding:16px 18px;border:1px solid #edf0f4;border-radius:14px;background:#fff}.request-main{min-width:0}.request-status{display:inline-flex;align-items:center;width:max-content;margin-top:6px;padding:4px 8px;border-radius:999px;background:#f2f4f7;color:#475467;font-size:10px;font-weight:800;letter-spacing:.04em}.request-status.pending{background:#fff7ed;color:#b45309}.request-status.accepted{background:#ecfdf3;color:#15803d}.request-status.rejected{background:#fef2f2;color:#b91c1c}.request-cell-label{display:block;color:var(--soft);font-size:10px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px}.request-cell-value{color:#475467;font-size:12px;line-height:1.4}
+@media(max-width:700px){.request-row{grid-template-columns:1fr 1fr;gap:14px}.request-main{grid-column:1/-1}}
+@media(max-width:460px){.request-row{grid-template-columns:1fr}}
 .account-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.account-link{display:flex;align-items:center;gap:13px;padding:17px;border:1px solid #edf0f4;border-radius:14px;color:var(--ink);text-decoration:none;transition:.18s ease}.account-link:hover{border-color:#bfdbfe;background:#f8fbff;transform:translateY(-1px)}.link-icon{width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;background:#f2f4f7;color:#475467;font-weight:850;flex:0 0 38px}.account-link strong{display:block;font-size:13px}.account-link span span{display:block;margin-top:3px;color:var(--muted);font-size:11px}
 @media(max-width:900px){.account-hero{align-items:flex-start;flex-direction:column}.hero-actions{justify-content:flex-start}.profile-shell{grid-template-columns:1fr}.profile-card{position:static}}
 @media(max-width:700px){.account-page{padding:34px 18px 64px}h1{font-size:34px}.content-card{padding:23px 20px}.profile-card{padding:23px}.info-grid,.account-links{grid-template-columns:1fr}.history-row{grid-template-columns:1fr 1fr;gap:14px}.history-request{grid-column:1/-1}}
@@ -81,9 +84,26 @@ h1{margin:0;font-size:42px;line-height:1.05;letter-spacing:-1.4px}.hero-copy{mar
 </div>
 </section>
 <section class="content-card">
+<div class="card-header"><div><h2 class="card-title">Requested donations</h2><p class="card-subtitle">Track the donation requests you've submitted and their approval status.</p></div><a class="btn btn-secondary" href="/donations/history">Full history</a></div>
+<div class="history-summary"><div class="history-count" th:text="${requestedDonations.size()}">0</div><div><strong>Requested donations</strong><span>Requests waiting for or completed by an organisation.</span></div></div>
+<div class="request-list" th:if="${requestedDonations.size() > 0}">
+<div class="request-row" th:each="r : ${requestedDonations}">
+<div class="request-main"><span class="request-name" th:text="${r.product.name}">Request Name</span><span class="request-status pending" th:if="${r.status.name() == 'PENDING'}">Pending</span><span class="request-status accepted" th:if="${r.status.name() == 'ACCEPTED'}">Accepted</span><span class="request-status rejected" th:if="${r.status.name() == 'REJECTED'}">Rejected</span></div>
+<div><span class="request-cell-label">Organisation</span><span class="request-cell-value" th:text="${r.seller.fullName != null and !#strings.isEmpty(r.seller.fullName) ? r.seller.fullName : r.seller.username}">Organisation</span></div>
+<div><span class="request-cell-label">Quantity</span><span class="request-cell-value" th:text="${r.status.name() == 'ACCEPTED' and r.approvedQuantity != null ? r.approvedQuantity : r.quantity}">1</span></div>
+<div><span class="request-cell-label">Condition</span><span class="request-cell-value" th:text="${r.condition}">New</span></div>
+<div><span class="request-cell-label">Submitted</span><span class="request-cell-value" th:text="${#temporals.format(r.createdAt, 'yyyy-MM-dd')}">2026-01-01</span></div>
+</div>
+</div>
+<div class="empty-history" th:if="${requestedDonations.size() == 0}">
+<strong>No requested donations yet</strong><p>When you submit a donation, it will appear here while the organisation reviews it.</p><a class="btn btn-primary" href="/">Browse Requests</a>
+</div>
+</section>
+<section class="content-card">
 <div class="card-header"><div><h2 class="card-title">Quick access</h2><p class="card-subtitle">Jump straight to the parts of GiveGrid you use most.</p></div></div>
 <div class="account-links">
 <a class="account-link" href="/donations/history"><span class="link-icon">↗</span><span><strong>Donation History</strong><span>Review your recent activity</span></span></a>
+<a class="account-link" href="/donations/history"><span class="link-icon">✓</span><span><strong>Requested Donations</strong><span>Track requests you've submitted</span></span></a>
 <a class="account-link" href="/cart"><span class="link-icon">✓</span><span><strong>Donation Basket</strong><span>Review requests you've selected</span></span></a>
 <a class="account-link" href="/account/edit"><span class="link-icon">✎</span><span><strong>Edit Profile</strong><span>Update your account details</span></span></a>
 <a th:if="${user.role == 'SELLER'}" class="account-link" href="/seller/dashboard"><span class="link-icon">▦</span><span><strong>Organisation Dashboard</strong><span>Manage your requests and activity</span></span></a>
