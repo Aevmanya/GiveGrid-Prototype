@@ -136,47 +136,7 @@
 
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm px-4 py-3">
-    <a class="navbar-brand fw-bold fs-3" href="/">GiveGrid</a>
-
-    <div class="collapse navbar-collapse">
-        <ul class="navbar-nav ms-auto align-items-center">
-
-            <form class="d-flex me-3" th:action="@{/search}" method="get" style="width: 350px;">
-                <input class="form-control" type="text" name="query" placeholder="Search requests..." />
-                <button class="btn btn-primary ms-2">Search</button>
-            </form>
-
-            <li class="nav-item" th:if="${#authorization.expr('hasRole(''BUYER'')')}">
-                <a class="btn btn-primary3 me-2" href="/cart">Donation Basket</a>
-            </li>
-
-            <li class="nav-item" th:if="${#authorization.expr('isAuthenticated()')}">
-                <a class="btn btn-warning me-2" href="/profile">Account</a>
-            </li>
-
-            <li class="nav-item" th:if="${#authorization.expr('hasRole(''SELLER'')')}">
-                <a class="btn btn-success me-2" href="/products/add">Add Request</a>
-            </li>
-
-            <li class="nav-item" th:if="${#authorization.expr('hasRole(''SELLER'')')}">
-                <a class="btn btn-outline-success me-3" href="/products">My Requests</a>
-            </li>
-
-            <li class="nav-item" th:if="${#authorization.expr('isAuthenticated()')}">
-                <a class="btn btn-danger" href="/logout">Logout</a>
-            </li>
-
-            <li class="nav-item" th:if="${#authorization.expr('isAnonymous()')}">
-                <a class="btn btn-primary me-2" href="/login">Login</a>
-            </li>
-
-            <li class="nav-item" th:if="${#authorization.expr('isAnonymous()')}">
-                <a class="btn btn-outline-secondary" href="/signup">Signup</a>
-            </li>
-        </ul>
-    </div>
-</nav>
+<div th:replace="~{donor-nav :: donor-nav}"></div>
 
 <div class="container mt-4">
 
