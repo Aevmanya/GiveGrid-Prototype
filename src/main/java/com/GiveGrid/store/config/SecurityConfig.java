@@ -53,7 +53,7 @@ public class SecurityConfig {
                                 "/css/**", "/js/**", "/images/**").permitAll()
 
                         // PUBLIC browsing
-                        .requestMatchers("/", "/products/*", "/search").permitAll()
+                        .requestMatchers("/", "/products", "/products/*", "/search").permitAll()
 
                         // SELLER ONLY
                         .requestMatchers("/products", "/products/add",
