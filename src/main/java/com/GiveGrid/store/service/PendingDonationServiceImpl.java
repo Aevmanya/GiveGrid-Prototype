@@ -66,7 +66,7 @@ public class PendingDonationServiceImpl implements PendingDonationService {
     @Override
     public void approve(Long id) {
         PendingDonation pd = repo.findById(id).orElse(null);
-        if (pd == null) return;
+        if (pd == null || pd.getStatus() != PendingDonation.Status.PENDING) return;
 
         Product product = pd.getProduct();
         if (product == null) return;
