@@ -13,7 +13,6 @@ import java.util.List;
 @Controller
 @RequestMapping("/seller/requests")
 public class SellerRequestsController {
-
     private final PendingDonationService pendingService;
     private final UserService userService;
 
@@ -26,6 +25,8 @@ public class SellerRequestsController {
     public String listRequests(Authentication auth, Model model) {
         if (auth == null) return "redirect:/login";
         User seller = userService.findByUsername(auth.getName());
+        if (seller == null) return "redirect:/login";
+        model.addAttribute("user", seller);
         List<PendingDonation> list = pendingService.getPendingForSeller(seller);
         model.addAttribute("requests", list);
         return "seller-requests";
@@ -34,7 +35,6 @@ public class SellerRequestsController {
     @PostMapping("/approve/{id}")
     public String approve(@PathVariable Long id, Authentication auth) {
         if (auth == null) return "redirect:/login";
-        // optionally verify seller owns the product/seller
         pendingService.approve(id);
         return "redirect:/seller/requests?approved";
     }
@@ -46,4 +46,3 @@ public class SellerRequestsController {
         return "redirect:/seller/requests?rejected";
     }
 }
-
