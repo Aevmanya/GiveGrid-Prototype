@@ -47,44 +47,38 @@ public class SecurityConfig {
                 .authenticationProvider(authProvider())
 
                 .authorizeHttpRequests(auth -> auth
-
-                        // PUBLIC PAGES
                         .requestMatchers("/login", "/signup",
                                 "/css/**", "/js/**", "/images/**").permitAll()
 
-                        // PUBLIC browsing
+                        // Public request browsing.
                         .requestMatchers("/", "/products", "/products/*", "/search").permitAll()
 
-                        // SELLER ONLY
-                        .requestMatchers("/products", "/products/add",
+                        // Organisation-only management actions.
+                        .requestMatchers("/products/add",
                                 "/products/edit/**", "/products/delete/**", "/seller/**")
                         .hasRole("SELLER")
 
-                        // BUYER ONLY
+                        // Donor-only donation actions.
                         .requestMatchers("/cart/**", "/checkout/**")
                         .hasRole("BUYER")
 
-                        // EVERYTHING ELSE REQUIRES LOGIN
                         .anyRequest().authenticated()
                 )
 
-                // LOGIN CONFIG
                 .formLogin(login -> login
                         .loginPage("/login")
                         .loginProcessingUrl("/login")
-                        .successHandler(successHandler)   // <-- REDIRECT BUYER/SELLER
+                        .successHandler(successHandler)
                         .failureUrl("/login?error=true")
                         .permitAll()
                 )
 
-                // REMEMBER-ME
                 .rememberMe(remember -> remember
                         .tokenValiditySeconds(60 * 60 * 24 * 30)
                         .key("SUPER_SECRET_KEY_CHANGE_ME")
                         .userDetailsService(userDetailsService)
                 )
 
-                // LOGOUT
                 .logout(logout -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/login?logout")
