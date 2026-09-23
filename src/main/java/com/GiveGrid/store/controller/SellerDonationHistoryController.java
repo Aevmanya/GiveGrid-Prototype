@@ -10,26 +10,21 @@ import org.springframework.security.core.Authentication;
 
 @Controller
 public class SellerDonationHistoryController {
-
     private final PendingDonationService pendingService;
     private final UserService userService;
 
-    public SellerDonationHistoryController(PendingDonationService pendingService,
-                                           UserService userService) {
+    public SellerDonationHistoryController(PendingDonationService pendingService, UserService userService) {
         this.pendingService = pendingService;
         this.userService = userService;
     }
 
     @GetMapping("/seller/donation/history")
     public String history(Authentication auth, Model model) {
-
         if (auth == null) return "redirect:/login";
-
         User seller = userService.findByUsername(auth.getName());
-
-        model.addAttribute("historyList",
-                pendingService.getApprovedForSeller(seller));
-
+        if (seller == null) return "redirect:/login";
+        model.addAttribute("user", seller);
+        model.addAttribute("historyList", pendingService.getApprovedForSeller(seller));
         return "seller-donation-history";
     }
 }
