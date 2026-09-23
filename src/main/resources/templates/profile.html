@@ -45,7 +45,7 @@ h1{margin:0;font-size:42px;line-height:1.05;letter-spacing:-1.4px}.hero-copy{mar
 <aside class="profile-card">
 <div class="avatar"><span th:text="${user.username.substring(0,1).toUpperCase()}">U</span></div>
 <h2 class="profile-name" th:text="${user.username}">Username</h2>
-<span class="profile-role" th:text="${user.role}">BUYER</span>
+<span class="profile-role" th:text="${user.role == 'BUYER' ? 'Donor' : user.role}">Donor</span>
 <p class="profile-email" th:text="${user.email}">email@example.com</p>
 <div class="profile-actions">
 <a class="btn btn-primary" href="/account/edit">Edit Profile</a>
