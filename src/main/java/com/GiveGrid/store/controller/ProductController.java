@@ -57,18 +57,17 @@ public class ProductController {
     @GetMapping("/products")
     public String listProducts(Model model, Authentication auth) {
 
-        if (auth == null) {
-            return "redirect:/login";
+        User currentUser = null;
+        if (auth != null && auth.isAuthenticated() && !"anonymousUser".equals(auth.getName())) {
+            currentUser = userService.findByUsername(auth.getName());
         }
 
-        String username = auth.getName();
-        User seller = userService.findByUsername(username);
-
-        if (seller == null) {
-            return "redirect:/login";
+        if (currentUser != null && "SELLER".equalsIgnoreCase(currentUser.getRole())) {
+            model.addAttribute("products", productService.getProductsBySeller(currentUser));
+        } else {
+            model.addAttribute("products", productService.getAllProducts());
         }
-
-        model.addAttribute("products", productService.getProductsBySeller(seller));
+        model.addAttribute("user", currentUser);
         return "products";
     }
 
