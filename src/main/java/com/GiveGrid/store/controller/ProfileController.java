@@ -2,6 +2,7 @@ package com.GiveGrid.store.controller;
 
 import com.GiveGrid.store.entity.User;
 import com.GiveGrid.store.repository.DonationRepository;
+import com.GiveGrid.store.service.PendingDonationService;
 import com.GiveGrid.store.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -18,6 +19,9 @@ public class ProfileController {
     @Autowired
     private DonationRepository donationRepository;
 
+    @Autowired
+    private PendingDonationService pendingDonationService;
+
     // View profile
     @GetMapping("/profile")
     public String viewProfile(Authentication auth, Model model) {
@@ -27,6 +31,7 @@ public class ProfileController {
         model.addAttribute("user", user);
 
         model.addAttribute("donations", donationRepository.findByUserOrderByDonatedAtDesc(user));
+        model.addAttribute("requestedDonations", pendingDonationService.getForBuyer(user));
 
         return "profile";
     }
