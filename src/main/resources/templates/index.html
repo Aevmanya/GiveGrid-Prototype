@@ -244,7 +244,7 @@
                         <div class="placeholder-img"></div>
 
                         <div class="p-3">
-                            <h5 class="fw-semibold" th:text="${p.name}">Request Name</h5>
+                            <h5 class="fw-semibold request-title-case" th:text="${p.name}">Request Name</h5>
 
                             <p class="text-muted mb-2">
                                 Quantity Required: <strong th:text="${p.quantity}">0</strong>
@@ -355,6 +355,14 @@
 
         apply();
     })();
+</script>
+
+<script>
+    document.querySelectorAll('.request-title-case').forEach(function (el) {
+        el.textContent = el.textContent.toLowerCase().replace(/\b\w/g, function (letter) {
+            return letter.toUpperCase();
+        });
+    });
 </script>
 
 </body>
