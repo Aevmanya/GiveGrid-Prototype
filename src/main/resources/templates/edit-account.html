@@ -1,43 +1,61 @@
-<div th:replace="~{donor-nav :: donor-nav}"></div>
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Edit Profile</title>
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edit Profile | GiveGrid</title>
+<style>
+:root{--ink:#172033;--muted:#667085;--soft:#98a2b3;--line:#e6e9ef;--bg:#f6f8fb;--surface:#fff;--accent:#2563eb}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+.edit-page{max-width:1080px;margin:0 auto;padding:50px 32px 88px}.edit-hero{margin-bottom:30px}.eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--accent);background:#eff6ff;border:1px solid #dbeafe;border-radius:999px;padding:7px 11px;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px}.dot{width:7px;height:7px;border-radius:50%;background:var(--accent)}
+h1{margin:0;font-size:42px;line-height:1.05;letter-spacing:-1.4px}.hero-copy{margin:10px 0 0;color:var(--muted);font-size:15px;line-height:1.6;max-width:650px}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:24px;align-items:start}.card{background:var(--surface);border:1px solid var(--line);border-radius:20px;box-shadow:0 8px 28px rgba(16,24,40,.05)}.form-card{padding:30px}.side-card{padding:25px;position:sticky;top:94px}
+.card-title{margin:0;font-size:19px;letter-spacing:-.35px}.card-subtitle{margin:6px 0 24px;color:var(--muted);font-size:13px;line-height:1.5}.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}.field{display:flex;flex-direction:column;gap:7px}.full{grid-column:1/-1}
+label{font-size:12px;font-weight:800;color:#344054}input{width:100%;min-height:47px;padding:11px 13px;border:1px solid #d9dee8;border-radius:11px;background:#fff;color:var(--ink);font:inherit;font-size:14px;outline:none}input:focus{border-color:#93c5fd;box-shadow:0 0 0 4px #eff6ff}.hint{font-size:11px;color:var(--soft)}
+.notice{padding:14px 16px;border:1px solid #bfdbfe;background:#eff6ff;color:#1e40af;border-radius:13px;margin-bottom:20px;font-size:13px;font-weight:650}.error{padding:14px 16px;border:1px solid #fecaca;background:#fef2f2;color:#991b1b;border-radius:13px;margin-bottom:20px;font-size:13px;font-weight:650}
+.actions{display:flex;gap:10px;margin-top:28px;padding-top:24px;border-top:1px solid var(--line)}.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 16px;border-radius:10px;text-decoration:none;font-size:13px;font-weight:750;border:0;cursor:pointer}.primary{background:var(--accent);color:#fff}.secondary{background:#fff;color:#344054;border:1px solid #d9dee8}
+.side-icon{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:#eff6ff;color:var(--accent);font-weight:850;margin-bottom:16px}.side-card h2{margin:0;font-size:17px}.side-card p{margin:8px 0 20px;color:var(--muted);font-size:13px;line-height:1.55}.check-list{display:grid;gap:12px}.check{display:flex;gap:10px;align-items:flex-start;color:#475467;font-size:12px;line-height:1.45}.check-mark{width:20px;height:20px;border-radius:7px;background:#eff6ff;color:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:900;flex:0 0 20px}
+@media(max-width:820px){.edit-page{padding:38px 20px 70px}.layout{grid-template-columns:1fr}.side-card{position:static}}
+@media(max-width:620px){h1{font-size:34px}.form-card{padding:22px}.grid{grid-template-columns:1fr}.full{grid-column:auto}.actions{flex-direction:column}.actions .btn{width:100%}}
+</style>
 </head>
 <body>
-
-<div class="container mt-5">
-    <h2>Edit Profile</h2>
-
-    <form th:action="@{/account/edit}" th:object="${user}" method="post" class="mt-3">
-
-        <!-- Hidden password so it does NOT get erased -->
-        <input type="hidden" th:field="*{password}" />
-        <input type="hidden" th:field="*{role}" />
-
-        <label>Full Name</label>
-        <input class="form-control" type="text" th:field="*{fullName}" required />
-
-        <label class="mt-3">Location</label>
-        <input class="form-control" type="text" th:field="*{location}" required />
-
-        <label class="mt-3">Address</label>
-        <input class="form-control" type="text" th:field="*{address}" required />
-
-        <label class="mt-3">Phone Number</label>
-        <input class="form-control" type="text" th:field="*{phone}" required />
-
-        <label class="mt-3">Age</label>
-        <input class="form-control" type="number" min="1" max="120" th:field="*{age}" required />
-
-        <button type="submit" class="btn btn-primary mt-4" href="/edit/success">Save Changes</button>
-        <a href="/profile" class="btn btn-secondary mt-4">Cancel</a>
-
-    </form>
-
+<div th:replace="~{donor-nav :: donor-nav}"></div>
+<main class="edit-page">
+<section class="edit-hero">
+<div>
+<div class="eyebrow"><span class="dot"></span>Account settings</div>
+<h1>Edit your profile</h1>
+<p class="hero-copy">Keep your personal details up to date so your GiveGrid account is complete and ready to use.</p>
 </div>
-
+</section>
+<div class="layout">
+<section class="card form-card">
+<h2 class="card-title">Personal information</h2>
+<p class="card-subtitle">All of these details are required to continue using GiveGrid.</p>
+<div class="notice" th:if="${param.completeProfile}">Please complete every personal detail before continuing.</div>
+<div class="error" th:if="${error}" th:text="${error}">Please complete every personal detail.</div>
+<form th:action="@{/account/edit}" th:object="${user}" method="post">
+<input type="hidden" th:field="*{password}" /><input type="hidden" th:field="*{role}" />
+<div class="grid">
+<div class="field full"><label for="fullName">Full name *</label><input id="fullName" type="text" th:field="*{fullName}" required autocomplete="name"></div>
+<div class="field"><label for="email">Email *</label><input id="email" type="email" th:field="*{email}" required autocomplete="email" readonly><span class="hint">Your account email is required and cannot be changed here.</span></div>
+<div class="field"><label for="phone">Phone number *</label><input id="phone" type="tel" th:field="*{phone}" required autocomplete="tel"></div>
+<div class="field"><label for="age">Age *</label><input id="age" type="number" min="1" max="120" th:field="*{age}" required></div>
+<div class="field"><label for="country">Country *</label><input id="country" type="text" th:field="*{location}" required autocomplete="country-name"><span class="hint">Enter the country where you currently live.</span></div>
+<div class="field full"><label for="address">Address *</label><input id="address" type="text" th:field="*{address}" required autocomplete="street-address"></div>
+</div>
+<div class="actions"><button type="submit" class="btn primary">Save &amp; Continue</button><a href="/profile" class="btn secondary">Cancel</a></div>
+</form>
+</section>
+<aside class="card side-card">
+<div class="side-icon">✓</div><h2>Profile complete</h2><p>Once these details are saved, you'll be able to continue using all of GiveGrid normally.</p>
+<div class="check-list">
+<div class="check"><span class="check-mark">✓</span><span>Required personal details are kept together in one place.</span></div>
+<div class="check"><span class="check-mark">✓</span><span>Your email stays linked to your account.</span></div>
+<div class="check"><span class="check-mark">✓</span><span>You can return here whenever your details change.</span></div>
+</div>
+</aside>
+</div>
+</main>
 </body>
 </html>
