@@ -36,6 +36,18 @@ public class DonationController {
         this.pendingDonationService = pendingDonationService; // ✅ FIX
     }
 
+    @GetMapping("/history")
+    public String donationHistory(Authentication auth, Model model) {
+        if (auth == null) return "redirect:/login";
+
+        User user = userService.findByUsername(auth.getName());
+        if (user == null) return "redirect:/login";
+
+        model.addAttribute("user", user);
+        model.addAttribute("appliedList", pendingDonationService.getForBuyer(user));
+        return "search-results";
+    }
+
     // Step 1: show cart items so buyer picks one to donate from
     @GetMapping("/select")
     public String selectDonationItem(Authentication auth, Model model) {
