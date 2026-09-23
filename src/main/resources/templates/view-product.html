@@ -54,7 +54,7 @@
 <div class="details-panel">
 <div class="eyebrow">Community request</div>
 <h1 class="request-title request-title-case" th:text="${product.name}">Request Name</h1>
-<p class="request-summary" th:text="${product.description}">Request description</p>
+<p class="request-summary" th:text="${product.seller.fullName != null and !#strings.isEmpty(product.seller.fullName) ? product.seller.fullName : product.seller.username}">Organisation Name</p>
 <div class="status-row"><span class="pill pill-quantity">Required: <strong th:text="${product.quantity}">0</strong></span><span class="pill pill-condition">Condition: <strong th:text="${product.condition}">New</strong></span></div>
 <div class="request-card"><div class="request-card-header">Help fulfil this request</div><div class="request-card-body">
 <div class="quantity-highlight">
