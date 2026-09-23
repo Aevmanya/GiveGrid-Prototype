@@ -18,13 +18,13 @@
 <a href="/seller/dashboard">Dashboard</a><a href="/products">My Requests</a><a href="/seller/requests">Donation Requests</a><a class="active" href="/seller/donation/history">Donation History</a><a class="account" href="/profile">Account</a>
 </nav></header>
 <main class="wrap"><p class="eyebrow">Organisation workspace</p><h1>Donation history</h1><p class="intro">A clear record of donations your organisation has accepted from the community.</p>
-<section class="panel"><div class="panel-head"><h2 class="panel-title">Accepted donations</h2><span class="panel-note" th:text="${{historyList != null ? historyList.size() + ' accepted' : '0 accepted'}">0 accepted</span></div>
-<div class="empty" th:if="${{historyList == null or #lists.isEmpty(historyList)}"><div class="empty-icon">✓</div><h2>No accepted donations yet</h2><p>Accepted donor submissions will appear here.</p></div>
-<div class="table-wrap" th:if="${{historyList != null and !#lists.isEmpty(historyList)}"><table><thead><tr><th>Donor</th><th>Request</th><th>Quantity</th><th>Condition</th><th>Accepted on</th></tr></thead>
-<tbody><tr th:each="r : ${{historyList}">
-<td><span th:if="${{r.buyer != null and r.buyer.fullName != null and !#strings.isEmpty(r.buyer.fullName)}" th:text="${{r.buyer.fullName}">Donor</span><span th:unless="${{r.buyer != null and r.buyer.fullName != null and !#strings.isEmpty(r.buyer.fullName)}" class="muted" th:text="${{r.buyer != null ? r.buyer.username : 'Donor'}">Donor</span></td>
-<td class="request" th:text="${{r.product != null ? r.product.name : 'Request'}">Request</td>
-<td><span class="pill" th:text="${{r.quantity != null ? r.quantity + ' items' : '—'}">1 items</span></td>
-<td th:text="${{r.condition != null ? r.condition : 'Not specified'}">New</td>
-<td class="muted" th:text="${{r.approvedAt != null ? r.approvedAt : '—'}">—</td>
+<section class="panel"><div class="panel-head"><h2 class="panel-title">Accepted donations</h2><span class="panel-note" th:text="${historyList != null ? historyList.size() + ' accepted' : '0 accepted'}">0 accepted</span></div>
+<div class="empty" th:if="${historyList == null or #lists.isEmpty(historyList)}"><div class="empty-icon">✓</div><h2>No accepted donations yet</h2><p>Accepted donor submissions will appear here.</p></div>
+<div class="table-wrap" th:if="${historyList != null and !#lists.isEmpty(historyList)}"><table><thead><tr><th>Donor</th><th>Request</th><th>Quantity</th><th>Condition</th><th>Accepted on</th></tr></thead>
+<tbody><tr th:each="r : ${historyList}">
+<td><span th:if="${r.buyer != null and r.buyer.fullName != null and !#strings.isEmpty(r.buyer.fullName)}" th:text="${r.buyer.fullName}">Donor</span><span th:unless="${r.buyer != null and r.buyer.fullName != null and !#strings.isEmpty(r.buyer.fullName)}" class="muted" th:text="${r.buyer != null ? r.buyer.username : 'Donor'}">Donor</span></td>
+<td class="request" th:text="${r.product != null ? r.product.name : 'Request'}">Request</td>
+<td><span class="pill" th:text="${r.quantity != null ? r.quantity + ' items' : '—'}">1 items</span></td>
+<td th:text="${r.condition != null ? r.condition : 'Not specified'}">New</td>
+<td class="muted" th:text="${r.approvedAt != null ? r.approvedAt : '—'}">—</td>
 </tr></tbody></table></div></section></main></body></html>
