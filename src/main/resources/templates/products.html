@@ -54,7 +54,7 @@
             <tr th:each="product, iter : ${products}">
                 <td th:text="${iter.count}"></td>
 
-                <td th:text="${product.name}"></td>
+                <td class="request-title-case" th:text="${product.name}"></td>
 
                 <td th:text="${product.quantity}"></td>
                 <td th:text="${product.condition}"></td>
@@ -74,6 +74,14 @@
     </div>
 
 </div>
+
+<script>
+    document.querySelectorAll('.request-title-case').forEach(function (el) {
+        el.textContent = el.textContent.toLowerCase().replace(/\b\w/g, function (letter) {
+            return letter.toUpperCase();
+        });
+    });
+</script>
 
 </body>
 </html>
