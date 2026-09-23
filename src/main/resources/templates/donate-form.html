@@ -30,30 +30,30 @@ h1{margin:0 0 10px;font-size:40px;line-height:1.08;letter-spacing:-1.5px}.intro{
 <p class="intro">Choose how many items you would like to donate and tell the organisation what condition each item is in.</p>
 <div class="layout">
 <section class="card main-card">
-<div th:if="\${error}" class="error" th:text="\${error}">Invalid donation quantity.</div>
+<div th:if="${error}" class="error" th:text="${error}">Invalid donation quantity.</div>
 <div class="request-head">
 <div class="request-icon">✓</div><div>
-<h2 class="request-name request-title-case" th:text="\${item.product.name}">Request Name</h2>
-<p class="request-meta"><span th:text="\${item.product.quantity + ' items required'}">10 items required</span><span> · </span><span th:text="\${item.quantity + ' in donation basket'}">2 in donation basket</span></p>
+<h2 class="request-name request-title-case" th:text="${item.product.name}">Request Name</h2>
+<p class="request-meta"><span th:text="${item.product.quantity + ' items required'}">10 items required</span><span> · </span><span th:text="${item.quantity + ' in donation basket'}">2 in donation basket</span></p>
 </div></div>
 <div class="section">
 <h3 class="section-title">How many will you donate?</h3>
 <p class="section-copy">You can donate up to the number of items currently in your donation basket for this request.</p>
 <div class="quantity-control">
-<div><label for="donateCount">Donation quantity</label><small>Maximum: <span th:text="\${item.quantity}">2</span> items</small></div>
-<input id="donateCount" class="quantity-input" type="number" name="donateCount" min="1" th:attr="max=\${item.quantity}" value="1" form="donationForm" required>
+<div><label for="donateCount">Donation quantity</label><small>Maximum: <span th:text="${item.quantity}">2</span> items</small></div>
+<input id="donateCount" class="quantity-input" type="number" name="donateCount" min="1" th:attr="max=${item.quantity}" value="1" form="donationForm" required>
 </div></div>
 <div class="section">
 <h3 class="section-title">Item condition</h3><p class="section-copy">Select the condition for each item you are donating.</p>
 <div id="unitBoxes" class="unit-list"></div>
 </div>
-<form action="/donate/submit" method="post" id="donationForm"><input type="hidden" name="itemId" th:value="\${item.id}"><button type="submit" class="submit-btn">Submit Donation</button></form>
+<form action="/donate/submit" method="post" id="donationForm"><input type="hidden" name="itemId" th:value="${item.id}"><button type="submit" class="submit-btn">Submit Donation</button></form>
 </section>
 <aside class="card side-card"><h2>Almost there</h2><p>Your donation will be sent to the organisation for review. You can track its status later from Donation History.</p>
 <ul class="side-list"><li><span class="check">✓</span><span>Choose the quantity you can provide.</span></li><li><span class="check">✓</span><span>Describe the condition of each item.</span></li><li><span class="check">✓</span><span>The organisation will review your donation.</span></li></ul></aside>
 </div></main>
 <script>
-document.querySelectorAll('.request-title-case').forEach(function(el){el.textContent=el.textContent.toLowerCase().replace(/\\b\\w/g,function(letter){return letter.toUpperCase();});});
+document.querySelectorAll('.request-title-case').forEach(function(el){el.textContent=el.textContent.toLowerCase().replace(/\b\w/g,function(letter){return letter.toUpperCase();});});
 const donateCountInput=document.getElementById('donateCount'),unitBoxes=document.getElementById('unitBoxes'),form=document.getElementById('donationForm');
 const maxAllowed=parseInt(donateCountInput.max||'1',10);
 function renderBoxes(){unitBoxes.innerHTML='';let count=parseInt(donateCountInput.value||'1',10);if(!Number.isFinite(count)||count<1)count=1;if(count>maxAllowed)count=maxAllowed;donateCountInput.value=count;
