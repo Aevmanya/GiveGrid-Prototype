@@ -51,6 +51,7 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 
     private boolean isProfileComplete(User user) {
         return hasText(user.getFullName())
+                && hasText(user.getEmail())
                 && user.getAge() != null
                 && hasText(user.getPhone())
                 && hasText(user.getAddress())
