@@ -38,7 +38,7 @@ label{font-size:12px;font-weight:800;color:#344054}input{width:100%;min-height:4
 <input type="hidden" th:field="*{password}" /><input type="hidden" th:field="*{role}" />
 <div class="grid">
 <div class="field full"><label for="fullName">Full name *</label><input id="fullName" type="text" th:field="*{fullName}" required autocomplete="name"></div>
-<div class="field"><label for="email">Email *</label><input id="email" type="email" th:field="*{email}" required autocomplete="email" readonly><span class="hint">Your account email is required and cannot be changed here.</span></div>
+<div class="field"><label for="email">Email *</label><input id="email" type="email" th:field="*{email}" required autocomplete="email"><span class="hint">Use an email address you can access. This will be saved to your account.</span></div>
 <div class="field"><label for="phone">Phone number *</label><input id="phone" type="tel" th:field="*{phone}" required autocomplete="tel"></div>
 <div class="field"><label for="age">Age *</label><input id="age" type="number" min="1" max="120" th:field="*{age}" required></div>
 <div class="field"><label for="country">Country *</label><input id="country" type="text" th:field="*{location}" required autocomplete="country-name"><span class="hint">Enter the country where you currently live.</span></div>
