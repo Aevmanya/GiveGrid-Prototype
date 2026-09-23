@@ -3,213 +3,133 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title> Search Results - GiveGrid</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donation History - GiveGrid</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f1f5f9;
-            margin: 0;
-            padding: 0;
+        :root{
+            --ink:#172033;
+            --muted:#667085;
+            --soft:#f6f8fb;
+            --line:#e4e7ec;
+            --blue:#2563eb;
+            --green:#15803d;
+            --amber:#b45309;
+            --red:#b42318;
         }
-
-        /* NAVIGATION BAR */
-        .nav {
-            background: white;
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #e2e8f0;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 10;
+        *{box-sizing:border-box}
+        body{margin:0;background:#f5f7fb;color:var(--ink);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+        .history-page{max-width:1180px;margin:0 auto;padding:48px 32px 90px}
+        .history-hero{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-bottom:34px}
+        .eyebrow{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:10px}
+        h1{font-size:42px;line-height:1.05;letter-spacing:-1.5px;margin:0 0 12px}
+        .hero-copy{max-width:650px;color:var(--muted);font-size:16px;line-height:1.65;margin:0}
+        .summary-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px 22px;min-width:150px;text-align:center;box-shadow:0 8px 24px rgba(16,24,40,.05)}
+        .summary-number{display:block;font-size:30px;font-weight:800;letter-spacing:-1px}
+        .summary-label{color:var(--muted);font-size:12px;font-weight:700}
+        .history-card{background:#fff;border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:0 12px 35px rgba(16,24,40,.06)}
+        .history-head{padding:22px 26px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+        .history-head h2{font-size:18px;margin:0}
+        .history-head span{color:var(--muted);font-size:13px}
+        .donation-list{display:flex;flex-direction:column}
+        .donation-row{display:grid;grid-template-columns:minmax(240px,1.6fr) 1fr 110px 130px 110px;gap:20px;align-items:center;padding:22px 26px;border-bottom:1px solid #eef0f3}
+        .donation-row:last-child{border-bottom:0}
+        .request-name{font-size:16px;font-weight:800;margin-bottom:5px}
+        .organisation{font-size:13px;color:var(--muted)}
+        .meta-label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.07em;font-weight:800;color:#98a2b3;margin-bottom:5px}
+        .meta-value{font-size:14px;font-weight:650;color:#344054}
+        .status{display:inline-flex;align-items:center;justify-content:center;padding:7px 11px;border-radius:999px;font-size:12px;font-weight:800}
+        .status-PENDING{background:#fff7ed;color:var(--amber)}
+        .status-ACCEPTED{background:#ecfdf3;color:var(--green)}
+        .status-REJECTED{background:#fef3f2;color:var(--red)}
+        .empty{padding:64px 30px;text-align:center}
+        .empty-icon{width:56px;height:56px;border-radius:16px;background:#eff6ff;color:var(--blue);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:24px;font-weight:900}
+        .empty h3{margin:0 0 8px;font-size:20px}
+        .empty p{margin:0 auto 22px;max-width:440px;color:var(--muted);line-height:1.6}
+        .browse-btn{display:inline-block;background:var(--blue);color:#fff;text-decoration:none;font-weight:800;padding:11px 18px;border-radius:10px}
+        @media(max-width:900px){
+            .donation-row{grid-template-columns:1fr 1fr}
+            .donation-row .status-wrap{justify-self:start}
         }
-
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
+        @media(max-width:600px){
+            .history-page{padding:32px 16px 70px}
+            .history-hero{display:block}
+            .summary-card{margin-top:20px;display:inline-block}
+            h1{font-size:34px}
+            .donation-row{grid-template-columns:1fr;padding:20px}
+            .history-head{padding:20px}
         }
-
-        .nav .search-bar {
-            display: flex;
-            gap: 10px;
-            width: 400px;
-        }
-
-        .nav input {
-            flex: 1;
-            padding: 8px 14px;
-            border-radius: 8px;
-            border: 1px solid #cbd5e1;
-            outline: none;
-            font-size: 14px;
-        }
-
-        .nav button {
-            background: #2563eb;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        /* SIDEBAR */
-        .sidebar {
-            position: fixed;
-            top: 70px;
-            left: 0;
-            width: 260px;
-            height: calc(100vh - 70px);
-            background: #f8fafc;
-            padding: 25px;
-            border-right: 1px solid #e2e8f0;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            margin-right: 100px;
-        }
-
-        .sidebar-content {
-            flex-grow: 1;
-        }
-
-        .home-btn {
-            background: #2563eb;
-            color: white;
-            text-align: center;
-            padding: 15px;
-            border-radius: 15px;
-            text-decoration: none;
-            font-weight: bold;
-            display: block;
-            margin-top: 60px;
-            margin-bottom: 40px;
-        }
-
-        .home-btn:hover {
-            background: #1d4ed8;
-        }
-
-        /* MAIN CONTENT */
-        .main-content {
-            margin-left: 260px;
-            padding: 110px 40px 40px;
-        }
-
-        h2 {
-            margin-bottom: 30px;
-        }
-
-        /* GRID */
-        .results-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-            padding-left: 20px;
-        }
-
-        /* REQUEST CARD */
-        .card {
-            background: white;
-            border-radius: 14px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-            overflow: hidden;
-            transition: transform .2s ease;
-        }
-
-        .card:hover {
-            transform: scale(1.02);
-        }
-
-        .image-placeholder {
-            height: 180px;
-            background: #d1d5db;
-            width: 100%;
-        }
-
-        .card-content {
-            padding: 20px;
-        }
-
-        .view-btn {
-            display: block;
-            width: 93%;
-            text-align: center;
-            border: 1px solid #2563eb;
-            padding: 10px;
-            border-radius: 8px;
-            margin-top: 10px;
-            text-decoration: none;
-            color: #2563eb;
-            font-weight: bold;
-        }
-
-        .view-btn:hover {
-            background: #2563eb;
-            color: white;
-        }
-
-        h2 {
-            margin-left: 28px;
-        }
-        .text{
-            margin-left: 33px;
-        }
-
     </style>
-
 </head>
 <body>
-
-<!-- NAV BAR -->
-<div class="nav">
-    <div class="logo">GiveGrid</div>
-
-    <form class="search-bar" method="get" action="/search">
-        <input name="query" type="text" placeholder="Search requests..."
-               th:value="${query}">
-        <button type="submit">Search</button>
-    </form>
-</div>
-
-<!-- SIDEBAR -->
-<div class="sidebar">
-    <div class="sidebar-content">
-        <h3>Filters</h3>
-        <p>(Your filters here)</p>
-    </div>
-
-    <!-- HOME BUTTON ADDED -->
-    <a href="/" class="home-btn">Home</a>
-</div>
-
-<!-- MAIN CONTENT -->
-<div class="main-content">
-    <h2>Search Results for "<span th:text="${query}"></span>"</h2>
-
-    <div class="results-grid" th:if="${results.size() > 0}">
-        <div class="card" th:each="p : ${results}">
-            <div class="image-placeholder"></div>
-            <div class="card-content">
-                <h3 class="request-title-case" th:text="${p.name}">Request Name</h3>
-                <p>Quantity Required: <span th:text="${p.quantity}"></span></p>
-                <a class="view-btn" th:href="@{/products/{id}(id=${p.id})}">
-                    View Request
-                </a>
-            </div>
+<main class="history-page">
+    <section class="history-hero">
+        <div>
+            <div class="eyebrow">Your activity</div>
+            <h1>Donation History</h1>
+            <p class="hero-copy">
+                Keep track of every request you've offered to help with, including donations
+                waiting for approval and those already accepted.
+            </p>
         </div>
-    </div>
+        <div class="summary-card">
+            <span class="summary-number" th:text="${#lists.size(appliedList)}">0</span>
+            <span class="summary-label">donation requests</span>
+        </div>
+    </section>
 
-    <!-- If empty -->
-    <div th:if="${results.size() == 0}" style="margin-top: 20px;" class="text">
-        <h3>No requests found.</h3>
-    </div>
-</div>
+    <section class="history-card">
+        <div class="history-head">
+            <h2>Your donations</h2>
+            <span th:text="${#lists.size(appliedList) + ' total'}">0 total</span>
+        </div>
+
+        <div class="donation-list" th:if="${!#lists.isEmpty(appliedList)}">
+            <article class="donation-row" th:each="donation : ${appliedList}">
+                <div>
+                    <div class="request-name request-title-case" th:text="${donation.product.name}">Request Name</div>
+                    <div class="organisation"
+                         th:text="${donation.seller.fullName != null and !#strings.isEmpty(donation.seller.fullName) ? donation.seller.fullName : donation.seller.username}">
+                        Organisation Name
+                    </div>
+                </div>
+
+                <div>
+                    <span class="meta-label">Submitted</span>
+                    <span class="meta-value"
+                          th:text="${#temporals.format(donation.createdAt, 'dd MMM yyyy, HH:mm')}">
+                        23 Sep 2026, 10:00
+                    </span>
+                </div>
+
+                <div>
+                    <span class="meta-label">Quantity</span>
+                    <span class="meta-value" th:text="${donation.quantity + ' items'}">2 items</span>
+                </div>
+
+                <div>
+                    <span class="meta-label">Condition</span>
+                    <span class="meta-value" th:text="${donation.condition}">New</span>
+                </div>
+
+                <div class="status-wrap">
+                    <span class="status"
+                          th:classappend="' status-' + ${donation.status.name()}"
+                          th:text="${donation.status.name()}">PENDING</span>
+                </div>
+            </article>
+        </div>
+
+        <div class="empty" th:if="${#lists.isEmpty(appliedList)}">
+            <div class="empty-icon">✓</div>
+            <h3>No donation history yet</h3>
+            <p>
+                Once you add a request to your Donation Basket and submit a donation,
+                it will appear here.
+            </p>
+            <a class="browse-btn" href="/">Browse Requests</a>
+        </div>
+    </section>
+</main>
 
 <script>
     document.querySelectorAll('.request-title-case').forEach(function (el) {
@@ -218,6 +138,5 @@
         });
     });
 </script>
-
 </body>
 </html>
