@@ -12,7 +12,7 @@
 .donor-basket-link{color:#2563eb;border:1px solid #bfdbfe;background:#fff}
 @media(max-width:600px){
  .donor-topbar-inner{padding:0 16px}
- .donor-top-actions .donor-nav-link:not(.donor-basket-link){display:none}
+ .donor-top-actions .donor-nav-link{padding:8px 9px}
  .donor-brand{font-size:22px}
 }
 </style>
@@ -22,7 +22,7 @@
             <span class="donor-brand-mark">G</span>GiveGrid
         </a>
         <nav class="donor-top-actions" aria-label="Main navigation">
-            <a class="donor-nav-link" href="/donations/history">History</a>
+            <a class="donor-nav-link" th:if="${user != null}" href="/donations/history">History</a>
             <a class="donor-nav-link donor-basket-link"
                th:if="${user != null and user.role == 'BUYER'}"
                href="/cart">Donation Basket</a>
