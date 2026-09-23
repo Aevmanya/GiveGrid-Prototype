@@ -1,12 +1,30 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Donation History | GiveGrid</title>
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Donation History | GiveGrid</title>
 <style>
-body{margin:0;background:#f6f8fb;color:#172033;font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif}.top{min-height:72px;background:#fff;border-bottom:1px solid #e6e9ef;display:flex;align-items:center;justify-content:space-between;padding:12px 28px;box-sizing:border-box}.brand{font-size:24px;font-weight:800;color:#172033;text-decoration:none}.nav{display:flex;gap:8px;flex-wrap:wrap}.nav a{padding:9px 12px;border-radius:9px;text-decoration:none;color:#475467;font-size:14px;font-weight:650}.nav a:hover,.nav .active{background:#f2f4f7}.account{border:1px solid #bfdbfe;color:#2563eb!important}.wrap{max-width:1160px;margin:0 auto;padding:48px 24px}.eyebrow{margin:0 0 8px;color:#2563eb;font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}h1{margin:0;font-size:40px;letter-spacing:-1.4px}.intro{color:#667085;line-height:1.6;margin:12px 0 28px}.panel{background:#fff;border:1px solid #e6e9ef;border-radius:18px;overflow:auto}.empty{text-align:center;padding:56px 20px}.empty h2{margin:0 0 8px}.empty p{margin:0;color:#667085}table{width:100%;min-width:720px;border-collapse:collapse}th{padding:14px 18px;background:#f8fafc;text-align:left;color:#667085;font-size:12px;text-transform:uppercase}td{padding:16px 18px;border-top:1px solid #eef1f5;font-size:14px}.pill{display:inline-block;padding:6px 9px;border-radius:999px;background:#ecfdf3;color:#15803d;font-size:12px;font-weight:700}
-</style></head><body>
-<header class="top"><a class="brand" href="/seller/dashboard">GiveGrid</a><nav class="nav"><a href="/seller/dashboard">Dashboard</a><a href="/products">My Requests</a><a href="/seller/requests">Donation Requests</a><a class="active" href="/seller/donation/history">Donation History</a><a class="account" href="/profile">Account</a></nav></header>
-<main class="wrap"><p class="eyebrow">Organisation workspace</p><h1>Donation history</h1><p class="intro">A record of donations your organisation has accepted.</p>
-<section class="panel"><div class="empty" th:if="${historyList == null or #lists.isEmpty(${historyList)"><h2>No accepted donations yet</h2><p>Accepted donor submissions will appear here.</p></div>
-<table th:if="${historyList != null and !#lists.isEmpty(${historyList)"><thead><tr><th>Donor</th><th>Request</th><th>Quantity</th><th>Condition</th><th>Accepted on</th></tr></thead><tbody>
-<tr th:each="r : ${historyList"><td th:text="${r.buyer != null ? (${r.buyer.fullName != null and !#strings.isEmpty(${r.buyer.fullName) ? ${r.buyer.fullName : ${r.buyer.username) : 'Donor'">Donor</td><td th:text="${r.product != null ? ${r.product.name : 'Request'">Request</td><td><span class="pill" th:text="${r.quantity != null ? ${r.quantity + ' items' : '—'">1 items</span></td><td th:text="${r.condition != null ? ${r.condition : 'Not specified'">New</td><td th:text="${r.approvedAt != null ? ${r.approvedAt : '—'">—</td></tr>
-</tbody></table></section></main></body></html>
+:root{--ink:#172033;--muted:#667085;--line:#e6e9ef;--blue:#2563eb}
+*{box-sizing:border-box}body{margin:0;background:#f7f9fc;color:var(--ink);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+.top{min-height:72px;background:rgba(255,255,255,.97);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:12px 28px;position:sticky;top:0;z-index:10;backdrop-filter:blur(12px)}
+.brand{font-size:24px;font-weight:800;color:var(--ink);text-decoration:none;letter-spacing:-.6px}.nav{display:flex;gap:7px;flex-wrap:wrap;align-items:center}.nav a{padding:9px 12px;border-radius:9px;text-decoration:none;color:#475467;font-size:14px;font-weight:650}.nav a:hover,.nav .active{background:#f2f4f7;color:var(--ink)}.account{border:1px solid #bfdbfe;color:var(--blue)!important;background:#fff}
+.wrap{max-width:1160px;margin:0 auto;padding:48px 24px 64px}.eyebrow{margin:0 0 8px;color:var(--blue);font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}h1{margin:0;font-size:40px;line-height:1.08;letter-spacing:-1.5px}.intro{max-width:680px;color:var(--muted);line-height:1.65;margin:12px 0 28px}
+.panel{background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:0 12px 35px rgba(16,24,40,.05);overflow:hidden}.panel-head{padding:20px 22px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:16px}.panel-title{margin:0;font-size:16px}.panel-note{color:var(--muted);font-size:13px}
+.empty{text-align:center;padding:68px 20px}.empty-icon{width:46px;height:46px;border-radius:14px;background:#ecfdf3;color:#15803d;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-weight:900}.empty h2{margin:0 0 8px;font-size:20px}.empty p{margin:0;color:var(--muted)}
+.table-wrap{overflow:auto}table{width:100%;min-width:760px;border-collapse:collapse}th{padding:13px 18px;background:#fafbfc;text-align:left;color:#667085;font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:800}td{padding:16px 18px;border-top:1px solid #eef1f5;font-size:14px;vertical-align:middle}.request{font-weight:750}.muted{color:var(--muted)}.pill{display:inline-flex;padding:6px 9px;border-radius:999px;background:#ecfdf3;color:#15803d;font-size:12px;font-weight:750}
+@media(max-width:760px){.top{align-items:flex-start;padding:14px 16px}.nav{justify-content:flex-end}.wrap{padding:34px 16px 48px}h1{font-size:34px}.panel-head{align-items:flex-start;flex-direction:column}}
+</style></head>
+<body><header class="top"><a class="brand" href="/seller/dashboard">GiveGrid</a><nav class="nav" aria-label="Organisation navigation">
+<a href="/seller/dashboard">Dashboard</a><a href="/products">My Requests</a><a href="/seller/requests">Donation Requests</a><a class="active" href="/seller/donation/history">Donation History</a><a class="account" href="/profile">Account</a>
+</nav></header>
+<main class="wrap"><p class="eyebrow">Organisation workspace</p><h1>Donation history</h1><p class="intro">A clear record of donations your organisation has accepted from the community.</p>
+<section class="panel"><div class="panel-head"><h2 class="panel-title">Accepted donations</h2><span class="panel-note" th:text="${{historyList != null ? historyList.size() + ' accepted' : '0 accepted'}">0 accepted</span></div>
+<div class="empty" th:if="${{historyList == null or #lists.isEmpty(historyList)}"><div class="empty-icon">✓</div><h2>No accepted donations yet</h2><p>Accepted donor submissions will appear here.</p></div>
+<div class="table-wrap" th:if="${{historyList != null and !#lists.isEmpty(historyList)}"><table><thead><tr><th>Donor</th><th>Request</th><th>Quantity</th><th>Condition</th><th>Accepted on</th></tr></thead>
+<tbody><tr th:each="r : ${{historyList}">
+<td><span th:if="${{r.buyer != null and r.buyer.fullName != null and !#strings.isEmpty(r.buyer.fullName)}" th:text="${{r.buyer.fullName}">Donor</span><span th:unless="${{r.buyer != null and r.buyer.fullName != null and !#strings.isEmpty(r.buyer.fullName)}" class="muted" th:text="${{r.buyer != null ? r.buyer.username : 'Donor'}">Donor</span></td>
+<td class="request" th:text="${{r.product != null ? r.product.name : 'Request'}">Request</td>
+<td><span class="pill" th:text="${{r.quantity != null ? r.quantity + ' items' : '—'}">1 items</span></td>
+<td th:text="${{r.condition != null ? r.condition : 'Not specified'}">New</td>
+<td class="muted" th:text="${{r.approvedAt != null ? r.approvedAt : '—'}">—</td>
+</tr></tbody></table></div></section></main></body></html>
