@@ -13,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/donate")
 public class DonationController {
 
     private final CartService cartService;
@@ -31,15 +30,8 @@ public class DonationController {
         this.pendingDonationService = pendingDonationService;
     }
 
-    @GetMapping("/history")
+    @GetMapping({"/donate/history", "/donations/history"})
     public String donationHistory(Authentication auth, Model model) {
-        return renderDonationHistory(auth, model);
-    }
-
-    // Public-facing donor navigation uses /donations/history.
-    // Keep /donate/history above as a backwards-compatible alias.
-    @GetMapping("/donations/history")
-    public String donationHistoryAlias(Authentication auth, Model model) {
         return renderDonationHistory(auth, model);
     }
 
@@ -54,7 +46,7 @@ public class DonationController {
         return "search-results";
     }
 
-    @GetMapping("/select")
+    @GetMapping("/donate/select")
     public String selectDonationItem(Authentication auth, Model model) {
         if (auth == null) return "redirect:/login";
 
@@ -66,7 +58,7 @@ public class DonationController {
         return "donate-select";
     }
 
-    @GetMapping("/form/{itemId}")
+    @GetMapping("/donate/form/{itemId}")
     public String donationForm(@PathVariable Long itemId, Authentication auth, Model model) {
         if (auth == null) return "redirect:/login";
 
@@ -84,7 +76,7 @@ public class DonationController {
         return "donate-form";
     }
 
-    @PostMapping("/submit")
+    @PostMapping("/donate/submit")
     public String submitDonation(@RequestParam Long itemId,
                                  @RequestParam Integer donateCount,
                                  @RequestParam(name = "condition", required = false) String[] conditions,
