@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.core.Authentication;
+import org.springframework.dao.DataIntegrityViolationException;
 
 @Controller
 public class AuthController {
@@ -87,7 +88,7 @@ public class AuthController {
 
         String newEmail = updated.getEmail().trim();
         if (!newEmail.equalsIgnoreCase(existing.getEmail() == null ? "" : existing.getEmail().trim())
-                && userService.emailExists(newEmail)) {
+                && userService.emailExistsForAnotherUser(newEmail, existing.getId())) {
             model.addAttribute("user", existing);
             model.addAttribute("error", "That email address is already in use.");
             return "edit-account";
@@ -101,7 +102,13 @@ public class AuthController {
         existing.setPhone(updated.getPhone().trim());
         existing.setAge(updated.getAge());
 
-        userService.updateProfile(existing);
+        try {
+            userService.updateProfile(existing);
+        } catch (DataIntegrityViolationException ex) {
+            model.addAttribute("user", existing);
+            model.addAttribute("error", "That email address is already in use.");
+            return "edit-account";
+        }
 
         return "redirect:/profile?updated=true";
     }
