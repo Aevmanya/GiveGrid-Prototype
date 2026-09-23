@@ -66,21 +66,37 @@ public class AuthController {
 
     // HANDLE PROFILE EDIT
     @PostMapping("/account/edit")
-    public String updateProfile(@ModelAttribute("user") User updated, Authentication auth) {
+    public String updateProfile(@ModelAttribute("user") User updated, Authentication auth, Model model) {
 
         if (auth == null) return "redirect:/login";
 
         User existing = userService.findByUsername(auth.getName());
 
+        if (!hasText(updated.getFullName())
+                || updated.getAge() == null
+                || updated.getAge() < 1
+                || updated.getAge() > 120
+                || !hasText(updated.getPhone())
+                || !hasText(updated.getAddress())
+                || !hasText(updated.getLocation())) {
+            model.addAttribute("user", existing);
+            model.addAttribute("error", "Please complete every personal detail before continuing.");
+            return "edit-account";
+        }
+
         // Update editable fields only
-        existing.setFullName(updated.getFullName());
-        existing.setLocation(updated.getLocation());
-        existing.setAddress(updated.getAddress());
-        existing.setPhone(updated.getPhone());
+        existing.setFullName(updated.getFullName().trim());
+        existing.setLocation(updated.getLocation().trim());
+        existing.setAddress(updated.getAddress().trim());
+        existing.setPhone(updated.getPhone().trim());
         existing.setAge(updated.getAge());
 
         userService.updateProfile(existing);
 
-        return "redirect:/account?updated=true";
+        return "redirect:/profile?updated=true";
+    }
+
+    private boolean hasText(String value) {
+        return value != null && !value.trim().isEmpty();
     }
 }
