@@ -68,7 +68,7 @@ h1{margin:0;font-size:42px;line-height:1.05;letter-spacing:-1.4px}.hero-copy{mar
 <div class="info-item"><span class="info-label">Location</span><span class="info-value" th:text="${user.location != null and !#strings.isEmpty(user.location) ? user.location : 'Not provided'}">Not provided</span></div>
 </div>
 </section>
-<section class="content-card" th:if="${user.role != 'SELLER'}">
+<section class="content-card" th:if="${user.role == 'BUYER'}">
 <div class="card-header"><div><h2 class="card-title">Donation activity</h2><p class="card-subtitle">Your latest accepted donations, with up to three shown here.</p></div><a class="btn btn-secondary" href="/donations/history">Full history</a></div>
 <div class="history-summary"><div class="history-count" th:text="${donationCount}">0</div><div><strong>Recorded donations</strong><span>Requests you've contributed to from this account.</span></div></div>
 <div class="history-list" th:if="${!#lists.isEmpty(donations)}">
