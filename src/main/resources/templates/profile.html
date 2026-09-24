@@ -84,10 +84,10 @@ h1{margin:0;font-size:42px;line-height:1.05;letter-spacing:-1.4px}.hero-copy{mar
 </div>
 </section>
 <section class="content-card">
-<div class="card-header"><div><h2 class="card-title">Requested donations</h2><p class="card-subtitle">Track the donation requests you've submitted and their approval status.</p></div><a class="btn btn-secondary" href="/donations/history">Full history</a></div>
-<div class="history-summary"><div class="history-count" th:text="${requestedDonations.size()}">0</div><div><strong>Requested donations</strong><span>Requests waiting for or completed by an organisation.</span></div></div>
-<div class="request-list" th:if="${requestedDonations.size() > 0}">
-<div class="request-row" th:each="r : ${requestedDonations}">
+<div class="card-header"><div><h2 class="card-title">Pending donations</h2><p class="card-subtitle">Track donation requests that are still waiting for organisation approval.</p></div><a class="btn btn-secondary" href="/donations/history">Full history</a></div>
+<div class="history-summary"><div class="history-count" th:text="${#lists.size(requestedDonations.?[status.name() == 'PENDING'])}">0</div><div><strong>Pending donations</strong><span>Donation requests waiting for an organisation to review.</span></div></div>
+<div class="request-list" th:if="${#lists.size(requestedDonations.?[status.name() == 'PENDING']) > 0}">
+<div class="request-row" th:each="r : ${requestedDonations.?[status.name() == 'PENDING']}">
 <div class="request-main"><span class="request-name" th:text="${r.product.name}">Request Name</span><span class="request-status pending" th:if="${r.status.name() == 'PENDING'}">Pending</span><span class="request-status accepted" th:if="${r.status.name() == 'ACCEPTED'}">Accepted</span><span class="request-status rejected" th:if="${r.status.name() == 'REJECTED'}">Rejected</span></div>
 <div><span class="request-cell-label">Organisation</span><span class="request-cell-value" th:text="${r.seller.fullName != null and !#strings.isEmpty(r.seller.fullName) ? r.seller.fullName : r.seller.username}">Organisation</span></div>
 <div><span class="request-cell-label">Quantity</span><span class="request-cell-value" th:text="${r.status.name() == 'ACCEPTED' and r.approvedQuantity != null ? r.approvedQuantity : r.quantity}">1</span></div>
@@ -95,8 +95,8 @@ h1{margin:0;font-size:42px;line-height:1.05;letter-spacing:-1.4px}.hero-copy{mar
 <div><span class="request-cell-label">Submitted</span><span class="request-cell-value" th:text="${#temporals.format(r.createdAt, 'yyyy-MM-dd')}">2026-01-01</span></div>
 </div>
 </div>
-<div class="empty-history" th:if="${requestedDonations.size() == 0}">
-<strong>No requested donations yet</strong><p>When you submit a donation, it will appear here while the organisation reviews it.</p><a class="btn btn-primary" href="/">Browse Requests</a>
+<div class="empty-history" th:if="${#lists.size(requestedDonations.?[status.name() == 'PENDING']) == 0}">
+<strong>No pending donations</strong><p>New donation requests will appear here while organisations review them.</p><a class="btn btn-primary" href="/">Browse Requests</a>
 </div>
 </section>
 <section class="content-card">
