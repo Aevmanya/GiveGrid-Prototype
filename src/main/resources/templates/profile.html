@@ -74,8 +74,8 @@ h1{margin:0;font-size:42px;line-height:1.05;letter-spacing:-1.4px}.hero-copy{mar
 <div class="history-list" th:if="${!#lists.isEmpty(donations)}">
 <div class="history-row" th:each="d : ${donations}">
 <div class="history-request"><span class="request-name" th:text="${d.product.name}">Request Name</span><span class="request-meta">Accepted donation</span></div>
-<div><span class="history-cell-label">Applied on</span><span class="history-cell-value" th:text="${#temporals.format(d.donatedAt, 'yyyy-MM-dd HH:mm')}">2026-01-01 12:00</span></div>
-<div><span class="history-cell-label">Quantity</span><span class="history-cell-value" th:text="${d.quantity}">1</span></div>
+<div><span class="history-cell-label">Applied on</span><span class="history-cell-value" th:text="${d.approvedAt != null ? #temporals.format(d.approvedAt, 'yyyy-MM-dd HH:mm') : #temporals.format(d.createdAt, 'yyyy-MM-dd HH:mm')}">2026-01-01 12:00</span></div>
+<div><span class="history-cell-label">Quantity</span><span class="history-cell-value" th:text="${d.approvedQuantity != null ? d.approvedQuantity : d.quantity}">1</span></div>
 <div><span class="history-cell-label">Condition</span><span class="history-cell-value" th:text="${d.condition}">New</span></div>
 </div>
 </div>
