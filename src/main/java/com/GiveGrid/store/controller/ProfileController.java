@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.List;
+
 @Controller
 public class ProfileController {
 
@@ -30,7 +32,9 @@ public class ProfileController {
 
         model.addAttribute("user", user);
 
-        model.addAttribute("donations", donationRepository.findByUserOrderByDonatedAtDesc(user));
+        List<com.GiveGrid.store.entity.Donation> allDonations = donationRepository.findByUserOrderByDonatedAtDesc(user);
+        model.addAttribute("donationCount", allDonations.size());
+        model.addAttribute("donations", allDonations.stream().limit(3).toList());
         model.addAttribute("requestedDonations", pendingDonationService.getForBuyer(user));
 
         return "profile";
