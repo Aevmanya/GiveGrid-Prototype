@@ -79,7 +79,7 @@ public class DonationController {
     @PostMapping("/donate/submit")
     public String submitDonation(@RequestParam Long itemId,
                                  @RequestParam Integer donateCount,
-                                 @RequestParam(name = "condition", required = false) String[] conditions,
+                                 @RequestParam(name = "condition", required = false) String condition,
                                  Authentication auth,
                                  Model model) {
 
@@ -102,18 +102,7 @@ public class DonationController {
             return "donate-form";
         }
 
-        String finalCondition = "New";
-        if (conditions != null && conditions.length >= donateCount) {
-            boolean allSame = true;
-            String first = conditions[0];
-            for (int i = 1; i < donateCount; i++) {
-                if (!first.equals(conditions[i])) {
-                    allSame = false;
-                    break;
-                }
-            }
-            finalCondition = allSame ? first : "Mixed";
-        }
+        String finalCondition = (condition == null || condition.isBlank()) ? "New" : condition.trim();
 
         PendingDonation pd = new PendingDonation();
         pd.setBuyer(user);
