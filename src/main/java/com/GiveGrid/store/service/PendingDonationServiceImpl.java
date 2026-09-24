@@ -1,5 +1,6 @@
 package com.GiveGrid.store.service;
 
+import com.GiveGrid.store.entity.Donation;
 import com.GiveGrid.store.entity.PendingDonation;
 import com.GiveGrid.store.entity.Product;
 import com.GiveGrid.store.entity.User;
@@ -22,6 +23,7 @@ public class PendingDonationServiceImpl implements PendingDonationService {
     private final PendingDonationRepository repo;
     private final ProductRepository productRepo;
     private final CartItemRepository cartRepo;
+    private final DonationService donationService;
     private final JavaMailSender mailSender;
     private final String mailFrom;
 
@@ -29,12 +31,14 @@ public class PendingDonationServiceImpl implements PendingDonationService {
             PendingDonationRepository repo,
             ProductRepository productRepo,
             CartItemRepository cartRepo,
+            DonationService donationService,
             JavaMailSender mailSender,
             @Value("${givegrid.mail.from:}") String mailFrom
     ) {
         this.repo = repo;
         this.productRepo = productRepo;
         this.cartRepo = cartRepo;
+        this.donationService = donationService;
         this.mailSender = mailSender;
         this.mailFrom = mailFrom;
     }
@@ -81,6 +85,18 @@ public class PendingDonationServiceImpl implements PendingDonationService {
         pd.setApprovedAt(LocalDateTime.now());
         pd.setStatus(PendingDonation.Status.ACCEPTED);
         repo.save(pd);
+
+        // Record the accepted donation so it appears in the donor's recorded activity.
+        if (approvedQty > 0) {
+            Donation donation = new Donation();
+            donation.setUser(pd.getBuyer());
+            donation.setProduct(product);
+            donation.setQuantity(approvedQty);
+            donation.setCondition(pd.getCondition());
+            donation.setDonatedAt(pd.getApprovedAt());
+            donation.setApprovedAt(pd.getApprovedAt());
+            donationService.save(donation);
+        }
 
         // 🔻 SUBTRACT from product quantity
         product.setQuantity(availableQty - approvedQty);
