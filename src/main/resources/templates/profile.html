@@ -40,7 +40,7 @@ h1{margin:0;font-size:42px;line-height:1.05;letter-spacing:-1.4px}.hero-copy{mar
 <p class="hero-copy">Manage your profile details and keep track of the requests you've helped with.</p>
 </div>
 <div class="hero-actions">
-<a class="btn btn-secondary" href="/donations/history">View Donation History</a>
+<a class="btn btn-secondary" th:href="${user.role == 'SELLER' ? '/seller/donation/history' : '/donations/history'}">View Donation History</a>
 <a class="btn btn-primary" href="/account/edit">Edit Profile</a>
 </div>
 </section>
@@ -102,7 +102,7 @@ h1{margin:0;font-size:42px;line-height:1.05;letter-spacing:-1.4px}.hero-copy{mar
 <section class="content-card">
 <div class="card-header"><div><h2 class="card-title">Quick access</h2><p class="card-subtitle">Jump straight to the parts of GiveGrid you use most.</p></div></div>
 <div class="account-links">
-<a class="account-link" href="/donations/history"><span class="link-icon">↗</span><span><strong>Donation History</strong><span>Review your recent activity</span></span></a>
+<a class="account-link" th:href="${user.role == 'SELLER' ? '/seller/donation/history' : '/donations/history'}"><span class="link-icon">↗</span><span><strong>Donation History</strong><span>Review your recent activity</span></span></a>
 <a class="account-link" href="/donations/history"><span class="link-icon">✓</span><span><strong>Requested Donations</strong><span>Track requests you've submitted</span></span></a>
 <a class="account-link" href="/cart"><span class="link-icon">✓</span><span><strong>Donation Basket</strong><span>Review requests you've selected</span></span></a>
 <a class="account-link" href="/account/edit"><span class="link-icon">✎</span><span><strong>Edit Profile</strong><span>Update your account details</span></span></a>
