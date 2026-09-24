@@ -44,8 +44,18 @@ h1{margin:0 0 10px;font-size:40px;line-height:1.08;letter-spacing:-1.5px}.intro{
 <input id="donateCount" class="quantity-input" type="number" name="donateCount" min="1" th:attr="max=${item.quantity}" value="1" form="donationForm" required>
 </div></div>
 <div class="section">
-<h3 class="section-title">Item condition</h3><p class="section-copy">Select the condition for each item you are donating.</p>
-<div id="unitBoxes" class="unit-list"></div>
+<h3 class="section-title">Condition of your donation</h3>
+<p class="section-copy">Choose the condition that best describes the items you are donating.</p>
+<div class="unit-list">
+<div class="unit-card">
+<label for="condition">Condition</label>
+<select id="condition" name="condition" required>
+<option value="New">New</option>
+<option value="Used">Used</option>
+<option value="Slightly Used">Slightly Used</option>
+</select>
+</div>
+</div>
 </div>
 <form action="/donate/submit" method="post" id="donationForm"><input type="hidden" name="itemId" th:value="${item.id}"><button type="submit" class="submit-btn">Submit Donation</button></form>
 </section>
@@ -54,10 +64,5 @@ h1{margin:0 0 10px;font-size:40px;line-height:1.08;letter-spacing:-1.5px}.intro{
 </div></main>
 <script>
 document.querySelectorAll('.request-title-case').forEach(function(el){el.textContent=el.textContent.toLowerCase().replace(/\b\w/g,function(letter){return letter.toUpperCase();});});
-const donateCountInput=document.getElementById('donateCount'),unitBoxes=document.getElementById('unitBoxes'),form=document.getElementById('donationForm');
-const maxAllowed=parseInt(donateCountInput.max||'1',10);
-function renderBoxes(){unitBoxes.innerHTML='';let count=parseInt(donateCountInput.value||'1',10);if(!Number.isFinite(count)||count<1)count=1;if(count>maxAllowed)count=maxAllowed;donateCountInput.value=count;
-for(let i=0;i<count;i++){const wrapper=document.createElement('div');wrapper.className='unit-card';wrapper.innerHTML='<div class="unit-card-head"><span class="unit-number">Item '+(i+1)+'</span></div><label for="condition-'+i+'">Condition</label><select id="condition-'+i+'" name="condition" required><option value="New">New</option><option value="Used">Used</option><option value="Slightly Used">Slightly Used</option></select>';form.insertBefore(wrapper,form.querySelector('.submit-btn'));}}
-donateCountInput.addEventListener('input',renderBoxes);renderBoxes();
 </script>
 </body></html>
