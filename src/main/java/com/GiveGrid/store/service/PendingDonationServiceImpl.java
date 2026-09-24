@@ -61,6 +61,13 @@ public class PendingDonationServiceImpl implements PendingDonationService {
     }
 
     @Override
+    public List<PendingDonation> getAcceptedForBuyer(User buyer) {
+        return repo.findByBuyerAndStatusOrderByCreatedAtDesc(
+                buyer, PendingDonation.Status.ACCEPTED
+        );
+    }
+
+    @Override
     public List<PendingDonation> getApprovedForSeller(User seller) {
         return repo.findBySellerAndStatusOrderByCreatedAtDesc(
                 seller, PendingDonation.Status.ACCEPTED
