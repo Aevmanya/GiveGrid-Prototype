@@ -104,7 +104,6 @@ h1{margin:0;font-size:42px;line-height:1.05;letter-spacing:-1.4px}.hero-copy{mar
 <div class="account-links">
 <a class="account-link" th:href="${user.role == 'SELLER' ? '/seller/donation/history' : '/donations/history'}"><span class="link-icon">↗</span><span><strong>Donation History</strong><span>Review your recent activity</span></span></a>
 <a class="account-link" th:href="${user.role == 'SELLER' ? '/seller/requests' : '/donations/history'}"><span class="link-icon">✓</span><span><strong>Requested Donations</strong><span>Track requests you've submitted</span></span></a>
-<a class="account-link" href="/cart"><span class="link-icon">✓</span><span><strong>Donation Basket</strong><span>Review requests you've selected</span></span></a>
 <a class="account-link" href="/account/edit"><span class="link-icon">✎</span><span><strong>Edit Profile</strong><span>Update your account details</span></span></a>
 <a th:if="${user.role == 'SELLER'}" class="account-link" href="/seller/dashboard"><span class="link-icon">▦</span><span><strong>Organisation Dashboard</strong><span>Manage your requests and activity</span></span></a>
 </div>
