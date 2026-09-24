@@ -13,6 +13,8 @@ public interface PendingDonationService {
 
     List<PendingDonation> getForBuyer(User buyer);
 
+    List<PendingDonation> getAcceptedForBuyer(User buyer);
+
     // Get all approved donations for a seller (history)
     List<PendingDonation> getApprovedForSeller(User seller);
 
