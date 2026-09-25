@@ -26,3 +26,12 @@ input:focus,select:focus,textarea:focus{border-color:var(--gg-blue) !important;b
 .warning,.status-pending{background:var(--gg-yellow-soft) !important;color:#8a6910 !important}
 .danger,.status-rejected{background:var(--gg-coral-soft) !important;color:#bd5748 !important}
 .icon,.link-icon{background:var(--gg-lavender-soft) !important;color:#6758d7 !important}
+
+.donor-topbar,.org-topbar,.topbar{background:rgba(255,255,255,.94) !important;border-color:var(--gg-line) !important}
+.donor-brand,.org-brand,.brand{color:var(--gg-ink) !important}
+.donor-brand-mark,.org-mark,.mark{background:var(--gg-blue-soft) !important;color:var(--gg-blue) !important}
+.donor-nav-link,.org-nav a,.nav a{color:var(--gg-muted) !important}
+.donor-nav-link:hover,.org-nav a:hover,.nav a:hover{background:var(--gg-blue-soft) !important;color:var(--gg-ink) !important}
+.donor-basket-link,.org-nav .account,.nav .account{background:var(--gg-blue-soft) !important;border-color:#b9d9fb !important;color:#2169c7 !important}
+.btn-secondary,.secondary,.action:not(.view){background:var(--gg-teal-soft) !important;border-color:#bde9e2 !important;color:#117d70 !important}
+.btn-danger,.danger{background:var(--gg-coral-soft) !important;border-color:#f6c5bb !important;color:#bd5748 !important}
