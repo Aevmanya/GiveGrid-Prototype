@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <th:block th:fragment="donor-nav">
-<link rel="stylesheet" th:href="@{/css/givegrid-theme.css}">
 <style>
-.donor-topbar{background:rgba(255,255,255,.96);border-bottom:1px solid #dfe8f1;position:sticky;top:0;z-index:1000;backdrop-filter:blur(12px)}
+.donor-topbar{background:rgba(255,255,255,.96);border-bottom:1px solid #e6e9ef;position:sticky;top:0;z-index:1000;backdrop-filter:blur(12px)}
 .donor-topbar-inner{max-width:1240px;margin:auto;min-height:72px;padding:0 24px;display:flex;align-items:center;justify-content:space-between;gap:24px}
-.donor-brand{color:#18324a;text-decoration:none;font-size:25px;font-weight:800;letter-spacing:-.6px}
-.donor-brand-mark{display:inline-flex;width:34px;height:34px;margin-right:8px;border-radius:10px;align-items:center;justify-content:center;background:#eaf4ff;color:#2f80ed;font-weight:800}
+.donor-brand{color:#172033;text-decoration:none;font-size:25px;font-weight:800;letter-spacing:-.6px}
+.donor-brand-mark{display:inline-flex;width:34px;height:34px;margin-right:8px;border-radius:10px;align-items:center;justify-content:center;background:#eff6ff;color:#2563eb;font-weight:800}
 .donor-top-actions{display:flex;align-items:center;gap:10px}
-.donor-nav-link{color:#53697d;text-decoration:none;font-size:14px;font-weight:600;padding:9px 12px;border-radius:9px}
-.donor-nav-link:hover{background:#edf5fa;color:#18324a}
-.donor-basket-link{color:#2f80ed;border:1px solid #b9d9fb;background:#fff}
+.donor-nav-link{color:#475467;text-decoration:none;font-size:14px;font-weight:600;padding:9px 12px;border-radius:9px}
+.donor-nav-link:hover{background:#f2f4f7;color:#172033}
+.donor-basket-link{color:#2563eb;border:1px solid #bfdbfe;background:#fff}
 @media(max-width:600px){
  .donor-topbar-inner{padding:0 16px}
  .donor-top-actions .donor-nav-link{padding:8px 9px}

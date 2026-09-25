@@ -4,17 +4,16 @@
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Donation History | GiveGrid</title>
 <style>
-:root{--ink:#18324a;--muted:#617287;--line:#dfe8f1;--blue:#2f80ed}
+:root{--ink:#172033;--muted:#667085;--line:#e6e9ef;--blue:#2563eb}
 *{box-sizing:border-box}body{margin:0;background:#f7f9fc;color:var(--ink);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
 .top{min-height:72px;background:rgba(255,255,255,.97);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:12px 28px;position:sticky;top:0;z-index:10;backdrop-filter:blur(12px)}
-.brand{font-size:24px;font-weight:800;color:var(--ink);text-decoration:none;letter-spacing:-.6px}.nav{display:flex;gap:7px;flex-wrap:wrap;align-items:center}.nav a{padding:9px 12px;border-radius:9px;text-decoration:none;color:#53697d;font-size:14px;font-weight:650}.nav a:hover,.nav .active{background:#edf5fa;color:var(--ink)}.account{border:1px solid #b9d9fb;color:var(--blue)!important;background:#fff}
+.brand{font-size:24px;font-weight:800;color:var(--ink);text-decoration:none;letter-spacing:-.6px}.nav{display:flex;gap:7px;flex-wrap:wrap;align-items:center}.nav a{padding:9px 12px;border-radius:9px;text-decoration:none;color:#475467;font-size:14px;font-weight:650}.nav a:hover,.nav .active{background:#f2f4f7;color:var(--ink)}.account{border:1px solid #bfdbfe;color:var(--blue)!important;background:#fff}
 .wrap{max-width:1160px;margin:0 auto;padding:48px 24px 64px}.eyebrow{margin:0 0 8px;color:var(--blue);font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}h1{margin:0;font-size:40px;line-height:1.08;letter-spacing:-1.5px}.intro{max-width:680px;color:var(--muted);line-height:1.65;margin:12px 0 28px}
 .panel{background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:0 12px 35px rgba(16,24,40,.05);overflow:hidden}.panel-head{padding:20px 22px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:16px}.panel-title{margin:0;font-size:16px}.panel-note{color:var(--muted);font-size:13px}
 .empty{text-align:center;padding:68px 20px}.empty-icon{width:46px;height:46px;border-radius:14px;background:#ecfdf3;color:#15803d;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-weight:900}.empty h2{margin:0 0 8px;font-size:20px}.empty p{margin:0;color:var(--muted)}
-.table-wrap{overflow:auto}table{width:100%;min-width:760px;border-collapse:collapse}th{padding:13px 18px;background:#fafbfc;text-align:left;color:#617287;font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:800}td{padding:16px 18px;border-top:1px solid #eef1f5;font-size:14px;vertical-align:middle}.request{font-weight:750}.muted{color:var(--muted)}.pill{display:inline-flex;padding:6px 9px;border-radius:999px;background:#ecfdf3;color:#15803d;font-size:12px;font-weight:750}
+.table-wrap{overflow:auto}table{width:100%;min-width:760px;border-collapse:collapse}th{padding:13px 18px;background:#fafbfc;text-align:left;color:#667085;font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:800}td{padding:16px 18px;border-top:1px solid #eef1f5;font-size:14px;vertical-align:middle}.request{font-weight:750}.muted{color:var(--muted)}.pill{display:inline-flex;padding:6px 9px;border-radius:999px;background:#ecfdf3;color:#15803d;font-size:12px;font-weight:750}
 @media(max-width:760px){.top{align-items:flex-start;padding:14px 16px}.nav{justify-content:flex-end}.wrap{padding:34px 16px 48px}h1{font-size:34px}.panel-head{align-items:flex-start;flex-direction:column}}
-</style><link rel="stylesheet" th:href="@{/css/givegrid-theme.css}">
-</head>
+</style></head>
 <body><header class="top"><a class="brand" href="/seller/dashboard">GiveGrid</a><nav class="nav" aria-label="Organisation navigation">
 <a href="/seller/dashboard">Dashboard</a><a href="/products">My Requests</a><a href="/seller/requests">Donation Requests</a><a class="account" href="/profile">Account</a>
 </nav></header>
