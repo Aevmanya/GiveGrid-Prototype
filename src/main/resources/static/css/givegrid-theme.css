@@ -1,0 +1,28 @@
+:root{
+  --gg-ink:#18324a;
+  --gg-muted:#617287;
+  --gg-line:#dfe8f1;
+  --gg-surface:#ffffff;
+  --gg-bg:#f6fafc;
+  --gg-blue:#2f80ed;
+  --gg-blue-soft:#eaf4ff;
+  --gg-teal:#18b6a4;
+  --gg-teal-soft:#e8faf7;
+  --gg-coral:#f47b68;
+  --gg-coral-soft:#fff0ec;
+  --gg-yellow:#f4c95d;
+  --gg-yellow-soft:#fff8df;
+  --gg-lavender:#8b7cf6;
+  --gg-lavender-soft:#f1efff;
+}
+body{background:linear-gradient(180deg,#f8fbfd 0%,#f3f8fb 100%) !important;color:var(--gg-ink) !important}
+a{color:var(--gg-blue)}
+button,.btn,.primary,.action.primary{background:var(--gg-blue) !important;border-color:var(--gg-blue) !important}
+button:hover,.btn:hover,.primary:hover,.action.primary:hover{filter:brightness(.96)}
+input:focus,select:focus,textarea:focus{border-color:var(--gg-blue) !important;box-shadow:0 0 0 4px rgba(47,128,237,.12) !important;outline:none}
+.card,.content-card,.panel,.form-card,.request-card,.profile-card,.hero-card,.table-card{border-color:var(--gg-line) !important}
+.pill,.badge,.tag{background:var(--gg-blue-soft) !important;color:#2169c7 !important}
+.success,.success-card,.status-accepted{background:var(--gg-teal-soft) !important;color:#117d70 !important}
+.warning,.status-pending{background:var(--gg-yellow-soft) !important;color:#8a6910 !important}
+.danger,.status-rejected{background:var(--gg-coral-soft) !important;color:#bd5748 !important}
+.icon,.link-icon{background:var(--gg-lavender-soft) !important;color:#6758d7 !important}
