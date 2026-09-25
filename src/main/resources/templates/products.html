@@ -20,7 +20,8 @@
 .card-footer{margin-top:auto;display:flex;gap:8px;align-items:center}.action{display:inline-flex;padding:9px 12px;border-radius:9px;text-decoration:none;font-size:12px;font-weight:750}.view{background:#eff6ff;color:#2563eb}.edit{background:#f2f4f7;color:#475467}.count{color:#98a2b3;font-size:13px;font-weight:650}
 @media(max-width:850px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.request-card:nth-child(3n){border-right:1px solid var(--line)}.request-card:nth-child(2n){border-right:0}}
 @media(max-width:620px){.topbar-inner{padding:14px 18px;align-items:flex-start}.brand{font-size:22px}.nav a{padding:8px 9px}.shell{padding:34px 16px 48px}.head{display:block}h1{font-size:34px}.primary{margin-top:18px}.grid{grid-template-columns:1fr}.request-card,.request-card:nth-child(3n),.request-card:nth-child(2n){border-right:0}}
-</style></head>
+</style><link rel="stylesheet" th:href="@{/css/givegrid-theme.css}">
+</head>
 <body>
 <header class="topbar"><div class="topbar-inner">
 <a class="brand" th:href="@{/}"><span class="mark">G</span>GiveGrid</a>
