@@ -1,7 +1,7 @@
 /* GENERAL PAGE SETTINGS */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f5f6fa;
+    background-color: #F8FAFC;
     margin: 0;
     padding: 40px;
     text-align: center;
@@ -24,7 +24,7 @@ body {
 
 .add-btn, .home-btn {
     padding: 10px 20px;
-    background-color: #007bff;
+    background-color: #0F766E;
     border-radius: 6px;
     color: white;
     text-decoration: none;
@@ -35,7 +35,7 @@ body {
     margin-top: 16px;
     width: 50%;
     padding: 12px 0;
-    background-color: #555;
+    background-color: #64748B;
     color: #fff;
     border: none;
     border-radius: 999px;
@@ -73,7 +73,7 @@ th {
 
 td {
     padding: 12px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #E2E8F0;
 }
 
 /* Action buttons */
@@ -100,7 +100,7 @@ td {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #f5f5f5;
+    background: #F8FAFC;
 }
 
 .add-card {
@@ -126,14 +126,14 @@ td {
 
 .add-form label {
     font-size: 14px;
-    color: #333;
+    color: #172033;
 }
 
 .add-form input,
 .add-form textarea {
     padding: 10px 12px;
     border-radius: 8px;
-    border: 1px solid #ccc;
+    border: 1px solid #CBD5E1;
     font-size: 14px;
 }
 
@@ -146,7 +146,7 @@ td {
     margin-top: 16px;
     width: 50%;
     padding: 12px 0;
-    background: #007bff;
+    background: #0F766E;
     color: #fff;
     border: none;
     border-radius: 999px;
@@ -156,7 +156,7 @@ td {
 }
 
 .btn-primary:hover {
-    background: #0062cc;
+    background: #115E59;
 }
 
 .back-link {
@@ -164,7 +164,7 @@ td {
     margin-top: 16px;
     text-align: center;
     text-decoration: none;
-    color: #555;
+    color: #64748B;
     font-size: 14px;
 }
 
@@ -197,7 +197,7 @@ td {
     justify-content: center;
     align-items: center;
     min-height: 90vh;
-    background: #f7f9fc;
+    background: #F8FAFC;
 }
 
 .success-card {
@@ -223,7 +223,7 @@ td {
 }
 
 .btn-primary1 {
-    background: #0069ff;
+    background: #0F766E;
     padding: 10px;
     color: white;
     border-radius: 8px;
@@ -232,23 +232,23 @@ td {
 }
 
 .btn-secondary {
-    background: #0069ff;
+    background: #0F766E;
     padding: 10px;
     color: white;
     border-radius: 8px;
     text-decoration: none;
 }
 .btn-secondary:hover {
-    background: #0050cc;
+    background: #115E59;
 }
 
 .btn-light {
     padding: 10px;
     text-decoration: none;
-    color: #333;
+    color: #172033;
 }
 .btn-primary2{
-    background: #0069ff;
+    background: #0F766E;
     padding: 10px;
     color: black;
     border-radius: 8px;
@@ -313,7 +313,7 @@ td {
 }
 
 .btn-secondary {
-    background: #ddd;
+    background: #E2E8F0;
     color: black;
 }
 
@@ -322,7 +322,7 @@ td {
     color: white;
 }
 .product-link {
-    color: #333;
+    color: #172033;
     font-weight: 600;
     text-decoration: none;
 }
@@ -349,12 +349,12 @@ td {
 .image-placeholder {
     width: 100%;
     height: 350px;
-    border: 2px dashed #ccc;
+    border: 2px dashed #CBD5E1;
     border-radius: 15px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #f5f5f5;
+    background: #F8FAFC;
     color: #777;
     font-size: 18px;
 }
@@ -388,7 +388,7 @@ td {
 .product-card {
     background: #fff;
     border-radius: 12px;
-    border: 1px solid #ddd;
+    border: 1px solid #E2E8F0;
     padding: 12px;
     box-shadow: 0 1px 4px rgba(0,0,0,0.1);
 }
@@ -428,7 +428,7 @@ td {
 .top-banner {
     width: 100%;
     height: 60px;
-    background: #ccc;
+    background: #CBD5E1;
 }
 
 .search-container {
@@ -458,7 +458,7 @@ td {
 .main-banner {
     width: 100%;
     height: 250px;
-    background: #ccc;
+    background: #CBD5E1;
     border-radius: 12px;
     margin-bottom: 30px;
 }
@@ -482,7 +482,7 @@ td {
 
 .category-list li {
     padding: 15px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #E2E8F0;
     cursor: pointer;
 }
 
@@ -501,7 +501,7 @@ td {
 .product-card {
     background: #fff;
     border-radius: 12px;
-    border: 1px solid #ddd;
+    border: 1px solid #E2E8F0;
     padding: 12px;
     box-shadow: 0 1px 4px rgba(0,0,0,0.1);
 }
@@ -561,3 +561,9 @@ td {
     flex-wrap: wrap;
     gap: 25px;
 }
+
+
+/* GiveGrid teal palette — shared fallback styles */
+:root{--givegrid-teal:#0F766E;--givegrid-teal-dark:#115E59;--givegrid-teal-soft:#F0FDFA;--givegrid-navy:#172033;--givegrid-slate:#64748B;--givegrid-border:#E2E8F0;--givegrid-page:#F8FAFC}
+.btn-primary,.btn-primary4,.btn-primary1,.btn-primary2,.btn-primary3,.add-btn{background-color:var(--givegrid-teal)!important;border-color:var(--givegrid-teal)!important;color:#fff!important}
+.btn-primary:hover,.btn-primary4:hover,.btn-primary1:hover,.btn-primary2:hover,.btn-primary3:hover,.add-btn:hover{background-color:var(--givegrid-teal-dark)!important;border-color:var(--givegrid-teal-dark)!important}
