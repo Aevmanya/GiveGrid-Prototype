@@ -87,7 +87,7 @@ public class AuthController {
             return "edit-account";
         }
 
-        String newEmail = updated.getEmail().trim();
+        String newEmail = updated.getEmail().trim().toLowerCase(java.util.Locale.ROOT);
         if (!newEmail.equalsIgnoreCase(existing.getEmail() == null ? "" : existing.getEmail().trim())
                 && userService.emailExistsForAnotherUser(newEmail, existing.getId())) {
             model.addAttribute("user", existing);
