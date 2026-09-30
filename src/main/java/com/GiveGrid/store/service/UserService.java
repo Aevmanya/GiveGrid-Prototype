@@ -53,7 +53,14 @@ public class UserService implements UserDetailsService {
     }
 
     public boolean emailExistsForAnotherUser(String email, Long userId) {
-        return email != null && userRepo.existsByEmailIgnoreCaseAndIdNot(email.trim(), userId);
+        if (email == null || email.trim().isEmpty()) return false;
+        String normalized = email.trim().toLowerCase(java.util.Locale.ROOT);
+        return userRepo.findAll().stream()
+                .filter(u -> userId == null || !userId.equals(u.getId()))
+                .map(User::getEmail)
+                .filter(java.util.Objects::nonNull)
+                .map(e -> e.trim().toLowerCase(java.util.Locale.ROOT))
+                .anyMatch(normalized::equals);
     }
 
     // Profile updates — no password encoding
