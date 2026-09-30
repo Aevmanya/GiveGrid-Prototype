@@ -110,7 +110,7 @@ public class AuthController {
             userService.updateProfile(existing);
         } catch (DataIntegrityViolationException ex) {
             model.addAttribute("user", existing);
-            model.addAttribute("error", "That email address is already in use.");
+            model.addAttribute("error", "We couldn't save those details. Please check the information and try again.");
             return "edit-account";
         }
 
