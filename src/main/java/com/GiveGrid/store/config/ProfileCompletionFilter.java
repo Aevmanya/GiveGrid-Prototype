@@ -66,7 +66,8 @@ public class ProfileCompletionFilter extends OncePerRequestFilter {
                 && user.getAge() != null
                 && hasText(user.getPhone())
                 && hasText(user.getAddress())
-                && hasText(user.getLocation());
+                && hasText(user.getLocation())
+                && (!"SELLER".equalsIgnoreCase(user.getRole()) || hasText(user.getOrganisationDescription()));
     }
 
     private boolean hasText(String value) {
