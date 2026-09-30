@@ -35,6 +35,7 @@ public class User implements UserDetails {
     private String phone;
     private String address;
     private String location;
+    private String organisationDescription;
 
     public User() {}
 
@@ -77,6 +78,9 @@ public class User implements UserDetails {
 
     public String getLocation() { return location; }
     public void setLocation(String location) { this.location = location; }
+
+    public String getOrganisationDescription() { return organisationDescription; }
+    public void setOrganisationDescription(String organisationDescription) { this.organisationDescription = organisationDescription; }
 
     // SPRING SECURITY IMPLEMENTATIONS
     @Override
