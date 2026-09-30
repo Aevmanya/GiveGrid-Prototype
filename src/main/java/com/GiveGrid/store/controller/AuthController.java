@@ -80,9 +80,10 @@ public class AuthController {
                 || updated.getAge() > 120
                 || !hasText(updated.getPhone())
                 || !hasText(updated.getAddress())
-                || !hasText(updated.getLocation())) {
+                || !hasText(updated.getLocation())
+                || ("SELLER".equalsIgnoreCase(existing.getRole()) && !hasText(updated.getOrganisationDescription()))) {
             model.addAttribute("user", existing);
-            model.addAttribute("error", "Please complete every personal detail before continuing.");
+            model.addAttribute("error", "Please complete every personal detail, including your organisation description, before continuing.");
             return "edit-account";
         }
 
@@ -101,6 +102,9 @@ public class AuthController {
         existing.setAddress(updated.getAddress().trim());
         existing.setPhone(updated.getPhone().trim());
         existing.setAge(updated.getAge());
+        if ("SELLER".equalsIgnoreCase(existing.getRole())) {
+            existing.setOrganisationDescription(updated.getOrganisationDescription().trim());
+        }
 
         try {
             userService.updateProfile(existing);
