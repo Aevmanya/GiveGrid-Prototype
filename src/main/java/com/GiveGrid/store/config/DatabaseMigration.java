@@ -31,7 +31,7 @@ public class DatabaseMigration implements CommandLineRunner {
             for (Map<String, Object> index : indexes) {
                 String indexName = String.valueOf(index.get("Key_name"));
                 if (!"PRIMARY".equalsIgnoreCase(indexName)) {
-                    jdbcTemplate.execute("ALTER TABLE users DROP INDEX \`" + indexName.replace("\`", "") + "\`");
+                    jdbcTemplate.execute("ALTER TABLE users DROP INDEX `" + indexName + "`");
                 }
             }
         } catch (Exception ignored) {
