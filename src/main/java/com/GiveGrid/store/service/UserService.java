@@ -49,11 +49,11 @@ public class UserService implements UserDetailsService {
     }
 
     public boolean emailExists(String email) {
-        return userRepo.findByEmail(email) != null;
+        return email != null && userRepo.findByEmailIgnoreCase(email.trim()) != null;
     }
 
     public boolean emailExistsForAnotherUser(String email, Long userId) {
-        return userRepo.existsByEmailAndIdNot(email, userId);
+        return email != null && userRepo.existsByEmailIgnoreCaseAndIdNot(email.trim(), userId);
     }
 
     // Profile updates — no password encoding
