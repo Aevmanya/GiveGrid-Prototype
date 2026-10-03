@@ -43,7 +43,7 @@ label{font-size:12px;font-weight:800;color:#344054}input{width:100%;min-height:4
 <div class="field"><label for="age">Age *</label><input id="age" type="number" min="1" max="120" th:field="*{age}" required></div>
 <div class="field"><label for="country">Country *</label><input id="country" type="text" th:field="*{location}" required autocomplete="country-name"><span class="hint">Enter the country where you currently live.</span></div>
 <div class="field full"><label for="address">Address *</label><input id="address" type="text" th:field="*{address}" required autocomplete="street-address"></div>
-<div class="field full" th:if="${user.role == 'SELLER'}"><label for="organisationDescription">Organisation description *</label><textarea id="organisationDescription" th:field="*{organisationDescription}" required maxlength="1000" rows="5" placeholder="Tell donors what your organisation does, who it supports, and the community you serve."></textarea><span class="hint">Required for recipients. This description helps donors understand your organisation before donating.</span></div>
+<div class="field full" th:if="${user.role == 'SELLER'}"><label for="organisationDescription">Organisation description *</label><textarea id="organisationDescription" th:field="*{organisationDescription}" required maxlength="3000" rows="5" placeholder="Tell donors what your organisation does, who it supports, and the community you serve."></textarea><span class="hint">Required for recipients. This description helps donors understand your organisation before donating.</span></div>
 </div>
 <div class="actions"><button type="submit" class="btn primary">Save &amp; Continue</button><a href="/profile" class="btn secondary">Cancel</a></div>
 </form>
