@@ -35,6 +35,7 @@ public class User implements UserDetails {
     private String phone;
     private String address;
     private String location;
+    @Column(length = 3000)
     private String organisationDescription;
 
     public User() {}
