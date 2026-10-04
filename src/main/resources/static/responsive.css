@@ -70,3 +70,132 @@ table{max-width:100%}
 
 /* Prevent long names/descriptions from creating horizontal overflow. */
 .view-title,.description,.product-info,.details-box,.request-title-case,.org-brand,.donor-brand{overflow-wrap:anywhere;word-break:break-word}
+
+/* Mobile-first refinements: keep content inside the viewport and turn dense desktop
+   layouts into comfortable, touch-friendly phone layouts. */
+@media (max-width: 760px){
+  html,body{width:100%;max-width:100%;overflow-x:hidden}
+  body{padding:0!important}
+
+  /* Shared navigation */
+  .donor-topbar-inner,.org-topbar-inner,.topbar-inner,.top{
+    min-height:0;
+    padding:12px 16px!important;
+    gap:10px;
+  }
+  .donor-topbar-inner,.org-topbar-inner,.topbar-inner,.top{
+    flex-wrap:wrap;
+  }
+  .donor-brand,.org-brand,.brand{font-size:21px}
+  .donor-top-actions,.org-nav,.nav{
+    width:100%;
+    justify-content:flex-start;
+    gap:6px;
+  }
+  .donor-top-actions .donor-nav-link,
+  .org-nav a,.nav a{
+    flex:1 1 calc(50% - 6px);
+    min-width:0;
+    text-align:center;
+    padding:9px 8px;
+    line-height:1.25;
+  }
+
+  /* Page spacing */
+  .shell,.wrap{padding:34px 16px 52px}
+  .account-page{padding:34px 16px 60px}
+  .edit-page{padding:34px 16px 60px}
+  .title{font-size:28px}
+  h1{font-size:32px!important;line-height:1.1}
+  .intro,.hero-copy{font-size:14px}
+
+  /* Tables remain usable: scroll the table, never the whole page. */
+  .table-container,.table-wrap{width:100%;max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .table-container{padding:10px}
+  .table-wrap table{min-width:680px}
+  th,td{padding:10px 9px}
+
+  /* Cards and forms */
+  .add-page-wrapper,.success-wrapper{padding:16px;min-height:calc(100dvh - 16px)}
+  .add-card,.success-card,.view-card{width:100%;max-width:100%;padding:22px 16px}
+  .add-form input,.add-form textarea{width:100%;max-width:100%}
+  .form-card,.content-card{padding:22px 18px}
+  .actions{width:100%}
+  .actions .btn{min-height:46px}
+
+  /* Browse/home page */
+  .banner{height:120px!important;margin-bottom:24px!important}
+  .container{width:100%;max-width:none;padding-left:12px;padding-right:12px}
+  .container .row{margin-left:0;margin-right:0}
+  .container .col-md-3,.container .col-md-9{width:100%;padding-left:0;padding-right:0}
+  .sidebar{min-width:0!important;width:100%;padding:18px!important;margin-bottom:20px}
+  .filter-actions{flex-direction:column}
+  .filter-actions button{width:100%;min-height:44px}
+  .quantity-row{display:grid;grid-template-columns:1fr 1fr}
+  .form-control{width:100%!important}
+  #requestGrid{margin-left:0;margin-right:0}
+  #requestGrid>.request-item{width:100%;padding-left:0;padding-right:0}
+  #requestGrid .product-card{width:100%;height:auto;min-height:0}
+  #requestGrid .placeholder-img{height:170px}
+
+  /* Listing/detail grids */
+  .products-grid,.results-grid{grid-template-columns:1fr!important}
+  .product-card{width:100%;height:auto;min-height:0}
+  .product-image{height:190px}
+  .view-container{width:100%;margin-top:24px;gap:16px}
+  .image-box,.details-box{width:100%}
+  .image-placeholder{height:210px}
+  .view-buttons,.action-buttons{width:100%}
+  .view-buttons>*{width:100%;flex:1 1 100%}
+  .action-buttons{flex-direction:column}
+  .action-buttons>*{width:100%;text-align:center}
+
+  /* Dashboard/account layouts */
+  .hero,.account-hero{display:block}
+  .hero-action,.primary{width:100%;margin-top:18px}
+  .stats,.grid,.profile-shell,.layout{grid-template-columns:1fr!important}
+  .profile-card{position:static}
+  .hero-actions{width:100%;justify-content:stretch}
+  .hero-actions .btn{width:100%}
+  .info-grid,.account-links{grid-template-columns:1fr!important}
+  .history-row,.request-row{grid-template-columns:1fr!important}
+  .history-request,.request-main{grid-column:auto}
+  .card-footer{flex-wrap:wrap}
+  .card-footer .action{flex:1 1 120px;justify-content:center}
+  .footer-actions{flex-direction:column}
+  .footer-actions .secondary{width:100%;text-align:center}
+
+  /* Dense organisation tables/pages */
+  .panel-head{align-items:flex-start!important;flex-direction:column}
+  .actions{flex-wrap:wrap}
+  .actions form{flex:1 1 0}
+  .actions button{width:100%;min-height:42px}
+
+  /* Prevent long labels/buttons from making a page wider than the phone. */
+  .request-title-case,.description,.product-info,.details-box,.request-title,
+  .org-brand,.donor-brand,.brand,h1,h2,h3,p,a,button,label{
+    overflow-wrap:anywhere;
+  }
+}
+
+@media (max-width: 480px){
+  .donor-topbar-inner,.org-topbar-inner,.topbar-inner,.top{padding:10px 12px!important}
+  .donor-top-actions,.org-nav,.nav{gap:5px}
+  .donor-top-actions .donor-nav-link,.org-nav a,.nav a{
+    flex-basis:100%;
+    width:100%;
+  }
+  .shell,.wrap,.account-page,.edit-page{padding-left:12px;padding-right:12px}
+  h1{font-size:29px!important}
+  .account-page{padding-top:28px}
+  .content-card,.form-card{padding:18px 15px}
+  .profile-card{padding:20px 16px}
+  .success-card,.add-card,.view-card{padding:20px 14px}
+  .search-container{padding:10px 0}
+  .search-input{width:100%}
+  .search-btn{width:100%}
+  .quantity-row{grid-template-columns:1fr}
+  .product-image{height:175px}
+  .image-placeholder{height:185px}
+  .table-container{border-radius:10px}
+}
