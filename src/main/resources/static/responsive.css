@@ -1,4 +1,5 @@
 /* GiveGrid responsive interface layer — presentation only. No application behaviour is changed. */
+/* Render deployment trigger: 2026-10-04 */
 *,*::before,*::after{box-sizing:border-box}
 html{width:100%;overflow-x:hidden}
 body{max-width:100%;overflow-x:hidden}
