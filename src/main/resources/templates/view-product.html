@@ -75,7 +75,7 @@
 <section class="info-sections">
 <details class="info-section" open><summary>About this request</summary><div class="info-content"><p class="description" th:text="${product.description}">Request description</p></div></details>
 <details class="info-section"><summary>Request details</summary><div class="info-content"><p><strong>Quantity required:</strong> <span th:text="${product.quantity}">0</span></p><p><strong>Condition:</strong> <span th:text="${product.condition}">New</span></p></div></details>
-<details class="info-section"><summary>About the organisation</summary><div class="info-content"><p>Information about the organisation requesting these items can be shown here as the organisation profile becomes available.</p></div></details>
+<details class="info-section" open><summary>About the organisation</summary><div class="info-content"><p class="description" th:if="${product.seller.organisationDescription != null and !#strings.isEmpty(product.seller.organisationDescription)}" th:text="${product.seller.organisationDescription}">Organisation description</p><p class="description" th:if="${product.seller.organisationDescription == null or #strings.isEmpty(product.seller.organisationDescription)}">This organisation has not added a description yet.</p></div></details>
 </section>
 </main>
 <script>
