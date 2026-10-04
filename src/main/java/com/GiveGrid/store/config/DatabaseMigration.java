@@ -8,9 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * The email address is contact/profile information, not the login identifier.
- * Older versions of the schema created a UNIQUE index on users.email. Remove
- * that legacy index so profile edits are not rejected by the database.
+ * Small compatibility migrations for older GiveGrid databases.
  */
 @Component
 public class DatabaseMigration implements CommandLineRunner {
@@ -23,6 +21,20 @@ public class DatabaseMigration implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
+        // The organisation description can now contain up to 3000 characters.
+        // Explicitly resize the existing MySQL column because older databases
+        // may still have the original VARCHAR(255) definition.
+        try {
+            jdbcTemplate.execute(
+                    "ALTER TABLE users MODIFY COLUMN organisation_description VARCHAR(3000) NULL"
+            );
+        } catch (Exception ignored) {
+            // Keep startup resilient if this database has not created the
+            // profile column yet; Hibernate ddl-auto=update will handle it.
+        }
+
+        // Email is contact/profile information, not the login identifier.
+        // Remove any legacy UNIQUE index on users.email.
         try {
             List<Map<String, Object>> indexes = jdbcTemplate.queryForList(
                     "SHOW INDEX FROM users WHERE Column_name = 'email' AND Non_unique = 0"
@@ -31,7 +43,7 @@ public class DatabaseMigration implements CommandLineRunner {
             for (Map<String, Object> index : indexes) {
                 String indexName = String.valueOf(index.get("Key_name"));
                 if (!"PRIMARY".equalsIgnoreCase(indexName)) {
-                    jdbcTemplate.execute("ALTER TABLE users DROP INDEX `" + indexName + "`");
+                    jdbcTemplate.execute("ALTER TABLE users DROP INDEX \`" + indexName + "\`");
                 }
             }
         } catch (Exception ignored) {
