@@ -1,0 +1,71 @@
+/* GiveGrid responsive interface layer — presentation only. No application behaviour is changed. */
+*,*::before,*::after{box-sizing:border-box}
+html{width:100%;overflow-x:hidden}
+body{max-width:100%;overflow-x:hidden}
+img,svg,video,canvas{max-width:100%;height:auto}
+input,select,textarea,button{max-width:100%;font:inherit}
+input,select,textarea{min-width:0}
+table{max-width:100%}
+
+/* Legacy/shared layouts */
+.top-actions,.search-container,.view-buttons,.action-buttons,.content-wrapper{flex-wrap:wrap}
+.table-container{max-width:100%;overflow-x:auto}
+.view-container{max-width:1200px}
+.image-box,.details-box{min-width:0}
+.add-card,.success-card,.view-card{max-width:100%}
+.results-grid{min-width:0}
+.product-card{max-width:100%}
+
+@media (max-width: 900px){
+  body{padding-left:24px;padding-right:24px}
+  .top-actions,.table-container{width:100%}
+  .content-wrapper{padding-left:20px;padding-right:20px;gap:24px}
+  .categories{width:200px;flex:0 0 200px}
+  .view-container{width:100%;gap:20px}
+  .image-box,.details-box{width:calc(50% - 10px)}
+}
+
+@media (max-width: 700px){
+  body{padding:16px}
+  .title{font-size:28px}
+  .top-actions{justify-content:stretch}
+  .top-actions .add-btn{flex:1 1 160px;text-align:center}
+  .home-btn,.btn-primary{width:100%}
+  .table-container{padding:12px;border-radius:12px}
+  table{font-size:13px}
+  th,td{padding:9px 8px;white-space:nowrap}
+  .add-page-wrapper,.success-wrapper{padding:16px;min-height:100dvh}
+  .add-card,.success-card,.view-card{width:100%;padding:24px 20px}
+  .add-form input,.add-form textarea{width:100%;max-width:100%}
+  .view-container{flex-direction:column;width:100%;margin-top:24px}
+  .image-box,.details-box{width:100%}
+  .image-placeholder{height:240px}
+  .view-buttons,.action-buttons{gap:10px}
+  .view-buttons>*{flex:1 1 140px;text-align:center}
+  .search-container{justify-content:stretch;padding:12px 0}
+  .search-input{width:100%;flex:1 1 180px}
+  .search-btn{margin-left:0;flex:0 0 auto}
+  .content-wrapper{flex-direction:column;padding:16px 0;gap:20px}
+  .categories{width:100%;flex:none}
+  .featured-section{width:100%;min-width:0}
+  .products-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+  .product-card{width:100%;height:auto;min-height:320px}
+  .results-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+}
+
+@media (max-width: 480px){
+  body{padding:12px}
+  .title{font-size:25px}
+  .add-card,.success-card,.view-card{padding:20px 16px}
+  .products-grid,.results-grid{grid-template-columns:1fr}
+  .product-image{height:180px}
+  .image-placeholder{height:200px}
+  .success-buttons .btn-primary1,.success-buttons .btn-secondary{width:100%}
+  .action-buttons{flex-direction:column}
+  .action-buttons>*{width:100%;text-align:center}
+  .search-container{flex-direction:column}
+  .search-btn{width:100%;margin:0}
+}
+
+/* Prevent long names/descriptions from creating horizontal overflow. */
+.view-title,.description,.product-info,.details-box,.request-title-case,.org-brand,.donor-brand{overflow-wrap:anywhere;word-break:break-word}
