@@ -83,7 +83,7 @@ public class ProductController {
     }
 
     // View a single product
-    @GetMapping("/products/{id:\\d+}")
+    @GetMapping("/products/view/{id}")
     public String viewProduct(@PathVariable Long id, Model model) {
         Product product = productService.getProductById(id);
         if (product == null) {
