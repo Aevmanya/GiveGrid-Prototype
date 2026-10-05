@@ -51,7 +51,7 @@ public class SecurityConfig {
                                 "/css/**", "/js/**", "/images/**").permitAll()
 
                         // Public request browsing.
-                        .requestMatchers("/", "/products", "/products/*", "/search").permitAll()
+                        .requestMatchers("/", "/products", "/products/*", "/products/*/images/**", "/search").permitAll()
 
                         // Organisation-only management actions.
                         .requestMatchers("/products/add",
