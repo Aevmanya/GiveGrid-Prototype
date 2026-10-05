@@ -33,8 +33,14 @@
 
         .placeholder-img {
             height: 150px;
-            background: #ccc;
+            background: #eef2f4;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            color:#98a2b3;
+            overflow:hidden;
         }
+        .placeholder-img img{width:100%;height:100%;object-fit:cover;display:block}
 
         .sidebar {
             border-radius: 12px;
@@ -202,7 +208,7 @@
                      th:attr="data-name=${p.name},data-description=${p.description},data-condition=${p.condition},data-quantity=${p.quantity}">
                     <div class="product-card">
 
-                        <div class="placeholder-img"></div>
+                        <div class="placeholder-img"><img th:if="${p.images != null and !p.images.isEmpty()}" th:src="@{/products/{productId}/images/{imageId}(productId=${p.id},imageId=${p.images[0].id})}" th:alt="${p.name}"><span th:if="${p.images == null or p.images.isEmpty()}">No image</span></div>
 
                         <div class="p-3">
                             <h5 class="fw-semibold request-title-case" th:text="${p.name}">Request Name</h5>
