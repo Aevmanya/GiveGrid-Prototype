@@ -2,6 +2,8 @@ package com.GiveGrid.store.controller;
 
 import com.GiveGrid.store.entity.User;
 import com.GiveGrid.store.entity.Product;
+import com.GiveGrid.store.entity.ProductImage;
+import com.GiveGrid.store.repository.ProductImageRepository;
 import com.GiveGrid.store.service.ProductService;
 import com.GiveGrid.store.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.imageio.ImageIO;
+import java.io.ByteArrayInputStream;
 
 import java.util.List;
 import java.util.Locale;
@@ -24,6 +30,9 @@ public class ProductController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private ProductImageRepository productImageRepository;
+
     // Show add product page
     @GetMapping("/products/add")
     public String addProduct(Model model) {
@@ -33,7 +42,8 @@ public class ProductController {
 
     // Handle POST request for saving product
     @PostMapping("/products/add")
-    public String saveNewProduct(@ModelAttribute("product") Product product) {
+    public String saveNewProduct(@ModelAttribute("product") Product product,
+                                  @RequestParam(name = "images", required = false) List<MultipartFile> images) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !authentication.isAuthenticated()) {
@@ -48,7 +58,8 @@ public class ProductController {
         }
 
         product.setSeller(seller);
-        productService.saveProduct(product);
+        Product savedProduct = productService.saveProduct(product);
+        saveImages(savedProduct, images);
 
         return "success-product";
     }
@@ -79,6 +90,7 @@ public class ProductController {
             return "redirect:/products";
         }
         model.addAttribute("product", product);
+        model.addAttribute("images", productImageRepository.findByProductIdOrderByIdAsc(id));
         return "view-product";
     }
 
@@ -156,6 +168,7 @@ public class ProductController {
     public String updateProduct(
             @PathVariable Long id,
             @ModelAttribute("product") Product updatedProduct,
+            @RequestParam(name = "images", required = false) List<MultipartFile> images,
             Authentication auth
     ) {
         if (auth == null) return "redirect:/login";
@@ -176,7 +189,67 @@ public class ProductController {
         existing.setCondition(updatedProduct.getCondition());  // ← FIX HERE
 
         productService.saveProduct(existing);
+        saveImages(existing, images);
 
         return "redirect:/products?updated=true";
+    }
+
+    @GetMapping("/products/{productId}/images/{imageId}")
+    @ResponseBody
+    public org.springframework.http.ResponseEntity<byte[]> getProductImage(
+            @PathVariable Long productId,
+            @PathVariable Long imageId) {
+
+        ProductImage image = productImageRepository
+                .findByIdAndProductId(imageId, productId)
+                .orElse(null);
+
+        if (image == null) {
+            return org.springframework.http.ResponseEntity.notFound().build();
+        }
+
+        return org.springframework.http.ResponseEntity.ok()
+                .header("Cache-Control", "public, max-age=86400")
+                .header("Content-Type", image.getContentType())
+                .body(image.getImageData());
+    }
+
+    private void saveImages(Product product, List<MultipartFile> images) {
+        if (images == null || images.isEmpty()) {
+            return;
+        }
+
+        int existingCount = productImageRepository.findByProductIdOrderByIdAsc(product.getId()).size();
+        int remaining = Math.max(0, 4 - existingCount);
+
+        for (MultipartFile file : images) {
+            if (remaining == 0) {
+                break;
+            }
+            if (file == null || file.isEmpty() || file.getSize() > 5 * 1024 * 1024) {
+                continue;
+            }
+
+            String contentType = file.getContentType();
+            if (!List.of("image/jpeg", "image/png", "image/gif").contains(contentType)) {
+                continue;
+            }
+
+            try {
+                byte[] bytes = file.getBytes();
+                if (ImageIO.read(new ByteArrayInputStream(bytes)) == null) {
+                    continue;
+                }
+
+                ProductImage image = new ProductImage();
+                image.setProduct(product);
+                image.setImageData(bytes);
+                image.setContentType(contentType);
+                productImageRepository.save(image);
+                remaining--;
+            } catch (Exception ignored) {
+                // Skip an invalid image without preventing the request from being saved.
+            }
+        }
     }
 }
