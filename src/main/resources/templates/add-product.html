@@ -28,12 +28,12 @@ input,select,textarea{width:100%;padding:13px 14px;border:1px solid #d0d5dd;bord
 <div class="layout">
 <section class="card form-card">
 <div class="form-head"><h2>Request details</h2><p>Keep the request specific and easy for donors to understand.</p></div>
-<form action="/products/add" method="post">
+<form action="/products/add" method="post" enctype="multipart/form-data">
 <div class="grid">
 <div class="field"><label for="name">Request name</label><input id="name" name="name" type="text" placeholder="e.g. School notebooks" required></div>
 <div class="field"><label for="quantity">Quantity required</label><input id="quantity" name="quantity" type="number" min="1" placeholder="e.g. 50" required></div>
 <div class="field"><label for="condition">Acceptable condition</label><select id="condition" name="condition" required><option value="New">New</option><option value="Used">Used</option><option value="Any">Any</option><option value="Slightly Used">Slightly Used</option></select></div>
-<div class="field"><label for="description">Description</label><textarea id="description" name="description" placeholder="Explain who these items will help and anything donors should know." required></textarea><span class="hint">A short, specific description helps donors understand the impact.</span></div>
+<div class="field full"><label for="images">Request images</label><input id="images" name="images" type="file" accept="image/jpeg,image/png,image/gif" multiple><span class="hint">Add up to 4 JPG, PNG or GIF images. Each image can be up to 5 MB.</span></div><div class="field"><label for="description">Description</label><textarea id="description" name="description" placeholder="Explain who these items will help and anything donors should know." required></textarea><span class="hint">A short, specific description helps donors understand the impact.</span></div>
 </div>
 <div class="actions"><a class="btn secondary" href="/seller/dashboard">Cancel</a><button class="btn primary" type="submit">Create Request</button></div>
 </form>
