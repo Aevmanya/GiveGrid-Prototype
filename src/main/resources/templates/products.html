@@ -50,7 +50,7 @@
 <h2 class="request-title-case" th:text="${product.name}">Request name</h2>
 <p th:text="${product.description != null and !#strings.isEmpty(product.description) ? product.description : 'An organisation is requesting help with this item.'}">An organisation is requesting help with this item.</p>
 <div class="meta"><span class="pill" th:text="${product.quantity + ' items needed'}">1 items needed</span><span class="pill" th:text="${product.condition}">New</span></div>
-<div class="card-footer"><a class="action view" th:href="@{/products/{id}(id=${product.id})}">View Request</a>
+<div class="card-footer"><a class="action view" th:href="@{/products/view/{id}(id=${product.id})}">View Request</a>
 <a class="action edit" th:if="${user != null and user.role == 'SELLER'}" th:href="@{/products/edit/{id}(id=${product.id})}">Edit</a></div>
 </article></div>
 </section></main>
