@@ -34,14 +34,14 @@ public class ProductController {
     private ProductImageRepository productImageRepository;
 
     // Show add product page
-    @GetMapping("/products/add")
+    @GetMapping("/products/create")
     public String addProduct(Model model) {
         model.addAttribute("product", new Product());
         return "add-product";
     }
 
     // Handle POST request for saving product
-    @PostMapping("/products/add")
+    @PostMapping("/products/create")
     public String saveNewProduct(@ModelAttribute("product") Product product,
                                   @RequestParam(name = "images", required = false) List<MultipartFile> images) {
 
