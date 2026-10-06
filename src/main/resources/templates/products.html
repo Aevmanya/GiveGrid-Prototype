@@ -27,7 +27,7 @@
 <nav class="nav" aria-label="Main navigation">
 <a th:if="${user != null and user.role == 'SELLER'}" href="/seller/dashboard">Dashboard</a>
 <a th:if="${user == null or user.role != 'SELLER'}" href="/">Home</a>
-<a th:if="${user != null and user.role == 'SELLER'}" class="primary-nav" href="/products/add">Create Request</a>
+<a th:if="${user != null and user.role == 'SELLER'}" class="primary-nav" href="/seller/requests/create">Create Request</a>
 <a th:if="${user != null and user.role == 'BUYER'}" class="primary-nav" href="/cart">Donation Basket</a>
 <a th:if="${user == null}" href="/login">Sign in</a>
 <a th:if="${user != null}" href="/profile" class="account">Account</a>
@@ -37,11 +37,11 @@
 <p class="eyebrow" th:text="${user != null and user.role == 'SELLER' ? 'Organisation workspace' : 'Community needs'}">Community needs</p>
 <h1 th:text="${user != null and user.role == 'SELLER' ? 'My requests' : 'Browse requests'}">Browse requests</h1>
 <p class="intro" th:text="${user != null and user.role == 'SELLER' ? 'Manage the community requests your organisation has published.' : 'Explore requests from organisations and find a meaningful way to help.'}">Explore requests from organisations and find a meaningful way to help.</p>
-</div><a class="primary" th:if="${user != null and user.role == 'SELLER'}" href="/products/add">+ Create Request</a></div>
+</div><a class="primary" th:if="${user != null and user.role == 'SELLER'}" href="/seller/requests/create">+ Create Request</a></div>
 <section class="panel">
 <div class="empty" th:if="${products == null or #lists.isEmpty(products)}">
 <h2>No requests yet</h2><p th:text="${user != null and user.role == 'SELLER' ? 'Create your first request to start receiving support from donors.' : 'There are no active requests to browse right now.'}">There are no active requests to browse right now.</p>
-<a class="primary" th:if="${user != null and user.role == 'SELLER'}" href="/products/add">Create a Request</a>
+<a class="primary" th:if="${user != null and user.role == 'SELLER'}" href="/seller/requests/create">Create a Request</a>
 <a class="primary" th:if="${user == null or user.role != 'SELLER'}" href="/">Back to Home</a>
 </div>
 <div class="grid" th:if="${products != null and !#lists.isEmpty(products)}">
