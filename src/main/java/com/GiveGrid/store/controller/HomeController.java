@@ -12,6 +12,12 @@ public class HomeController {
     @Autowired
     private ProductService productService;
 
+    @GetMapping("/request/create")
+    public String requestCreate(Model model) {
+        model.addAttribute("product", new com.GiveGrid.store.entity.Product());
+        return "add-product";
+    }
+
     @GetMapping("/")
     public String home(Model model) {
         model.addAttribute("products", productService.getAllProducts());
