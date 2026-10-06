@@ -26,8 +26,9 @@ public class ProductCreateRedirectFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
 
         if ("GET".equalsIgnoreCase(request.getMethod())
-                && "/products/add".equals(request.getRequestURI())) {
-            response.sendRedirect(request.getContextPath() + "/products/create");
+                && ("/products/add".equals(request.getRequestURI())
+                    || "/products/create".equals(request.getRequestURI()))) {
+            response.sendRedirect(request.getContextPath() + "/seller/requests/create");
             return;
         }
 
