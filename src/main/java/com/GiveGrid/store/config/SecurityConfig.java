@@ -55,7 +55,7 @@ public class SecurityConfig {
 
                         // Organisation-only management actions.
                         .requestMatchers("/products/add", "/products/create",
-                                "/products/edit/**", "/products/delete/**", "/seller/**")
+                                "/products/edit/**", "/products/delete/**", "/seller/**", "/request/create")
                         .hasRole("SELLER")
 
                         // Donor-only donation actions.
