@@ -21,6 +21,12 @@ public class SellerRequestsController {
         this.userService = userService;
     }
 
+    @GetMapping("/create")
+    public String createRequestForm(Model model) {
+        model.addAttribute("product", new com.GiveGrid.store.entity.Product());
+        return "add-product";
+    }
+
     @GetMapping
     public String listRequests(Authentication auth, Model model) {
         if (auth == null) return "redirect:/login";
